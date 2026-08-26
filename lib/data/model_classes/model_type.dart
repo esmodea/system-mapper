@@ -1,4 +1,5 @@
 import 'package:system_mapper/data/hive_objects/front/front.dart';
+import 'package:system_mapper/data/hive_objects/front/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/member.dart';
 import 'package:system_mapper/data/hive_objects/system.dart';
@@ -43,7 +44,17 @@ enum ModelType<T extends BaseModel> {
     pluralName: 'frontEntries',
     title: 'Front Entry',
     pluralTitle: 'Front Entries',
-    appBox: AppBox<FrontEntry>(key: 'front', typeId: TypeIds.frontEntry),
+    appBox: AppBox<FrontEntry>(key: 'frontEntry', typeId: TypeIds.frontEntry),
+  ),
+  frontArchive(
+    name: 'frontArchive',
+    pluralName: 'frontArchives',
+    title: 'Front Archive',
+    pluralTitle: 'Front Archives',
+    appBox: AppBox<FrontArchive>(
+      key: 'frontArchive',
+      typeId: TypeIds.frontArchive,
+    ),
   );
 
   final String name;
@@ -107,6 +118,8 @@ enum ModelType<T extends BaseModel> {
         return Front();
       case ModelType.frontEntry:
         return FrontEntry();
+      case ModelType.frontArchive:
+        return FrontArchive();
     }
   }
 }

@@ -5,4 +5,5 @@ abstract class TypeIds {
   static const int member = 1;
   static const int front = 2;
   static const int frontEntry = 3;
+  static const int frontArchive = 4;
 }
