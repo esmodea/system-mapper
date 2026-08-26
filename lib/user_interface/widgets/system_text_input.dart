@@ -92,6 +92,9 @@ class _SystemTextInputState extends State<SystemTextInput> {
                     borderRadius: BorderRadius.circular(10),
                     border: border,
                   ),
+                  padding: widget.expands
+                      ? EdgeInsets.only(top: 12)
+                      : EdgeInsets.only(top: 4),
                   child: TextField(
                     focusNode: _focusNode,
                     keyboardType: widget.keyboardType,
@@ -148,9 +151,9 @@ class _SystemTextInputState extends State<SystemTextInput> {
                 padding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                 child: Text(
                   field.errorText ?? "",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: ColorScheme.of(context).primary,
+                  ),
                 ),
               ),
           ],

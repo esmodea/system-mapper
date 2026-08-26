@@ -64,19 +64,11 @@ class _SystemFormState extends State<SystemForm> {
   @override
   Widget build(BuildContext context) {
     // Get global app state
-    final Color labelsColor = Theme.of(context).colorScheme.onPrimary;
+    final Color labelsColor = Theme.of(context).colorScheme.onSurface;
 
     return Scaffold(
       body: Center(
         child: Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.primary,
-              width: 2,
-            ),
-          ),
           padding: const EdgeInsets.all(20),
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 600),

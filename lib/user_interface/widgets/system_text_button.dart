@@ -115,6 +115,11 @@ class SystemTextButtonState extends State<SystemTextButton> {
           fontSize: fontSize,
         );
       }),
+      shape: WidgetStatePropertyAll(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.all(Radius.circular(12)),
+        ),
+      ),
     );
 
     // This builds the button with an icon if available.
@@ -133,7 +138,7 @@ class SystemTextButtonState extends State<SystemTextButton> {
 
     // This allows the button to fill its container when necessary.
     return widget.isExpanded
-        ? Row(children: [Expanded(child: button)])
+        ? Column(children: [Expanded(child: button)])
         : button;
   }
 }
