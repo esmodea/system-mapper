@@ -1,14 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/member.dart';
 import 'package:system_mapper/user_interface/widgets/member_form.dart';
+import 'package:system_mapper/utils/current.dart';
+import 'package:system_mapper/utils/safe_set_state.dart';
 
-class MemberCard extends StatelessWidget {
+class MemberCard extends StatefulWidget {
   final Member? member;
   const MemberCard({super.key, this.member});
 
   @override
+  State<MemberCard> createState() => _MemberCardState();
+}
+
+class _MemberCardState extends SafeState<MemberCard> {
+  late bool inFront = widget.member?.inFront() ?? true;
+
+  @override
   Widget build(BuildContext context) {
-    if (member != null) {
+    debugPrint(Current.front?.toString());
+    debugPrint(Current.front?.membersInFront?.toString());
+    debugPrint(widget.member?.inFront().toString());
+    if (widget.member != null) {
       return Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(20)),
@@ -24,18 +36,24 @@ class MemberCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  member!.memberName ?? '',
+                  widget.member!.memberName ?? '',
                   style: TextTheme.of(context).headlineMedium,
                 ),
                 FloatingActionButton(
                   onPressed: () {
-                    if (member?.inFront ?? false) {
-                      member?.addToFront();
+                    if (widget.member?.inFront() ?? false) {
+                      widget.member?.removeFromFront();
                     } else {
-                      member?.removeFromFront();
+                      widget.member?.addToFront();
                     }
+                    safeSetState(
+                      () => inFront = widget.member?.inFront() ?? true,
+                    );
+                    setState(() {
+                      
+                    });
                   },
-                  child: Icon(Icons.edit),
+                  child: Icon(inFront ? Icons.remove : Icons.add),
                 ),
               ],
             ),
@@ -52,7 +70,7 @@ class MemberCard extends StatelessWidget {
                 ),
                 padding: EdgeInsets.all(10),
                 child: Text(
-                  member!.memberBio ?? '',
+                  widget.member!.memberBio ?? '',
                   style: TextTheme.of(context).bodyMedium,
                 ),
               ),

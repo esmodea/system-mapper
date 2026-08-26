@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:system_mapper/data/hive_objects/front/front.dart';
 import 'package:system_mapper/data/model_classes/base_model.dart';
@@ -34,7 +35,7 @@ class Member extends BaseModel {
   void assignAttributes(Map<String, dynamic> map) {}
 
   Future<void> addToFront() async {
-    if (!(Current.front?.membersInFront?.contains(this) ?? true)) {
+    if (!inFront()) {
       await Front(
         membersInFront: [...Current.front?.membersInFront ?? [], this],
       ).updateCurrent();
@@ -47,5 +48,10 @@ class Member extends BaseModel {
     await Front(membersInFront: newFrontList).updateCurrent();
   }
 
-  bool get inFront => !(Current.front?.membersInFront?.contains(this) ?? true);
+  bool inFront() {
+    return (Current.front?.membersInFront?.indexWhere(
+          (member) => member.memberName == memberName,
+        ) !=
+        -1);
+  }
 }
