@@ -87,7 +87,7 @@ enum ModelType<T extends BaseModel> {
 
     model.assignAttributes(map);
 
-    final T? storedModel = appBox?.box.get(model.storageKey);
+    final T? storedModel = appBox.box.get(model.storageKey);
     if (storedModel != null) {
       storedModel.assignAttributes(map);
       storedModel.save();
@@ -116,6 +116,6 @@ enum ModelType<T extends BaseModel> {
         break;
     }
 
-    return appBox?.getById(model.currentID);
+    return appBox.getById(model.currentID);
   }
 }

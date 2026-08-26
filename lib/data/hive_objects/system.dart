@@ -58,10 +58,10 @@ class System extends BaseModel {
   Future<void> saveSafely() async {
     await System(
       id: id,
-      membersList: membersList ?? modelType.appBox?.getById(id)?.membersList,
-      systemBio: systemBio ?? modelType.appBox?.getById(id)?.systemBio,
-      systemName: systemName ?? modelType.appBox?.getById(id)?.systemName,
-      systemUUID: systemUUID ?? modelType.appBox?.getById(id)?.systemUUID,
+      membersList: membersList ?? modelType.appBox.getById(id)?.membersList,
+      systemBio: systemBio ?? modelType.appBox.getById(id)?.systemBio,
+      systemName: systemName ?? modelType.appBox.getById(id)?.systemName,
+      systemUUID: systemUUID ?? modelType.appBox.getById(id)?.systemUUID,
     ).save();
   }
 }

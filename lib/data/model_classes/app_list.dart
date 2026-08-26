@@ -18,7 +18,7 @@ class AppList<T extends BaseModel> {
   List<T> get list =>
       listsBox.box
           .get(key, defaultValue: [])
-          ?.map((id) => modelType.appBox?.getById(id))
+          ?.map((id) => modelType.appBox.getById(id))
           .nonNulls
           .cast<T>()
           .toList() ??

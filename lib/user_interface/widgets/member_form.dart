@@ -153,7 +153,7 @@ class _MemberFormState extends State<MemberForm> {
 
                         debugPrint(
                           ModelType.system.appBox
-                              ?.getById(Current.system?.systemUUID)
+                              .getById(Current.system?.systemUUID)
                               ?.membersList
                               ?.length
                               .toString(),

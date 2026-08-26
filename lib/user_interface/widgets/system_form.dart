@@ -153,12 +153,12 @@ class _SystemFormState extends State<SystemForm> {
 
                             debugPrint(
                               ModelType.system.appBox
-                                  ?.getById(newUUID)
+                                  .getById(newUUID)
                                   ?.systemName,
                             );
                             debugPrint(
                               ModelType.system.appBox
-                                  ?.getById(newUUID)
+                                  .getById(newUUID)
                                   ?.systemBio,
                             );
 

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:system_mapper/data/model_classes/app_box.dart';
 import 'package:system_mapper/hive_registrar.g.dart';
-import 'package:system_mapper/user_interface/app.dart';
 import 'package:system_mapper/utils/app_routes.dart';
 
 Future<void> main() async {
