@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:system_mapper/utils/current.dart';
 
 class FrontingStatus extends StatefulWidget {
