@@ -1,4 +1,5 @@
-import 'package:system_mapper/data/hive_objects/front.dart';
+import 'package:system_mapper/data/hive_objects/front/front.dart';
+import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/member.dart';
 import 'package:system_mapper/data/hive_objects/system.dart';
 import 'package:system_mapper/data/model_classes/type_ids.dart';
@@ -36,6 +37,13 @@ enum ModelType<T extends BaseModel> {
     title: 'Front',
     pluralTitle: 'Front',
     appBox: AppBox<Front>(key: 'front', typeId: TypeIds.front),
+  ),
+  frontEntry(
+    name: 'frontEntry',
+    pluralName: 'frontEntries',
+    title: 'Front Entry',
+    pluralTitle: 'Front Entries',
+    appBox: AppBox<FrontEntry>(key: 'front', typeId: TypeIds.frontEntry),
   );
 
   final String name;
@@ -68,22 +76,7 @@ enum ModelType<T extends BaseModel> {
 
   T? fromMap(dynamic map) {
     if (map == null) return null;
-    final BaseModel model;
-
-    switch (this) {
-      // case ModelType.genericType:
-      //   model = GenericClass();
-      //   break;
-      case ModelType.system:
-        model = System();
-        break;
-      case ModelType.member:
-        model = Member();
-        break;
-      case ModelType.front:
-        model = Front();
-        break;
-    }
+    final BaseModel model = getModel();
 
     model.assignAttributes(map);
 
@@ -99,23 +92,21 @@ enum ModelType<T extends BaseModel> {
   }
 
   T? getCurrent() {
-    final BaseModel model;
+    return appBox.getById(getModel().currentID);
+  }
 
+  BaseModel getModel() {
     switch (this) {
       // case ModelType.genericType:
-      //   model = GenericClass();
-      //   break;
+      //   return GenericClass();
       case ModelType.system:
-        model = System();
-        break;
+        return System();
       case ModelType.member:
-        model = Member();
-        break;
+        return Member();
       case ModelType.front:
-        model = Front();
-        break;
+        return Front();
+      case ModelType.frontEntry:
+        return FrontEntry();
     }
-
-    return appBox.getById(model.currentID);
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
-import 'package:system_mapper/user_interface/screens/system_info.dart';
+import 'package:system_mapper/user_interface/screens/information_view.dart';
 
 class AppHome extends StatefulWidget {
   const AppHome({super.key});
@@ -32,7 +32,7 @@ class _AppHomeState extends State<AppHome> {
 }
 
 enum HomeTab {
-  systemInfo(screen: SystemInformationView()),
+  systemInfo(screen: InformationView()),
   map(screen: Placeholder()),
   settings(screen: Placeholder());
 
