@@ -15,43 +15,34 @@ class SystemInformationView extends StatefulWidget {
 
 class _SystemInformationViewState extends State<SystemInformationView> {
   @override
-  void initState() {
-    if (Current.system == null) {
-      WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return WelcomeView();
-          },
-        );
-      });
-    }
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Center(
       child: ValueListenableBuilder(
         valueListenable: Current.systemListenable,
         builder: (context, value, child) {
+          if (Current.system == null) {
+            WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return WelcomeView();
+                },
+              );
+            });
+          }
           return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                Current.system?.systemName ?? 'ERROR',
+                Current.system?.systemName ?? '',
                 style: TextTheme.of(context).displayMedium,
               ),
               Text(
-                Current.system?.systemBio ?? 'ERROR',
+                Current.system?.systemBio ?? '',
                 style: TextTheme.of(context).bodyMedium,
               ),
               Text(
-                Current.system?.membersList?.length.toString() ?? 'ERROR',
-                style: TextTheme.of(context).displayMedium,
-              ),
-              Text(
-                Current.system?.systemUUID ?? 'ERROR',
+                Current.system?.membersList?.length.toString() ?? '',
                 style: TextTheme.of(context).bodyMedium,
               ),
               SystemMembers(),
