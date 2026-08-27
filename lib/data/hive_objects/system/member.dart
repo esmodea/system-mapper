@@ -53,6 +53,8 @@ class Member extends BaseModel {
     this.memberBio,
     this.frontEntries,
     this.inFront,
+    this.avatarColor,
+    this.avatar,
   });
 
   @override
