@@ -21,50 +21,56 @@ class _SystemMembersState extends State<SystemMembers> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Current.systemListenable,
+      valueListenable: Current.frontListenable,
       builder: (context, value, child) {
-        return Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: ColorScheme.of(context).primary,
-          ),
-          constraints: BoxConstraints(maxHeight: 600),
-          child: Center(
-            child: Column(
-              children: [
-                Expanded(
-                  child: Stack(
-                    children: [
-                      SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Column(
-                            spacing: 10,
-                            children: [
-                              ...Current.system?.membersList
-                                      ?.map(
-                                        (member) => MemberCard(member: member),
-                                      )
-                                      .toList() ??
-                                  [],
-                              Opacity(opacity: 0, child: MemberCard()),
-                              SizedBox(height: 10),
-                            ],
+        return ValueListenableBuilder(
+          valueListenable: Current.systemListenable,
+          builder: (context, value, child) {
+            return Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                color: ColorScheme.of(context).primary,
+              ),
+              constraints: BoxConstraints(maxHeight: 600),
+              child: Center(
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          SingleChildScrollView(
+                            child: Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Column(
+                                spacing: 10,
+                                children: [
+                                  ...Current.system?.membersList
+                                          ?.map(
+                                            (member) =>
+                                                MemberCard(member: member),
+                                          )
+                                          .toList() ??
+                                      [],
+                                  Opacity(opacity: 0, child: MemberCard()),
+                                  SizedBox(height: 10),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            left: 10,
+                            right: 10,
+                            bottom: 10,
+                            child: MemberCard(),
+                          ),
+                        ],
                       ),
-                      Positioned(
-                        left: 10,
-                        right: 10,
-                        bottom: 10,
-                        child: MemberCard(),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );

@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:system_mapper/utils/current.dart';
 
 class MemberCount extends StatelessWidget {
-  const MemberCount({super.key});
+  final MemberCountType type;
+  final Color? backgroundColor;
+  const MemberCount({super.key, required this.type, this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
+    Color? _backgroundColor =
+        backgroundColor ?? ColorScheme.of(context).surface;
     return Container(
       decoration: BoxDecoration(
-        color: ColorScheme.of(context).surface.withAlpha(80),
+        color: _backgroundColor.withAlpha(80),
         borderRadius: BorderRadius.all(Radius.circular(24)),
       ),
       width: 80,
@@ -22,11 +26,27 @@ class MemberCount extends StatelessWidget {
             size: TextTheme.of(context).displaySmall?.fontSize,
           ),
           Text(
-            Current.system?.membersList?.length.toString() ?? '0',
+            type.count().toString(),
             style: TextTheme.of(context).displaySmall,
           ),
         ],
       ),
     );
+  }
+}
+
+enum MemberCountType {
+  totalCount(),
+  frontCount();
+
+  const MemberCountType();
+
+  int count() {
+    switch (this) {
+      case (totalCount):
+        return Current.system?.membersList?.length ?? 0;
+      case (frontCount):
+        return Current.front?.membersInFront?.length ?? 0;
+    }
   }
 }

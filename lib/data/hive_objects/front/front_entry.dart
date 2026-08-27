@@ -32,7 +32,17 @@ class FrontEntry extends BaseModel {
   @HiveField(4)
   String? frontEntryUUID;
 
-  FrontEntry({this.id, this.startTime, this.endTime, this.member});
+  @HiveField(5)
+  String? memberUUID;
+
+  FrontEntry({
+    this.id,
+    this.startTime,
+    this.endTime,
+    this.member,
+    this.frontEntryUUID,
+    this.memberUUID,
+  });
 
   @override
   void assignAttributes(Map<String, dynamic> map) {}

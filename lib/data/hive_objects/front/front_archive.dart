@@ -6,14 +6,14 @@ import 'package:system_mapper/data/model_classes/type_ids.dart';
 
 part 'front_archive.g.dart';
 
-@HiveType(typeId: TypeIds.front)
+@HiveType(typeId: TypeIds.frontArchive)
 class FrontArchive extends BaseModel {
   @override
   ModelType<FrontArchive> get modelType => ModelType.frontArchive;
 
   // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-front-id';
+  String get currentID => 'current-front-archive-id';
 
   @override
   @HiveField(0)

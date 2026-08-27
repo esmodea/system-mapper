@@ -58,7 +58,7 @@ class _SystemInformationState extends State<SystemInformation> {
                           Current.system?.systemName ?? '',
                           style: TextTheme.of(context).displayLarge,
                         ),
-                        MemberCount(),
+                        MemberCount(type: MemberCountType.totalCount),
                       ],
                     ),
                     Divider(
@@ -81,13 +81,7 @@ class _SystemInformationState extends State<SystemInformation> {
               ),
 
               // SystemMembers(),
-              // SystemTextButton(
-              //   text: 'Delete all data',
-              //   onPressed: () {
-              //     AppBox.clearAllBoxes();
-              //     Navigator.of(context).pushNamed(AppRoutes.home);
-              //   },
-              // ),
+
             ],
           );
         },

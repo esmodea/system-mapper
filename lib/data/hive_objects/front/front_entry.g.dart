@@ -21,13 +21,15 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       startTime: fields[1] as DateTime?,
       endTime: fields[2] as DateTime?,
       member: fields[3] as Member?,
+      frontEntryUUID: fields[4] as String?,
+      memberUUID: fields[5] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, FrontEntry obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +37,11 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       ..writeByte(2)
       ..write(obj.endTime)
       ..writeByte(3)
-      ..write(obj.member);
+      ..write(obj.member)
+      ..writeByte(4)
+      ..write(obj.frontEntryUUID)
+      ..writeByte(5)
+      ..write(obj.memberUUID);
   }
 
   @override

@@ -8,7 +8,7 @@ part of 'front_archive.dart';
 
 class FrontArchiveAdapter extends TypeAdapter<FrontArchive> {
   @override
-  final typeId = 2;
+  final typeId = 4;
 
   @override
   FrontArchive read(BinaryReader reader) {

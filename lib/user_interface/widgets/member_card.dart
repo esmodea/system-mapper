@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/member.dart';
 import 'package:system_mapper/user_interface/widgets/member_form.dart';
@@ -6,20 +8,49 @@ import 'package:system_mapper/utils/safe_set_state.dart';
 
 class MemberCard extends StatefulWidget {
   final Member? member;
-  const MemberCard({super.key, this.member});
+  final bool hideBio;
+  final bool hideButtons;
+  const MemberCard({
+    super.key,
+    this.member,
+    this.hideBio = false,
+    this.hideButtons = false,
+  });
 
   @override
   State<MemberCard> createState() => _MemberCardState();
 }
 
 class _MemberCardState extends SafeState<MemberCard> {
-  late bool inFront = widget.member?.inFront() ?? true;
+  late bool inFront =
+      widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true;
+
+  late Timer _timer;
+
+  @override
+  void initState() {
+    _timer = Timer.periodic(Duration(seconds: 1), (_) {
+      if (inFront == true) {
+        safeSetState(
+          () => inFront =
+              widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true,
+        );
+      }
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     debugPrint(Current.front?.toString());
     debugPrint(Current.front?.membersInFront?.toString());
-    debugPrint(widget.member?.inFront().toString());
+    debugPrint(widget.member?.inFrontCheck().toString());
     if (widget.member != null) {
       return Container(
         decoration: BoxDecoration(
@@ -39,42 +70,52 @@ class _MemberCardState extends SafeState<MemberCard> {
                   widget.member!.memberName ?? '',
                   style: TextTheme.of(context).headlineMedium,
                 ),
-                FloatingActionButton(
-                  onPressed: () {
-                    if (widget.member?.inFront() ?? false) {
-                      widget.member?.removeFromFront();
-                    } else {
-                      widget.member?.addToFront();
-                    }
-                    safeSetState(
-                      () => inFront = widget.member?.inFront() ?? true,
-                    );
-                    setState(() {
-                      
-                    });
-                  },
-                  child: Icon(inFront ? Icons.remove : Icons.add),
-                ),
+                if (!widget.hideButtons)
+                  ValueListenableBuilder(
+                    valueListenable: Current.systemListenable,
+                    builder: (context, value, child) {
+                      return FloatingActionButton(
+                        onPressed: () {
+                          if (widget.member?.inFront ??
+                              widget.member?.inFrontCheck() ??
+                              true) {
+                            widget.member?.removeFromFront();
+                          } else {
+                            widget.member?.addToFront();
+                          }
+                          safeSetState(
+                            () => inFront =
+                                widget.member?.inFront ??
+                                widget.member?.inFrontCheck() ??
+                                true,
+                          );
+                        },
+                        child: Icon(inFront ? Icons.remove : Icons.add),
+                      );
+                    },
+                  ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 60),
-              child: Divider(thickness: 2),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ColorScheme.of(context).primary.withAlpha(100),
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  widget.member!.memberBio ?? '',
-                  style: TextTheme.of(context).bodyMedium,
+            if (!widget.hideBio)
+              Padding(
+                padding: const EdgeInsets.only(right: 60),
+                child: Divider(thickness: 2),
+              ),
+            if (!widget.hideBio)
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorScheme.of(context).primary.withAlpha(100),
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    widget.member!.memberBio ?? '',
+                    style: TextTheme.of(context).bodyMedium,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       );

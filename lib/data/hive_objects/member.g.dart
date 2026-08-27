@@ -20,19 +20,22 @@ class MemberAdapter extends TypeAdapter<Member> {
       id: fields[0] as String?,
       memberName: fields[1] as String?,
       memberBio: fields[2] as String?,
+      frontEntries: (fields[3] as List?)?.cast<String>(),
     );
   }
 
   @override
   void write(BinaryWriter writer, Member obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(4)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.memberName)
       ..writeByte(2)
-      ..write(obj.memberBio);
+      ..write(obj.memberBio)
+      ..writeByte(3)
+      ..write(obj.frontEntries);
   }
 
   @override
