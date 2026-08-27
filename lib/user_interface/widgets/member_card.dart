@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/member.dart';
@@ -10,11 +11,13 @@ class MemberCard extends StatefulWidget {
   final Member? member;
   final bool hideBio;
   final bool hideButtons;
+  final bool showFrontTime;
   const MemberCard({
     super.key,
     this.member,
     this.hideBio = false,
     this.hideButtons = false,
+    this.showFrontTime = false,
   });
 
   @override
@@ -24,17 +27,103 @@ class MemberCard extends StatefulWidget {
 class _MemberCardState extends SafeState<MemberCard> {
   late bool inFront =
       widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true;
+  bool hideFrontTimes = true;
+  late Duration timeFronting = DateTime.now().difference(
+    Current
+            .front
+            ?.activeFrontEntries?[max(
+              0,
+              Current.front?.activeFrontEntries?.indexWhere(
+                    (entry) =>
+                        entry.member?.memberName == widget.member?.memberName,
+                  ) ??
+                  0,
+            )]
+            .startTime ??
+        DateTime.now(),
+  );
 
   late Timer _timer;
 
   @override
   void initState() {
     _timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if (inFront == true) {
+      if ((Current.front?.activeFrontEntries?.indexWhere(
+                (entry) =>
+                    widget.member?.memberName == entry.member?.memberName,
+              ) ??
+              -1) >=
+          0) {
         safeSetState(
-          () => inFront =
-              widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true,
+          () => timeFronting = DateTime.now().difference(
+            Current
+                    .front
+                    ?.activeFrontEntries?[max(
+                      0,
+                      Current.front?.activeFrontEntries?.indexWhere(
+                            (entry) =>
+                                entry.member?.memberName ==
+                                widget.member?.memberName,
+                          ) ??
+                          0,
+                    )]
+                    .startTime ??
+                DateTime.now(),
+          ),
         );
+        // if (mounted) {
+        //   setState(() {
+        //     hideFrontTimes = false;
+        //   });
+        // }
+        safeSetState(() {
+          hideFrontTimes = false;
+        });
+      } else {
+        safeSetState(() {
+          hideFrontTimes = true;
+        });
+      }
+      if (inFront == true) {
+        safeSetState(() {
+          inFront =
+              widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true;
+        });
+      }
+      // debugPrint(
+      //   DateTime.now()
+      //       .difference(
+      //         Current
+      //                 .front
+      //                 ?.activeFrontEntries?[max(
+      //                   0,
+      //                   Current.front?.activeFrontEntries?.indexWhere(
+      //                         (entry) =>
+      //                             entry.member?.memberName ==
+      //                             widget.member?.memberName,
+      //                       ) ??
+      //                       0,
+      //                 )]
+      //                 .startTime ??
+      //             DateTime.now(),
+      //       )
+      //       .toString(),
+      // );
+      if (Current.front?.activeFrontEntries?.isNotEmpty ?? false) {
+        // debugPrint(
+        //   Current
+        //       .front
+        //       ?.activeFrontEntries?[max(
+        //         0,
+        //         Current.front?.activeFrontEntries?.indexWhere(
+        //               (entry) =>
+        //                   entry.member?.memberName == widget.member?.memberName,
+        //             ) ??
+        //             0,
+        //       )]
+        //       .startTime
+        //       .toString(),
+        // );
       }
     });
     super.initState();
@@ -48,9 +137,9 @@ class _MemberCardState extends SafeState<MemberCard> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint(Current.front?.toString());
-    debugPrint(Current.front?.membersInFront?.toString());
-    debugPrint(widget.member?.inFrontCheck().toString());
+    // debugPrint(Current.front?.toString());
+    // debugPrint(Current.front?.membersInFront?.toString());
+    // debugPrint(widget.member?.inFrontCheck().toString());
     if (widget.member != null) {
       return Container(
         decoration: BoxDecoration(
@@ -63,43 +152,70 @@ class _MemberCardState extends SafeState<MemberCard> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Stack(
               children: [
-                Text(
-                  widget.member!.memberName ?? '',
-                  style: TextTheme.of(context).headlineMedium,
-                ),
-                if (!widget.hideButtons)
-                  ValueListenableBuilder(
-                    valueListenable: Current.systemListenable,
-                    builder: (context, value, child) {
-                      return FloatingActionButton(
-                        onPressed: () {
-                          if (widget.member?.inFront ??
-                              widget.member?.inFrontCheck() ??
-                              true) {
-                            widget.member?.removeFromFront();
-                          } else {
-                            widget.member?.addToFront();
-                          }
-                          safeSetState(
-                            () => inFront =
-                                widget.member?.inFront ??
-                                widget.member?.inFrontCheck() ??
-                                true,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.member!.memberName ?? '',
+                      style: TextTheme.of(context).headlineMedium,
+                    ),
+                    if (!widget.hideButtons)
+                      ValueListenableBuilder(
+                        valueListenable: Current.systemListenable,
+                        builder: (context, value, child) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                if (widget.member?.inFront ??
+                                    widget.member?.inFrontCheck() ??
+                                    true) {
+                                  widget.member?.removeFromFront();
+                                } else {
+                                  widget.member?.addToFront();
+                                }
+                                safeSetState(
+                                  () => inFront =
+                                      widget.member?.inFront ??
+                                      widget.member?.inFrontCheck() ??
+                                      true,
+                                );
+                              },
+                              child: Icon(inFront ? Icons.remove : Icons.add),
+                            ),
                           );
                         },
-                        child: Icon(inFront ? Icons.remove : Icons.add),
-                      );
-                    },
+                      ),
+                  ],
+                ),
+                if (widget.showFrontTime &&
+                    timeFronting.inMicroseconds > 0 &&
+                    !hideFrontTimes)
+                  Positioned(
+                    right: 60,
+                    top: 30,
+                    child: SizedBox(
+                      width: 180,
+                      height: 60,
+                      child: Text(
+                        'Fronting for ${(timeFronting.inDays / 7) > 0 ? '${(timeFronting.inDays / 7)}w ' : ''}${timeFronting.inDays > 0 ? '${timeFronting.inDays % 7}d ' : ''}${timeFronting.inHours > 0 ? '${timeFronting.inHours % 24}h ' : ''}${timeFronting.inMinutes > 0 ? '${timeFronting.inMinutes % 60}m ' : ''}${timeFronting.inSeconds > 0 ? '${timeFronting.inSeconds % 60}s ' : ''}',
+                        style: TextTheme.of(context).bodyLarge,
+                      ),
+                    ),
                   ),
               ],
             ),
             if (!widget.hideBio)
-              Padding(
-                padding: const EdgeInsets.only(right: 60),
-                child: Divider(thickness: 2),
+              ValueListenableBuilder(
+                valueListenable: Current.frontListenable,
+                builder: (context, value, child) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 80),
+                    child: Divider(thickness: 2),
+                  );
+                },
               ),
             if (!widget.hideBio)
               Padding(

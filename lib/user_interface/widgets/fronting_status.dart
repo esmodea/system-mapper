@@ -40,8 +40,11 @@ class _FrontingStatusState extends State<FrontingStatus> {
                   ),
                   ...Current.front?.membersInFront
                           ?.map(
-                            (member) =>
-                                MemberCard(member: member, hideBio: true),
+                            (member) => MemberCard(
+                              member: member,
+                              hideBio: true,
+                              showFrontTime: true,
+                            ),
                           )
                           .toList() ??
                       [],

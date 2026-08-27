@@ -151,19 +151,19 @@ class _MemberFormState extends State<MemberForm> {
 
                         await system.saveSafely();
 
-                        debugPrint(
-                          ModelType.system.appBox
-                              .getById(Current.system?.systemUUID)
-                              ?.membersList
-                              ?.length
-                              .toString(),
-                        );
+                        // debugPrint(
+                        //   ModelType.system.appBox
+                        //       .getById(Current.system?.systemUUID)
+                        //       ?.membersList
+                        //       ?.length
+                        //       .toString(),
+                        // );
 
                         await system.updateCurrent();
 
-                        debugPrint(
-                          Current.system?.membersList?.length.toString(),
-                        );
+                        // debugPrint(
+                        //   Current.system?.membersList?.length.toString(),
+                        // );
 
                         widget.callback();
                       },
