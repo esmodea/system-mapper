@@ -6,8 +6,9 @@ import 'package:hive_ce/hive_ce.dart';
 import 'package:system_mapper/data/hive_objects/front/front.dart';
 import 'package:system_mapper/data/hive_objects/front/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
-import 'package:system_mapper/data/hive_objects/member.dart';
-import 'package:system_mapper/data/hive_objects/system.dart';
+import 'package:system_mapper/data/hive_objects/settings/settings.dart';
+import 'package:system_mapper/data/hive_objects/system/member.dart';
+import 'package:system_mapper/data/hive_objects/system/system.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
@@ -15,6 +16,7 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(FrontArchiveAdapter());
     registerAdapter(FrontEntryAdapter());
     registerAdapter(MemberAdapter());
+    registerAdapter(SettingsAdapter());
     registerAdapter(SystemAdapter());
   }
 }
@@ -25,6 +27,7 @@ extension IsolatedHiveRegistrar on IsolatedHiveInterface {
     registerAdapter(FrontArchiveAdapter());
     registerAdapter(FrontEntryAdapter());
     registerAdapter(MemberAdapter());
+    registerAdapter(SettingsAdapter());
     registerAdapter(SystemAdapter());
   }
 }

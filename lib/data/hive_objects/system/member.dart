@@ -1,8 +1,11 @@
+import 'dart:typed_data';
+import 'dart:ui';
+
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:system_mapper/data/hive_objects/front/front.dart';
 import 'package:system_mapper/data/hive_objects/front/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
-import 'package:system_mapper/data/hive_objects/system.dart';
+import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/data/model_classes/base_model.dart';
 import 'package:system_mapper/data/model_classes/model_type.dart';
 import 'package:system_mapper/data/model_classes/type_ids.dart';
@@ -37,6 +40,12 @@ class Member extends BaseModel {
 
   @HiveField(4)
   bool? inFront;
+
+  @HiveField(5)
+  Color? avatarColor;
+
+  @HiveField(6)
+  Uint8List? avatar;
 
   Member({
     this.id,

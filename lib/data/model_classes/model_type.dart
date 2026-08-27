@@ -1,8 +1,9 @@
 import 'package:system_mapper/data/hive_objects/front/front.dart';
 import 'package:system_mapper/data/hive_objects/front/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
-import 'package:system_mapper/data/hive_objects/member.dart';
-import 'package:system_mapper/data/hive_objects/system.dart';
+import 'package:system_mapper/data/hive_objects/settings/settings.dart';
+import 'package:system_mapper/data/hive_objects/system/member.dart';
+import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/data/model_classes/type_ids.dart';
 
 import 'app_box.dart';
@@ -55,6 +56,13 @@ enum ModelType<T extends BaseModel> {
       key: 'frontArchive',
       typeId: TypeIds.frontArchive,
     ),
+  ),
+  settings(
+    name: 'settings',
+    pluralName: 'settings',
+    title: 'Settings',
+    pluralTitle: 'Settings',
+    appBox: AppBox<Settings>(key: 'settings', typeId: TypeIds.settings),
   );
 
   final String name;
@@ -120,6 +128,8 @@ enum ModelType<T extends BaseModel> {
         return FrontEntry();
       case ModelType.frontArchive:
         return FrontArchive();
+      case ModelType.settings:
+        return Settings();
     }
   }
 }

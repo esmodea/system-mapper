@@ -6,4 +6,7 @@ abstract class TypeIds {
   static const int front = 2;
   static const int frontEntry = 3;
   static const int frontArchive = 4;
+
+  // General Settings (use range 1000 - 1999)
+  static const int settings = 1000;
 }

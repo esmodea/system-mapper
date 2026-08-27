@@ -17,17 +17,20 @@ class MemberAdapter extends TypeAdapter<Member> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Member(
-      id: fields[0] as String?,
-      memberName: fields[1] as String?,
-      memberBio: fields[2] as String?,
-      frontEntries: (fields[3] as List?)?.cast<String>(),
-    );
+        id: fields[0] as String?,
+        memberName: fields[1] as String?,
+        memberBio: fields[2] as String?,
+        frontEntries: (fields[3] as List?)?.cast<String>(),
+        inFront: fields[4] as bool?,
+      )
+      ..avatarColor = fields[5] as Color?
+      ..avatar = fields[6] as Uint8List?;
   }
 
   @override
   void write(BinaryWriter writer, Member obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -35,7 +38,13 @@ class MemberAdapter extends TypeAdapter<Member> {
       ..writeByte(2)
       ..write(obj.memberBio)
       ..writeByte(3)
-      ..write(obj.frontEntries);
+      ..write(obj.frontEntries)
+      ..writeByte(4)
+      ..write(obj.inFront)
+      ..writeByte(5)
+      ..write(obj.avatarColor)
+      ..writeByte(6)
+      ..write(obj.avatar);
   }
 
   @override
