@@ -18,7 +18,9 @@ Future<void> main() async {
   await AppBox.openAllBoxes();
 
   // Sets theme to light mode.
-  Settings().setThemeMode();
+  if (Current.settings?.themeMode == null) {
+    Settings().setThemeMode();
+  }
 
   runApp(const MyApp());
 }
