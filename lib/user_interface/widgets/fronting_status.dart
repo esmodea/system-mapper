@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:system_mapper/data/model_classes/model_type.dart';
+import 'package:system_mapper/user_interface/widgets/member_card.dart';
+import 'package:system_mapper/user_interface/widgets/member_count.dart';
 import 'package:system_mapper/utils/current.dart';
 
 class FrontingStatus extends StatefulWidget {
@@ -16,14 +19,35 @@ class _FrontingStatusState extends State<FrontingStatus> {
       builder: (context, value, child) {
         return Column(
           children: [
-            Text(
-              'Current Fronters:',
-              style: TextTheme.of(context).headlineLarge,
+            Container(
+              padding: EdgeInsets.all(48),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Current Fronters',
+                        style: TextTheme.of(context).headlineLarge,
+                      ),
+                      MemberCount(
+                        type: MemberCountType.frontCount,
+                        backgroundColor: ColorScheme.of(
+                          context,
+                        ).primaryContainer,
+                      ),
+                    ],
+                  ),
+                  ...Current.front?.membersInFront
+                          ?.map(
+                            (member) =>
+                                MemberCard(member: member, hideBio: true),
+                          )
+                          .toList() ??
+                      [],
+                ],
+              ),
             ),
-            ...Current.front?.membersInFront
-                    ?.map((member) => Text(member.memberName ?? ''))
-                    .toList() ??
-                [],
           ],
         );
       },
