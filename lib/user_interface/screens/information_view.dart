@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/user_interface/widgets/fronting_status.dart';
-import 'package:system_mapper/user_interface/widgets/fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/system_info.dart';
 import 'package:system_mapper/user_interface/widgets/system_members.dart';
 

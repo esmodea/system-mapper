@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/user_interface/screens/welcome_view.dart';
-import 'package:system_mapper/user_interface/widgets/member_count.dart';
+import 'package:system_mapper/user_interface/widgets/cards/member_count.dart';
 import 'package:system_mapper/utils/current.dart';
 
 class SystemInformation extends StatefulWidget {

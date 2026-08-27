@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:system_mapper/data/model_classes/model_type.dart';
-import 'package:system_mapper/user_interface/widgets/member_card.dart';
-import 'package:system_mapper/user_interface/widgets/member_count.dart';
+import 'package:system_mapper/user_interface/widgets/cards/member_card.dart';
+import 'package:system_mapper/user_interface/widgets/cards/member_count.dart';
 import 'package:system_mapper/utils/current.dart';
 
 class FrontingStatus extends StatefulWidget {

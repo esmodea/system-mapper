@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:system_mapper/user_interface/widgets/system_form.dart';
-import 'package:system_mapper/user_interface/widgets/welcome_splash.dart';
+import 'package:system_mapper/user_interface/widgets/forms/system_form.dart';
+import 'package:system_mapper/user_interface/widgets/splash_screens/welcome_splash.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_update_state.dart';
 
