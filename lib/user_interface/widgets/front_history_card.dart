@@ -7,12 +7,12 @@ import 'package:system_mapper/user_interface/widgets/member_form.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
-class MemberCard extends StatefulWidget {
+class FrontHistoryCard extends StatefulWidget {
   final Member? member;
   final bool hideBio;
   final bool hideButtons;
   final bool showFrontTime;
-  const MemberCard({
+  const FrontHistoryCard({
     super.key,
     this.member,
     this.hideBio = false,
@@ -21,10 +21,10 @@ class MemberCard extends StatefulWidget {
   });
 
   @override
-  State<MemberCard> createState() => _MemberCardState();
+  State<FrontHistoryCard> createState() => _FrontHistoryCardState();
 }
 
-class _MemberCardState extends SafeState<MemberCard> {
+class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
   late bool inFront =
       widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true;
   bool hideFrontTimes = true;
@@ -195,32 +195,14 @@ class _MemberCardState extends SafeState<MemberCard> {
                     !hideFrontTimes)
                   Positioned(
                     right: 60,
-                    top: 0,
-                    bottom: 0,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          constraints: BoxConstraints(
-                            minHeight: 60,
-                            minWidth: 180,
-                          ),
-                          padding: EdgeInsets.all(24),
-                          child: Wrap(
-                            children: [
-                              Text(
-                                'Fronting for ',
-                                style: TextTheme.of(context).bodyLarge,
-                              ),
-                              Text(
-                                '${(timeFronting.inDays / 7) > 0 ? '${(timeFronting.inDays / 7)}w ' : ''}${timeFronting.inDays > 0 ? '${timeFronting.inDays % 7}d ' : ''}${timeFronting.inHours > 0 ? '${timeFronting.inHours % 24}h ' : ''}${timeFronting.inMinutes > 0 && !(timeFronting.inDays > 0) ? '${timeFronting.inMinutes % 60}m ' : ''}${timeFronting.inSeconds > 0 && !(timeFronting.inHours > 0) ? '${timeFronting.inSeconds % 60}s ' : ''}',
-                                style: TextTheme.of(context).bodyLarge,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    top: 30,
+                    child: SizedBox(
+                      width: 180,
+                      height: 60,
+                      child: Text(
+                        'Fronting for ${(timeFronting.inDays / 7) > 0 ? '${(timeFronting.inDays / 7)}w ' : ''}${timeFronting.inDays > 0 ? '${timeFronting.inDays % 7}d ' : ''}${timeFronting.inHours > 0 ? '${timeFronting.inHours % 24}h ' : ''}${timeFronting.inMinutes > 0 ? '${timeFronting.inMinutes % 60}m ' : ''}${timeFronting.inSeconds > 0 ? '${timeFronting.inSeconds % 60}s ' : ''}',
+                        style: TextTheme.of(context).bodyLarge,
+                      ),
                     ),
                   ),
               ],

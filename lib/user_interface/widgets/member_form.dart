@@ -1,9 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:system_mapper/data/hive_objects/member.dart';
-import 'package:system_mapper/data/hive_objects/system.dart';
-import 'package:system_mapper/data/model_classes/model_type.dart';
+import 'package:system_mapper/data/hive_objects/system/member.dart';
+import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_input.dart';
 import 'package:system_mapper/utils/current.dart';

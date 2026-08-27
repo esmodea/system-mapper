@@ -3,6 +3,7 @@ import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
 import 'package:system_mapper/user_interface/screens/graph_view.dart';
 import 'package:system_mapper/user_interface/screens/information_view.dart';
 import 'package:system_mapper/user_interface/screens/settings_view.dart';
+import 'package:system_mapper/user_interface/widgets/app_bars/desktop_app_bar.dart';
 import 'package:system_mapper/user_interface/widgets/menu_select.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
@@ -25,12 +26,9 @@ class _AppHomeState extends SafeState<AppHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Padding(
-          padding: const EdgeInsets.only(left: 4.0),
-          child: Text('System Mapper > ${_tab.displayName}'),
-        ),
+      appBar: DesktopAppBar(
+        tab: _tab,
+        contextWidth: MediaQuery.widthOf(context),
       ),
       body: Stack(
         children: [

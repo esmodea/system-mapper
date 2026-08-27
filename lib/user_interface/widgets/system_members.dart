@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:system_mapper/data/hive_objects/member.dart';
+import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/user_interface/widgets/member_card.dart';
 import 'package:system_mapper/utils/current.dart';
 
@@ -82,10 +82,14 @@ class _SystemMembersState extends State<SystemMembers> {
                       gradient: LinearGradient(
                         begin: Alignment.center,
                         end: Alignment.bottomCenter,
+                        transform: GradientRotation(-0.1),
                         colors: [
-                          Colors.transparent,
-                          Colors.transparent,
-                          Colors.transparent,
+                          ColorScheme.of(context).primary.withAlpha(0),
+                          ColorScheme.of(context).primary.withAlpha(0),
+                          ColorScheme.of(context).primary.withAlpha(0),
+                          ColorScheme.of(context).primary.withAlpha(0),
+                          ColorScheme.of(context).primary.withAlpha(0),
+                          ColorScheme.of(context).primary,
                           ColorScheme.of(context).primary,
                         ],
                       ),
