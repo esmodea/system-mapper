@@ -3,31 +3,40 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
-import 'package:system_mapper/data/hive_objects/front/front.dart';
-import 'package:system_mapper/data/hive_objects/front/front_archive.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front_archive.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
+import 'package:system_mapper/data/hive_objects/settings/cursor.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
-    registerAdapter(FrontAdapter());
-    registerAdapter(FrontArchiveAdapter());
+    registerAdapter(CursorAdapter());
     registerAdapter(FrontEntryAdapter());
     registerAdapter(MemberAdapter());
     registerAdapter(SettingsAdapter());
+    registerAdapter(SingleFrontAdapter());
+    registerAdapter(SingleFrontArchiveAdapter());
+    registerAdapter(StandardFrontAdapter());
+    registerAdapter(StandardFrontArchiveAdapter());
     registerAdapter(SystemAdapter());
   }
 }
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
-    registerAdapter(FrontAdapter());
-    registerAdapter(FrontArchiveAdapter());
+    registerAdapter(CursorAdapter());
     registerAdapter(FrontEntryAdapter());
     registerAdapter(MemberAdapter());
     registerAdapter(SettingsAdapter());
+    registerAdapter(SingleFrontAdapter());
+    registerAdapter(SingleFrontArchiveAdapter());
+    registerAdapter(StandardFrontAdapter());
+    registerAdapter(StandardFrontArchiveAdapter());
     registerAdapter(SystemAdapter());
   }
 }

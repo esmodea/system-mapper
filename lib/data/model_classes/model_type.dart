@@ -1,6 +1,9 @@
-import 'package:system_mapper/data/hive_objects/front/front.dart';
-import 'package:system_mapper/data/hive_objects/front/front_archive.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front_archive.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
+import 'package:system_mapper/data/hive_objects/settings/cursor.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
@@ -33,12 +36,22 @@ enum ModelType<T extends BaseModel> {
     pluralTitle: 'Members',
     appBox: AppBox<Member>(key: 'member', typeId: TypeIds.member),
   ),
-  front(
-    name: 'front',
-    pluralName: 'front',
-    title: 'Front',
-    pluralTitle: 'Front',
-    appBox: AppBox<Front>(key: 'front', typeId: TypeIds.front),
+  standardFront(
+    name: 'standardFront',
+    pluralName: 'standardFront',
+    title: 'Standard Front',
+    pluralTitle: 'Standard Front',
+    appBox: AppBox<StandardFront>(key: 'front', typeId: TypeIds.standardFront),
+  ),
+  singleFront(
+    name: 'singleFront',
+    pluralName: 'singleFront',
+    title: 'Single Front',
+    pluralTitle: 'Single Front',
+    appBox: AppBox<SingleFront>(
+      key: 'singleFront',
+      typeId: TypeIds.singleFront,
+    ),
   ),
   frontEntry(
     name: 'frontEntry',
@@ -47,14 +60,24 @@ enum ModelType<T extends BaseModel> {
     pluralTitle: 'Front Entries',
     appBox: AppBox<FrontEntry>(key: 'frontEntry', typeId: TypeIds.frontEntry),
   ),
-  frontArchive(
-    name: 'frontArchive',
-    pluralName: 'frontArchives',
+  standardFrontArchive(
+    name: 'standardFrontArchive',
+    pluralName: 'standardFrontArchives',
     title: 'Front Archive',
     pluralTitle: 'Front Archives',
-    appBox: AppBox<FrontArchive>(
+    appBox: AppBox<StandardFrontArchive>(
       key: 'frontArchive',
-      typeId: TypeIds.frontArchive,
+      typeId: TypeIds.standardFrontArchive,
+    ),
+  ),
+  singleFrontArchive(
+    name: 'singleFrontArchive',
+    pluralName: 'singleFrontArchives',
+    title: 'Single Front Archive',
+    pluralTitle: 'Single Front Archives',
+    appBox: AppBox<SingleFrontArchive>(
+      key: 'singleFrontArchive',
+      typeId: TypeIds.singleFrontArchive,
     ),
   ),
   settings(
@@ -63,6 +86,13 @@ enum ModelType<T extends BaseModel> {
     title: 'Settings',
     pluralTitle: 'Settings',
     appBox: AppBox<Settings>(key: 'settings', typeId: TypeIds.settings),
+  ),
+  cursor(
+    name: 'cursor',
+    pluralName: 'cursors',
+    title: 'Cursor',
+    pluralTitle: 'Cursors',
+    appBox: AppBox<Cursor>(key: 'cursors', typeId: TypeIds.cursor),
   );
 
   final String name;
@@ -122,14 +152,20 @@ enum ModelType<T extends BaseModel> {
         return System();
       case ModelType.member:
         return Member();
-      case ModelType.front:
-        return Front();
+      case ModelType.standardFront:
+        return StandardFront();
+      case ModelType.singleFront:
+        return SingleFront();
       case ModelType.frontEntry:
         return FrontEntry();
-      case ModelType.frontArchive:
-        return FrontArchive();
+      case ModelType.standardFrontArchive:
+        return StandardFrontArchive();
+      case ModelType.singleFrontArchive:
+        return SingleFrontArchive();
       case ModelType.settings:
         return Settings();
+      case ModelType.cursor:
+        return Cursor();
     }
   }
 }

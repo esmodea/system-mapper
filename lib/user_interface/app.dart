@@ -35,7 +35,7 @@ class _AppHomeState extends SafeState<AppHome> {
           Padding(
             padding: const EdgeInsets.only(left: 60),
             child: LazyLoadIndexedStack(
-              preloadIndexes: [HomeTab.values.indexOf(_tab)],
+              preloadIndexes: [],
               index: HomeTab.values.indexOf(_tab),
               children: HomeTab.values.map((tab) => tab.getScreen()).toList(),
             ),

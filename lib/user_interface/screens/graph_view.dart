@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:system_mapper/data/model_classes/app_box.dart';
-import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 
 class GraphView extends StatefulWidget {
   const GraphView({super.key});

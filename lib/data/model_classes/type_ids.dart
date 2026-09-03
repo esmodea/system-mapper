@@ -3,10 +3,13 @@ abstract class TypeIds {
   // System information (use range 0 - 999)
   static const int system = 0;
   static const int member = 1;
-  static const int front = 2;
+  static const int standardFront = 2;
   static const int frontEntry = 3;
-  static const int frontArchive = 4;
+  static const int standardFrontArchive = 4;
+  static const int singleFrontArchive = 5;
+  static const int singleFront = 6;
 
   // General Settings (use range 1000 - 1999)
   static const int settings = 1000;
+  static const int cursor = 1001;
 }

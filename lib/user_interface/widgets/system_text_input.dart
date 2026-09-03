@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class SystemTextInput extends StatefulWidget {
   final TextEditingController controller;
@@ -61,8 +62,9 @@ class _SystemTextInputState extends State<SystemTextInput> {
   Widget build(BuildContext context) {
     return FormField(
       key: _formFieldKey,
-      validator: widget.validator,
       initialValue: widget.controller.text,
+      validator: widget.validator,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       builder: (field) {
         Border border = Border.all(
           color: field.hasError ? Colors.red : Colors.grey[300]!,
@@ -100,8 +102,13 @@ class _SystemTextInputState extends State<SystemTextInput> {
                     keyboardType: widget.keyboardType,
                     obscureText: widget.obscureText,
                     controller: widget.controller,
-                    onChanged: (value) =>
-                        widget.enabled ? field.didChange(value) : null,
+                    onChanged: (value) {
+                      field.didChange(value);
+                      if (widget.onChanged != null) {
+                        widget.onChanged!(value);
+                      }
+                      SchedulerBinding.instance.scheduleForcedFrame();
+                    },
                     enabled: widget.enabled,
                     maxLines: null,
                     minLines: null,

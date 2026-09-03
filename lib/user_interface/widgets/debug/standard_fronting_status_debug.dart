@@ -2,21 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:system_mapper/data/model_classes/model_type.dart';
 import 'package:system_mapper/utils/current.dart';
 
-class FrontingStatusDebug extends StatefulWidget {
-  const FrontingStatusDebug({super.key});
+class StandardFrontingStatusDebug extends StatefulWidget {
+  const StandardFrontingStatusDebug({super.key});
 
   @override
-  State<FrontingStatusDebug> createState() => _FrontingStatusDebugState();
+  State<StandardFrontingStatusDebug> createState() =>
+      _FrontingStatusDebugState();
 }
 
-class _FrontingStatusDebugState extends State<FrontingStatusDebug> {
+class _FrontingStatusDebugState extends State<StandardFrontingStatusDebug> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: Current.frontArchiveListenable,
+      valueListenable: Current.standardFrontArchiveListenable,
       builder: (context, value, child) {
         return ValueListenableBuilder(
-          valueListenable: Current.frontListenable,
+          valueListenable: Current.standardFrontListenable,
           builder: (context, value, child) {
             return SingleChildScrollView(
               child: Column(
@@ -30,7 +31,7 @@ class _FrontingStatusDebugState extends State<FrontingStatusDebug> {
                     'Current Fronters:',
                     style: TextTheme.of(context).headlineLarge,
                   ),
-                  ...Current.front?.membersInFront
+                  ...Current.standardFront?.membersInFront
                           ?.map((member) => Text(member.memberName ?? ''))
                           .toList() ??
                       [],
@@ -38,7 +39,7 @@ class _FrontingStatusDebugState extends State<FrontingStatusDebug> {
                     'Current ${ModelType.frontEntry.pluralTitle}:',
                     style: TextTheme.of(context).headlineLarge,
                   ),
-                  ...Current.front?.activeFrontEntries
+                  ...Current.standardFront?.activeFrontEntries
                           ?.map(
                             (frontEntry) => Wrap(
                               children: [
@@ -54,10 +55,10 @@ class _FrontingStatusDebugState extends State<FrontingStatusDebug> {
                           .toList() ??
                       [],
                   Text(
-                    'Current ${ModelType.frontArchive.pluralTitle}:',
+                    'Current ${ModelType.standardFrontArchive.pluralTitle}:',
                     style: TextTheme.of(context).headlineLarge,
                   ),
-                  ...Current.frontArchive?.archivedFrontEntries
+                  ...Current.standardFrontArchive?.archivedFrontEntries
                           ?.map(
                             (frontEntry) => Wrap(
                               children: [

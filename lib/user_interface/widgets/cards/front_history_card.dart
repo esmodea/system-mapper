@@ -7,12 +7,12 @@ import 'package:system_mapper/user_interface/widgets/forms/member_form.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
-class FrontHistoryCard extends StatefulWidget {
+class StandardFrontHistoryCard extends StatefulWidget {
   final Member? member;
   final bool hideBio;
   final bool hideButtons;
   final bool showFrontTime;
-  const FrontHistoryCard({
+  const StandardFrontHistoryCard({
     super.key,
     this.member,
     this.hideBio = false,
@@ -21,19 +21,18 @@ class FrontHistoryCard extends StatefulWidget {
   });
 
   @override
-  State<FrontHistoryCard> createState() => _FrontHistoryCardState();
+  State<StandardFrontHistoryCard> createState() => _FrontHistoryCardState();
 }
 
-class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
-  late bool inFront =
-      widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true;
+class _FrontHistoryCardState extends SafeState<StandardFrontHistoryCard> {
+  late bool inFront = widget.member?.inFrontCheck() ?? true;
   bool hideFrontTimes = true;
   late Duration timeFronting = DateTime.now().difference(
     Current
-            .front
+            .standardFront
             ?.activeFrontEntries?[max(
               0,
-              Current.front?.activeFrontEntries?.indexWhere(
+              Current.standardFront?.activeFrontEntries?.indexWhere(
                     (entry) =>
                         entry.member?.memberName == widget.member?.memberName,
                   ) ??
@@ -48,7 +47,7 @@ class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
   @override
   void initState() {
     _timer = Timer.periodic(Duration(seconds: 1), (_) {
-      if ((Current.front?.activeFrontEntries?.indexWhere(
+      if ((Current.standardFront?.activeFrontEntries?.indexWhere(
                 (entry) =>
                     widget.member?.memberName == entry.member?.memberName,
               ) ??
@@ -57,10 +56,10 @@ class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
         safeSetState(
           () => timeFronting = DateTime.now().difference(
             Current
-                    .front
+                    .standardFront
                     ?.activeFrontEntries?[max(
                       0,
-                      Current.front?.activeFrontEntries?.indexWhere(
+                      Current.standardFront?.activeFrontEntries?.indexWhere(
                             (entry) =>
                                 entry.member?.memberName ==
                                 widget.member?.memberName,
@@ -86,8 +85,7 @@ class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
       }
       if (inFront == true) {
         safeSetState(() {
-          inFront =
-              widget.member?.inFront ?? widget.member?.inFrontCheck() ?? true;
+          inFront = widget.member?.inFrontCheck() ?? true;
         });
       }
       // debugPrint(
@@ -109,7 +107,7 @@ class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
       //       )
       //       .toString(),
       // );
-      if (Current.front?.activeFrontEntries?.isNotEmpty ?? false) {
+      if (Current.standardFront?.activeFrontEntries?.isNotEmpty ?? false) {
         // debugPrint(
         //   Current
         //       .front
@@ -169,19 +167,19 @@ class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
                             padding: const EdgeInsets.all(8.0),
                             child: FloatingActionButton(
                               onPressed: () {
-                                if (widget.member?.inFront ??
-                                    widget.member?.inFrontCheck() ??
-                                    true) {
-                                  widget.member?.removeFromFront();
-                                } else {
-                                  widget.member?.addToFront();
-                                }
-                                safeSetState(
-                                  () => inFront =
-                                      widget.member?.inFront ??
-                                      widget.member?.inFrontCheck() ??
-                                      true,
-                                );
+                                // if (widget.member?.inFront ??
+                                //     widget.member?.inFrontCheck() ??
+                                //     true) {
+                                //   widget.member?.removeFromFront();
+                                // } else {
+                                //   widget.member?.addToFront();
+                                // }
+                                // safeSetState(
+                                //   () => inFront =
+                                //       widget.member?.inFront ??
+                                //       widget.member?.inFrontCheck() ??
+                                //       true,
+                                // );
                               },
                               child: Icon(inFront ? Icons.remove : Icons.add),
                             ),
@@ -209,7 +207,7 @@ class _FrontHistoryCardState extends SafeState<FrontHistoryCard> {
             ),
             if (!widget.hideBio)
               ValueListenableBuilder(
-                valueListenable: Current.frontListenable,
+                valueListenable: Current.standardFrontListenable,
                 builder: (context, value, child) {
                   return Padding(
                     padding: const EdgeInsets.only(right: 80),

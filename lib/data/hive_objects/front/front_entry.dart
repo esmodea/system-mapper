@@ -1,5 +1,6 @@
 import 'package:hive_ce_flutter/hive_flutter.dart';
-import 'package:system_mapper/data/hive_objects/front/front.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
+import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/model_classes/base_model.dart';
 import 'package:system_mapper/data/model_classes/model_type.dart';
@@ -35,6 +36,9 @@ class FrontEntry extends BaseModel {
   @HiveField(5)
   String? memberUUID;
 
+  @HiveField(6)
+  bool? isOnlyConscious;
+
   FrontEntry({
     this.id,
     this.startTime,
@@ -42,31 +46,86 @@ class FrontEntry extends BaseModel {
     this.member,
     this.frontEntryUUID,
     this.memberUUID,
+    this.isOnlyConscious,
   });
 
   @override
   void assignAttributes(Map<String, dynamic> map) {}
 
-  Future<void> addToFront() async {
+  Future<void> addToStandardFront() async {
     if (startTime != null && frontEntryUUID != null && member != null) {
-      await Front(
-        activeFrontEntries: [...Current.front?.activeFrontEntries ?? [], this],
+      await StandardFront(
+        activeFrontEntries: [
+          ...Current.standardFront?.activeFrontEntries ?? [],
+          this,
+        ],
       ).updateCurrent();
     } else {
       throw ArgumentError.notNull();
     }
   }
 
-  Future<void> removeFromFront() async {
+  Future<void> removeFromStandardFront() async {
     if (startTime != null &&
         endTime != null &&
         frontEntryUUID != null &&
         member != null) {
-      List<FrontEntry> newFrontList = Current.front?.activeFrontEntries ?? [];
+      List<FrontEntry> newFrontList =
+          Current.standardFront?.activeFrontEntries ?? [];
       newFrontList.removeWhere(
         (entry) => entry.frontEntryUUID == frontEntryUUID,
       );
-      await Front(activeFrontEntries: newFrontList).updateCurrent();
+      await StandardFront(activeFrontEntries: newFrontList).updateCurrent();
+    } else {
+      throw ArgumentError.notNull();
+    }
+  }
+
+  Future<void> addToSingleFront() async {
+    if (startTime != null && frontEntryUUID != null && member != null) {
+      await SingleFront(activeFrontEntries: [this]).updateCurrent();
+    } else {
+      throw ArgumentError.notNull();
+    }
+  }
+
+  Future<void> removeFromSingleFront() async {
+    if (startTime != null &&
+        endTime != null &&
+        frontEntryUUID != null &&
+        member != null) {
+      await SingleFront(activeFrontEntries: []).updateCurrent();
+    } else {
+      throw ArgumentError.notNull();
+    }
+  }
+
+  Future<void> addToConsciousness() async {
+    if (startTime != null && frontEntryUUID != null && member != null) {
+      await SingleFront(
+        activeFrontEntries: [
+          ...Current.singleFront?.activeFrontEntries ?? [],
+          this,
+        ],
+      ).updateCurrent();
+    } else {
+      throw ArgumentError.notNull();
+    }
+  }
+
+  Future<void> removeFromConsciousness() async {
+    if (startTime != null &&
+        endTime != null &&
+        frontEntryUUID != null &&
+        member != null) {
+      List<FrontEntry> newConsciousnessList =
+          Current.singleFront?.activeFrontEntries ?? [];
+      newConsciousnessList.removeWhere(
+        (entry) => entry.frontEntryUUID == frontEntryUUID,
+      );
+      await SingleFront(
+        activeConsciousnessEntries: newConsciousnessList,
+      ).updateCurrent();
     } else {
       throw ArgumentError.notNull();
     }

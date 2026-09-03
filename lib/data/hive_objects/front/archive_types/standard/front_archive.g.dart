@@ -1,47 +1,35 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'member.dart';
+part of 'front_archive.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MemberAdapter extends TypeAdapter<Member> {
+class StandardFrontArchiveAdapter extends TypeAdapter<StandardFrontArchive> {
   @override
-  final typeId = 1;
+  final typeId = 4;
 
   @override
-  Member read(BinaryReader reader) {
+  StandardFrontArchive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Member(
+    return StandardFrontArchive(
       id: fields[0] as String?,
-      memberName: fields[1] as String?,
-      memberBio: fields[2] as String?,
-      frontEntries: (fields[3] as List?)?.cast<String>(),
-      avatarColor: fields[5] as Color?,
-      avatar: fields[6] as Uint8List?,
+      archivedFrontEntries: (fields[1] as List?)?.cast<FrontEntry>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Member obj) {
+  void write(BinaryWriter writer, StandardFrontArchive obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(2)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.memberName)
-      ..writeByte(2)
-      ..write(obj.memberBio)
-      ..writeByte(3)
-      ..write(obj.frontEntries)
-      ..writeByte(5)
-      ..write(obj.avatarColor)
-      ..writeByte(6)
-      ..write(obj.avatar);
+      ..write(obj.archivedFrontEntries);
   }
 
   @override
@@ -50,7 +38,7 @@ class MemberAdapter extends TypeAdapter<Member> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MemberAdapter &&
+      other is StandardFrontArchiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

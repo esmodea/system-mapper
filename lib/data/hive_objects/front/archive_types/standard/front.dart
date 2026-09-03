@@ -7,10 +7,10 @@ import 'package:system_mapper/data/model_classes/type_ids.dart';
 
 part 'front.g.dart';
 
-@HiveType(typeId: TypeIds.front)
-class Front extends BaseModel {
+@HiveType(typeId: TypeIds.standardFront)
+class StandardFront extends BaseModel {
   @override
-  ModelType<Front> get modelType => ModelType.front;
+  ModelType<StandardFront> get modelType => ModelType.standardFront;
 
   // TODO: Anonymise with a generated UUID
   @override
@@ -26,14 +26,14 @@ class Front extends BaseModel {
   @HiveField(2)
   List<FrontEntry>? activeFrontEntries;
 
-  Front({this.id, this.membersInFront, this.activeFrontEntries});
+  StandardFront({this.id, this.membersInFront, this.activeFrontEntries});
 
   @override
   void assignAttributes(Map<String, dynamic> map) {}
 
   @override
   Future<void> updateCurrent() async {
-    await Front(
+    await StandardFront(
       id: currentID,
       membersInFront: membersInFront ?? modelType.getCurrent()?.membersInFront,
       activeFrontEntries:

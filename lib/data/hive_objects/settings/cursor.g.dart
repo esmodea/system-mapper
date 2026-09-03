@@ -1,47 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'member.dart';
+part of 'cursor.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MemberAdapter extends TypeAdapter<Member> {
+class CursorAdapter extends TypeAdapter<Cursor> {
   @override
-  final typeId = 1;
+  final typeId = 1001;
 
   @override
-  Member read(BinaryReader reader) {
+  Cursor read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Member(
+    return Cursor(
       id: fields[0] as String?,
-      memberName: fields[1] as String?,
-      memberBio: fields[2] as String?,
-      frontEntries: (fields[3] as List?)?.cast<String>(),
-      avatarColor: fields[5] as Color?,
-      avatar: fields[6] as Uint8List?,
+      cursorX: (fields[1] as num?)?.toDouble(),
+      cursorY: (fields[2] as num?)?.toDouble(),
+      refreshRate: (fields[3] as num?)?.toInt(),
+      windowWidth: (fields[4] as num?)?.toInt(),
+      windowHeight: (fields[5] as num?)?.toInt(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Member obj) {
+  void write(BinaryWriter writer, Cursor obj) {
     writer
       ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.memberName)
+      ..write(obj.cursorX)
       ..writeByte(2)
-      ..write(obj.memberBio)
+      ..write(obj.cursorY)
       ..writeByte(3)
-      ..write(obj.frontEntries)
+      ..write(obj.refreshRate)
+      ..writeByte(4)
+      ..write(obj.windowWidth)
       ..writeByte(5)
-      ..write(obj.avatarColor)
-      ..writeByte(6)
-      ..write(obj.avatar);
+      ..write(obj.windowHeight);
   }
 
   @override
@@ -50,7 +50,7 @@ class MemberAdapter extends TypeAdapter<Member> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MemberAdapter &&
+      other is CursorAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

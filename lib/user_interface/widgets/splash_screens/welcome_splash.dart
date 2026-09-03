@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 
 class WelcomeSplash extends StatelessWidget {
   final VoidCallback callback;
@@ -20,17 +19,13 @@ class WelcomeSplash extends StatelessWidget {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  callback();
+                },
                 // backgroundColor: Colors.transparent,
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
-                  child: SystemTextButton(
-                    text: '→',
-                    onPressed: () {
-                      callback();
-                    },
-                    isExpanded: true,
-                  ),
+                  child: Text('→'),
                 ),
               ),
             ),

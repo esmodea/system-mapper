@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/user_interface/app.dart';
 import 'package:system_mapper/utils/current.dart';
@@ -26,7 +25,7 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
     return ValueListenableBuilder(
       valueListenable: Current.settingsListenable,
       builder: (context, value, child) {
-        debugPrint((value is Box).toString());
+        // debugPrint((value is Box).toString());
         if (Current.settings is Settings) {
           if (Current.settings!.themeMode == null) {
             return AppBar(

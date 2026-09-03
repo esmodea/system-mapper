@@ -1,12 +1,15 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
+import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
 import 'package:system_mapper/data/model_classes/model_type.dart';
+import 'package:system_mapper/user_interface/widgets/system_front_selector.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_input.dart';
 import 'package:system_mapper/utils/current.dart';
-import 'package:system_mapper/utils/safe_update_state.dart';
+import 'package:system_mapper/utils/safe_set_state.dart';
 import 'package:uuid/uuid.dart';
 
 Random random = Random();
@@ -26,10 +29,11 @@ class SystemForm extends StatefulWidget {
 //   }
 // }
 
-class _SystemFormState extends State<SystemForm> {
+class _SystemFormState extends SafeState<SystemForm> {
   final _formKey = GlobalKey<FormState>();
 
   bool _isValid = false;
+  SystemFrontType type = .onlyTrackFront;
   // DateTime _datePickerValue = DateTime.now().subtract(
   //   const Duration(days: 365 * 13 + 5),
   // );
@@ -42,10 +46,6 @@ class _SystemFormState extends State<SystemForm> {
   final String _systemNameTitle = 'System name';
   final String _systemBioTitle = 'System bio';
 
-  // Input error states
-  String? _systemNameError;
-  String? _systemBioError;
-
   @override
   void dispose() {
     super.dispose();
@@ -55,10 +55,20 @@ class _SystemFormState extends State<SystemForm> {
 
   // Input validators
   String? _validateNotEmpty(String? value) {
-    if (value == null || value.isEmpty) {
+    debugPrint('validating...');
+    if (value == null || value.trim().isEmpty) {
       return 'Text box cannot be empty.';
     }
     return null;
+  }
+
+  void validateForm(String value) {
+    safeSetState(() {
+      _isValid =
+          _validateNotEmpty(_systemNameController.text) != null &&
+          _validateNotEmpty(_systemBioController.text) != null;
+    });
+    SchedulerBinding.instance.scheduleFrame();
   }
 
   @override
@@ -86,17 +96,15 @@ class _SystemFormState extends State<SystemForm> {
                           labelText: _systemNameTitle,
                           labelColor: labelsColor,
                           validator: _validateNotEmpty,
-                          onChanged: (value) {
+                          onChanged: validateForm,
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        SystemFrontSelector(
+                          stateCallback: (SystemFrontType frontType) {
                             safeSetState(() {
-                              _isValid =
-                                  _validateNotEmpty(
-                                        _systemNameController.text,
-                                      ) !=
-                                      null &&
-                                  _validateNotEmpty(
-                                        _systemBioController.text,
-                                      ) !=
-                                      null;
+                              type = frontType;
                             });
                           },
                         ),
@@ -115,19 +123,7 @@ class _SystemFormState extends State<SystemForm> {
                             labelColor: labelsColor,
                             validator: _validateNotEmpty,
                             expands: true,
-                            onChanged: (value) {
-                              safeSetState(() {
-                                _isValid =
-                                    _validateNotEmpty(
-                                          _systemNameController.text,
-                                        ) !=
-                                        null &&
-                                    _validateNotEmpty(
-                                          _systemBioController.text,
-                                        ) !=
-                                        null;
-                              });
-                            },
+                            onChanged: validateForm,
                           ),
                         ),
 
@@ -147,6 +143,7 @@ class _SystemFormState extends State<SystemForm> {
                               systemName: _systemNameController.text,
                               systemBio: _systemBioController.text,
                               systemUUID: newUUID,
+                              frontTypeString: type.toString(),
                             );
 
                             await newSystem.save();

@@ -1,47 +1,44 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'member.dart';
+part of 'single_front.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MemberAdapter extends TypeAdapter<Member> {
+class SingleFrontAdapter extends TypeAdapter<SingleFront> {
   @override
-  final typeId = 1;
+  final typeId = 6;
 
   @override
-  Member read(BinaryReader reader) {
+  SingleFront read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Member(
+    return SingleFront(
       id: fields[0] as String?,
-      memberName: fields[1] as String?,
-      memberBio: fields[2] as String?,
-      frontEntries: (fields[3] as List?)?.cast<String>(),
-      avatarColor: fields[5] as Color?,
-      avatar: fields[6] as Uint8List?,
+      membersInFront: (fields[1] as List?)?.cast<Member>(),
+      activeFrontEntries: (fields[2] as List?)?.cast<FrontEntry>(),
+      activeConsciousnessEntries: (fields[3] as List?)?.cast<FrontEntry>(),
+      membersConscious: (fields[4] as List?)?.cast<Member>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, Member obj) {
+  void write(BinaryWriter writer, SingleFront obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.memberName)
+      ..write(obj.membersInFront)
       ..writeByte(2)
-      ..write(obj.memberBio)
+      ..write(obj.activeFrontEntries)
       ..writeByte(3)
-      ..write(obj.frontEntries)
-      ..writeByte(5)
-      ..write(obj.avatarColor)
-      ..writeByte(6)
-      ..write(obj.avatar);
+      ..write(obj.activeConsciousnessEntries)
+      ..writeByte(4)
+      ..write(obj.membersConscious);
   }
 
   @override
@@ -50,7 +47,7 @@ class MemberAdapter extends TypeAdapter<Member> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MemberAdapter &&
+      other is SingleFrontAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

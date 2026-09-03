@@ -19,6 +19,7 @@ class SystemTextButton extends StatefulWidget {
   final ButtonColor color;
   final ButtonFontSize fontSize;
   final bool isExpanded;
+  final Axis expansionAxis;
 
   const SystemTextButton({
     super.key,
@@ -30,6 +31,7 @@ class SystemTextButton extends StatefulWidget {
     this.color = ButtonColor.primary,
     this.fontSize = ButtonFontSize.medium,
     this.isExpanded = false,
+    this.expansionAxis = Axis.vertical,
   });
 
   @override
@@ -95,7 +97,7 @@ class SystemTextButtonState extends State<SystemTextButton> {
         fontSize = 18.0;
         break;
       case ButtonFontSize.large:
-        fontSize = 24.0;
+        fontSize = 38.0;
         break;
     }
 
@@ -120,6 +122,7 @@ class SystemTextButtonState extends State<SystemTextButton> {
           borderRadius: BorderRadiusGeometry.all(Radius.circular(12)),
         ),
       ),
+      padding: WidgetStatePropertyAll(EdgeInsets.all(16)),
     );
 
     // This builds the button with an icon if available.
@@ -138,7 +141,10 @@ class SystemTextButtonState extends State<SystemTextButton> {
 
     // This allows the button to fill its container when necessary.
     return widget.isExpanded
-        ? Column(children: [Expanded(child: button)])
+        ? Flex(
+            direction: Axis.horizontal,
+            children: [Expanded(child: button)],
+          )
         : button;
   }
 }

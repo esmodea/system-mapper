@@ -28,7 +28,11 @@ class _WelcomeViewState extends State<WelcomeView> {
       valueListenable: Current.systemListenable,
       builder: (context, _, _) {
         if (Current.system != null) {
-          Navigator.of(context).pop();
+          WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+            if (Navigator.canPop(context)) {
+              Navigator.of(context).pop();
+            }
+          });
         }
         switch (stage % (totalStages + 1)) {
           case (1):

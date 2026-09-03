@@ -1,35 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'front_archive.dart';
+part of 'single_front_archive.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class FrontArchiveAdapter extends TypeAdapter<FrontArchive> {
+class SingleFrontArchiveAdapter extends TypeAdapter<SingleFrontArchive> {
   @override
-  final typeId = 4;
+  final typeId = 5;
 
   @override
-  FrontArchive read(BinaryReader reader) {
+  SingleFrontArchive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return FrontArchive(
+    return SingleFrontArchive(
       id: fields[0] as String?,
       archivedFrontEntries: (fields[1] as List?)?.cast<FrontEntry>(),
+      archivedConsciousnessEntries: (fields[2] as List?)?.cast<FrontEntry>(),
     );
   }
 
   @override
-  void write(BinaryWriter writer, FrontArchive obj) {
+  void write(BinaryWriter writer, SingleFrontArchive obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.archivedFrontEntries);
+      ..write(obj.archivedFrontEntries)
+      ..writeByte(2)
+      ..write(obj.archivedConsciousnessEntries);
   }
 
   @override
@@ -38,7 +41,7 @@ class FrontArchiveAdapter extends TypeAdapter<FrontArchive> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is FrontArchiveAdapter &&
+      other is SingleFrontArchiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

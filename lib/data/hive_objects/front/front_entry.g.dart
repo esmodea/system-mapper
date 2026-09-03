@@ -23,13 +23,14 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       member: fields[3] as Member?,
       frontEntryUUID: fields[4] as String?,
       memberUUID: fields[5] as String?,
+      isOnlyConscious: fields[6] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, FrontEntry obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       ..writeByte(4)
       ..write(obj.frontEntryUUID)
       ..writeByte(5)
-      ..write(obj.memberUUID);
+      ..write(obj.memberUUID)
+      ..writeByte(6)
+      ..write(obj.isOnlyConscious);
   }
 
   @override

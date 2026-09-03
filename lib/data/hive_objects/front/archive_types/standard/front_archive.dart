@@ -6,10 +6,11 @@ import 'package:system_mapper/data/model_classes/type_ids.dart';
 
 part 'front_archive.g.dart';
 
-@HiveType(typeId: TypeIds.frontArchive)
-class FrontArchive extends BaseModel {
+@HiveType(typeId: TypeIds.standardFrontArchive)
+class StandardFrontArchive extends BaseModel {
   @override
-  ModelType<FrontArchive> get modelType => ModelType.frontArchive;
+  ModelType<StandardFrontArchive> get modelType =>
+      ModelType.standardFrontArchive;
 
   // TODO: Anonymise with a generated UUID
   @override
@@ -22,14 +23,14 @@ class FrontArchive extends BaseModel {
   @HiveField(1)
   List<FrontEntry>? archivedFrontEntries;
 
-  FrontArchive({this.id, this.archivedFrontEntries});
+  StandardFrontArchive({this.id, this.archivedFrontEntries});
 
   @override
   void assignAttributes(Map<String, dynamic> map) {}
 
   @override
   Future<void> updateCurrent() async {
-    await FrontArchive(
+    await StandardFrontArchive(
       id: currentID,
       archivedFrontEntries:
           archivedFrontEntries ?? modelType.getCurrent()?.archivedFrontEntries,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/model_classes/app_box.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
+import 'package:system_mapper/utils/app_routes.dart';
 
 class SettingsView extends StatefulWidget {
   const SettingsView({super.key});
@@ -51,6 +52,9 @@ class _SettingsViewState extends State<SettingsView> {
           text: 'Delete all data',
           onPressed: () {
             AppBox.clearAllBoxes();
+            WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+              Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+            });
           },
         ),
       ),
