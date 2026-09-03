@@ -118,6 +118,7 @@ class _FrontingStatusDebugState extends State<SingleFrontingStatusDebug> {
                                   Text(frontEntry.endTime.toString()),
                                 Text(frontEntry.frontEntryUUID.toString()),
                                 Text(frontEntry.memberUUID.toString()),
+                                Text(frontEntry.isOnlyConscious.toString()),
                               ],
                             ),
                           )

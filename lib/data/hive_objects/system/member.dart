@@ -129,7 +129,7 @@ class Member extends BaseModel {
       member: this,
       frontEntryUUID: frontEntryUUID,
       memberUUID: memberUUID,
-      isOnlyConscious: inFrontCheck() ? true : null,
+      isOnlyConscious: null,
     );
     newFrontEntry.save();
     if (!(inFrontCheck()) &&
@@ -173,7 +173,7 @@ class Member extends BaseModel {
         member: extractedEntry.member,
         memberUUID: extractedEntry.memberUUID,
         frontEntryUUID: extractedEntry.frontEntryUUID,
-        isOnlyConscious: extractedEntry.isOnlyConscious,
+        isOnlyConscious: extractedEntry.isOnlyConscious ?? false,
       );
       finalizedEntry.save();
       await SingleFrontArchive(
@@ -209,7 +209,7 @@ class Member extends BaseModel {
         member: extractedEntry.member,
         memberUUID: extractedEntry.memberUUID,
         frontEntryUUID: extractedEntry.frontEntryUUID,
-        isOnlyConscious: extractedEntry.isOnlyConscious,
+        isOnlyConscious: extractedEntry.isOnlyConscious ?? true,
       );
       finalizedEntry.save();
       debugPrint(finalizedEntry.endTime.toString());
