@@ -45,6 +45,7 @@ dependencies:
   flutter_tilt: ^4.1.0
   flutter_animate: ^4.5.2
   shimmer_animation: ^2.2.2+1
+  curved_list_wheel: ^1.1.1
 
 dev_dependencies:
   flutter_test:
