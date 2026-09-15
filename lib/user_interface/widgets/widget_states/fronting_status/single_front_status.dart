@@ -32,10 +32,20 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                         style: TextTheme.of(context).headlineLarge,
                         isBlank: widget.isBlank,
                       ),
-                      TextWithBlank(
-                        text: Current.system?.frontType.toString() ?? '',
-                        style: TextTheme.of(context).headlineLarge,
-                        isBlank: widget.isBlank,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (!widget.isBlank)
+                            Icon(Current.system?.frontType.icon),
+                          SizedBox(width: 8),
+                          TextWithBlank(
+                            text:
+                                Current.system?.frontType.label.toString() ??
+                                '',
+                            style: TextTheme.of(context).bodyMedium,
+                            isBlank: widget.isBlank,
+                          ),
+                        ],
                       ),
                     ],
                   ),

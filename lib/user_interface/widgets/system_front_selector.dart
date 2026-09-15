@@ -3,15 +3,20 @@ import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
 class SystemFrontSelector extends StatefulWidget {
+  final SystemFrontType initialType;
   final Function(SystemFrontType type) stateCallback;
-  const SystemFrontSelector({super.key, required this.stateCallback});
+  const SystemFrontSelector({
+    super.key,
+    required this.stateCallback,
+    this.initialType = .onlyTrackFront,
+  });
 
   @override
   State<SystemFrontSelector> createState() => _SystemFrontSelectorState();
 }
 
 class _SystemFrontSelectorState extends SafeState<SystemFrontSelector> {
-  SystemFrontType type = .onlyTrackFront;
+  late SystemFrontType type = widget.initialType;
   @override
   Widget build(BuildContext context) {
     return SegmentedButton<SystemFrontType>(

@@ -1,15 +1,21 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:system_mapper/user_interface/widgets/debug/single_fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/debug/standard_fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/fronting_status.dart';
 import 'package:system_mapper/user_interface/widgets/system_info.dart';
 import 'package:system_mapper/user_interface/widgets/system_members.dart';
+import 'package:system_mapper/utils/current.dart';
 
 class InformationView extends StatelessWidget {
   const InformationView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Current.system?.membersList?.map((member) async {
+      await member.removeFromSingleFront();
+      return member;
+    });
     return FutureBuilder(
       future: Future.delayed(Duration(seconds: 1)),
       builder: (context, asyncSnapshot) {
@@ -49,8 +55,8 @@ class InformationView extends StatelessWidget {
                           SystemInformation(),
                           SizedBox(height: 40),
                           FrontingStatus(),
-                          // StandardFrontingStatusDebug(),
-                          // SingleFrontingStatusDebug(),
+                          if (kDebugMode) StandardFrontingStatusDebug(),
+                          if (kDebugMode) SingleFrontingStatusDebug(),
                         ],
                       ),
                     ),

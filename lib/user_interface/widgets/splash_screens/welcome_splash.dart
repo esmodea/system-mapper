@@ -19,6 +19,7 @@ class WelcomeSplash extends StatelessWidget {
                 ),
               ),
               floatingActionButton: FloatingActionButton(
+                heroTag: 'heroTagWelcome',
                 onPressed: () {
                   callback();
                 },

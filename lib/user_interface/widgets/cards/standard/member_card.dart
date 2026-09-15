@@ -7,6 +7,7 @@ import 'package:system_mapper/user_interface/widgets/forms/member_form.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
+import 'package:uuid/uuid.dart';
 
 class MemberCard extends StatefulWidget {
   final Member? member;
@@ -162,15 +163,11 @@ class _MemberCardState extends SafeState<MemberCard> {
                                 Container(
                                   constraints: BoxConstraints(
                                     minHeight: 60,
-                                    minWidth: 180,
+                                    minWidth: 100,
                                   ),
                                   padding: EdgeInsets.all(24),
                                   child: Wrap(
                                     children: [
-                                      Text(
-                                        'Fronting for ',
-                                        style: TextTheme.of(context).bodyLarge,
-                                      ),
                                       Text(
                                         '${(timeFronting.inDays / 7) >= 1 ? '${(timeFronting.inDays / 7)}w ' : ''}${timeFronting.inDays > 0 ? '${timeFronting.inDays % 7}d ' : ''}${timeFronting.inHours > 0 ? '${timeFronting.inHours % 24}h ' : ''}${timeFronting.inMinutes > 0 && !(timeFronting.inDays > 0) ? '${timeFronting.inMinutes % 60}m ' : ''}${timeFronting.inSeconds > 0 && !(timeFronting.inHours > 0) ? '${timeFronting.inSeconds % 60}s ' : ''}',
                                         style: TextTheme.of(context).bodyLarge,
@@ -186,6 +183,8 @@ class _MemberCardState extends SafeState<MemberCard> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: FloatingActionButton(
+                                heroTag:
+                                    '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard4',
                                 onPressed: () {
                                   if (timeFronting.inMicroseconds > 0 &&
                                       !hideFrontTimes) {
@@ -274,6 +273,8 @@ class _MemberCardState extends SafeState<MemberCard> {
                               return Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: FloatingActionButton(
+                                  heroTag:
+                                      '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard5',
                                   onPressed: () {
                                     if (inFront) {
                                       widget.member?.removeFromStandardFront();
@@ -350,6 +351,8 @@ class _MemberCardState extends SafeState<MemberCard> {
             ),
             SizedBox(width: 10),
             FloatingActionButton(
+              heroTag:
+                  '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard6',
               onPressed: () {
                 showModalBottomSheet(
                   context: context,

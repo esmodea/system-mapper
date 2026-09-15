@@ -9,6 +9,7 @@ import 'package:system_mapper/user_interface/widgets/select_replacement_fronter.
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
+import 'package:uuid/uuid.dart';
 
 class MemberCard extends StatefulWidget {
   final Member? member;
@@ -236,6 +237,8 @@ class _MemberCardState extends SafeState<MemberCard> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: FloatingActionButton(
+                                    heroTag:
+                                        '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard1',
                                     onPressed: () {
                                       if (timeFronting.inMicroseconds > 0 &&
                                           !hideFrontTimes) {
@@ -330,6 +333,8 @@ class _MemberCardState extends SafeState<MemberCard> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: FloatingActionButton(
+                                      heroTag:
+                                          '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard2',
                                       onPressed: () {
                                         if (inFront || isConscious) {
                                           widget.member
@@ -427,6 +432,8 @@ class _MemberCardState extends SafeState<MemberCard> {
             ),
             SizedBox(width: 10),
             FloatingActionButton(
+              heroTag:
+                  '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard3',
               onPressed: () {
                 showModalBottomSheet(
                   context: context,

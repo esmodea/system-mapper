@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';
+import 'package:uuid/uuid.dart';
 
 class SelectReplacementFronter extends StatelessWidget {
   final Member filterMember;
@@ -36,6 +37,7 @@ class SelectReplacementFronter extends StatelessWidget {
                       children: [
                         Text(member.memberName ?? ''),
                         FloatingActionButton(
+                          heroTag: '${'${member.memberName}${Uuid().v6().toString()}'}heroTag',
                           onPressed: () async {
                             await member.removeFromSingleFront();
                             await member.addToSingleFront();
