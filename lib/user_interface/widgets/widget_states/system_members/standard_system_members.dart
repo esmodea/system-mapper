@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
+import 'package:system_mapper/user_interface/widgets/cards/member_card.dart';
 import 'package:system_mapper/utils/current.dart';
 
 class StandardSystemMembers extends StatefulWidget {

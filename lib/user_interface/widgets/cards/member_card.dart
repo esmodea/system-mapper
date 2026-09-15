@@ -219,7 +219,7 @@ class _MemberCardState extends SafeState<MemberCard> {
                                       child: Wrap(
                                         children: [
                                           Text(
-                                            '${(timeFronting.inDays / 7) >= 1 ? '${(timeFronting.inDays / 7)}w ' : ''}${timeFronting.inDays > 0 ? '${timeFronting.inDays % 7}d ' : ''}${timeFronting.inHours > 0 ? '${timeFronting.inHours % 24}h ' : ''}${timeFronting.inMinutes > 0 && !(timeFronting.inDays > 0) ? '${timeFronting.inMinutes % 60}m ' : ''}${timeFronting.inSeconds > 0 && !(timeFronting.inHours > 0) ? '${timeFronting.inSeconds % 60}s ' : ''}',
+                                            '${(timeFronting.inDays / 7) >= 1 ? '${(timeFronting.inDays / 7).roundToDouble().toInt()}w ' : ''}${timeFronting.inDays > 0 ? '${timeFronting.inDays % 7}d ' : ''}${timeFronting.inHours > 0 ? '${timeFronting.inHours % 24}h ' : ''}${timeFronting.inMinutes > 0 && !(timeFronting.inDays > 0) ? '${timeFronting.inMinutes % 60}m ' : ''}${timeFronting.inSeconds > 0 && !(timeFronting.inHours > 0) ? '${timeFronting.inSeconds % 60}s ' : ''}',
                                             style: TextTheme.of(
                                               context,
                                             ).bodyLarge,
