@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feeling.dart';
+import 'package:system_mapper/user_interface/widgets/debug/feelings_debug_list.dart';
 import 'package:system_mapper/user_interface/widgets/debug/single_fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/debug/standard_fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/fronting_status.dart';
@@ -57,6 +59,7 @@ class InformationView extends StatelessWidget {
                           FrontingStatus(),
                           if (kDebugMode) StandardFrontingStatusDebug(),
                           if (kDebugMode) SingleFrontingStatusDebug(),
+                          if (kDebugMode) FeelingsDebugList(),
                         ],
                       ),
                     ),

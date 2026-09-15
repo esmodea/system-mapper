@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feelings.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
@@ -14,6 +15,11 @@ class Current {
 
   static ValueListenable get systemListenable =>
       ModelType.system.appBox.valueListenableForId(System().currentID);
+
+  static FeelingsList? get feelings => ModelType.feelings.getCurrent();
+
+  static ValueListenable get feelingsListenable =>
+      ModelType.feelings.appBox.valueListenableForId(FeelingsList().currentID);
 
   // Standard Front
   static StandardFront? get standardFront =>

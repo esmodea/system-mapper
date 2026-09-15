@@ -8,6 +8,9 @@ abstract class TypeIds {
   static const int standardFrontArchive = 4;
   static const int singleFrontArchive = 5;
   static const int singleFront = 6;
+  static const int feeling = 7;
+  static const int feelings = 8;
+  static const int feelingEntry = 9;
 
   // General Settings (use range 1000 - 1999)
   static const int settings = 1000;

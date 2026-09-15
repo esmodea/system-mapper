@@ -1,4 +1,5 @@
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feeling_entry.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
@@ -38,6 +39,12 @@ class FrontEntry extends BaseModel {
 
   @HiveField(6)
   bool? isOnlyConscious;
+
+  @HiveField(7)
+  FeelingEntry? startFeeling;
+
+  @HiveField(8)
+  FeelingEntry? endFeeling;
 
   FrontEntry({
     this.id,

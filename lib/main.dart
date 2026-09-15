@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feelings.dart';
 import 'package:system_mapper/data/hive_objects/settings/cursor.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/data/model_classes/app_box.dart';
@@ -27,6 +28,13 @@ Future<void> main() async {
   if (Current.cursor == null) {
     Cursor(cursorX: 0, cursorY: 0).updateCurrent();
   }
+
+  // Initialize feeling propagator
+  await FeelingsList().updateCurrent();
+  final bool hasPropagated =
+      Current.feelings?.propagator?.hasPropagated ?? false;
+  Current.feelings?.updateCurrent();
+  debugPrint('Feelings have propagated: $hasPropagated');
 
   runApp(const MyApp());
 }

@@ -17,20 +17,22 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FrontEntry(
-      id: fields[0] as String?,
-      startTime: fields[1] as DateTime?,
-      endTime: fields[2] as DateTime?,
-      member: fields[3] as Member?,
-      frontEntryUUID: fields[4] as String?,
-      memberUUID: fields[5] as String?,
-      isOnlyConscious: fields[6] as bool?,
-    );
+        id: fields[0] as String?,
+        startTime: fields[1] as DateTime?,
+        endTime: fields[2] as DateTime?,
+        member: fields[3] as Member?,
+        frontEntryUUID: fields[4] as String?,
+        memberUUID: fields[5] as String?,
+        isOnlyConscious: fields[6] as bool?,
+      )
+      ..startFeeling = fields[7] as FeelingEntry?
+      ..endFeeling = fields[8] as FeelingEntry?;
   }
 
   @override
   void write(BinaryWriter writer, FrontEntry obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(9)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -44,7 +46,11 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       ..writeByte(5)
       ..write(obj.memberUUID)
       ..writeByte(6)
-      ..write(obj.isOnlyConscious);
+      ..write(obj.isOnlyConscious)
+      ..writeByte(7)
+      ..write(obj.startFeeling)
+      ..writeByte(8)
+      ..write(obj.endFeeling);
   }
 
   @override

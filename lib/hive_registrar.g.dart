@@ -3,6 +3,9 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feeling.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feeling_entry.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feelings.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
@@ -16,6 +19,9 @@ import 'package:system_mapper/data/hive_objects/system/system.dart';
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(CursorAdapter());
+    registerAdapter(FeelingAdapter());
+    registerAdapter(FeelingEntryAdapter());
+    registerAdapter(FeelingsListAdapter());
     registerAdapter(FrontEntryAdapter());
     registerAdapter(MemberAdapter());
     registerAdapter(SettingsAdapter());
@@ -30,6 +36,9 @@ extension HiveRegistrar on HiveInterface {
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(CursorAdapter());
+    registerAdapter(FeelingAdapter());
+    registerAdapter(FeelingEntryAdapter());
+    registerAdapter(FeelingsListAdapter());
     registerAdapter(FrontEntryAdapter());
     registerAdapter(MemberAdapter());
     registerAdapter(SettingsAdapter());

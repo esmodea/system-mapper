@@ -1,3 +1,6 @@
+import 'package:system_mapper/data/hive_objects/feelings/feeling.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feeling_entry.dart';
+import 'package:system_mapper/data/hive_objects/feelings/feelings.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/single_front/single_front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
@@ -93,6 +96,30 @@ enum ModelType<T extends BaseModel> {
     title: 'Cursor',
     pluralTitle: 'Cursors',
     appBox: AppBox<Cursor>(key: 'cursors', typeId: TypeIds.cursor),
+  ),
+  feeling(
+    name: 'feeling',
+    pluralName: 'feelings',
+    title: 'Feeling',
+    pluralTitle: 'Feelings',
+    appBox: AppBox<Feeling>(key: 'feeling', typeId: TypeIds.feeling),
+  ),
+  feelings(
+    name: 'feelings',
+    pluralName: 'feelings',
+    title: 'Feelings',
+    pluralTitle: 'Feelings',
+    appBox: AppBox<FeelingsList>(key: 'feelings', typeId: TypeIds.feelings),
+  ),
+  feelingEntry(
+    name: 'feelingEntry',
+    pluralName: 'feelingEntries',
+    title: 'Feeling Entry',
+    pluralTitle: 'Feeling Entries',
+    appBox: AppBox<FeelingEntry>(
+      key: 'feelingEntry',
+      typeId: TypeIds.feelingEntry,
+    ),
   );
 
   final String name;
@@ -166,6 +193,12 @@ enum ModelType<T extends BaseModel> {
         return Settings();
       case ModelType.cursor:
         return Cursor();
+      case ModelType.feeling:
+        return Feeling();
+      case ModelType.feelings:
+        return FeelingsList();
+      case ModelType.feelingEntry:
+        return FeelingEntry();
     }
   }
 }
