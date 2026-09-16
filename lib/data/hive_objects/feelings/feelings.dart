@@ -14,10 +14,7 @@ class FeelingsList extends BaseModel {
   ModelType<FeelingsList> get modelType => ModelType.feelings;
 
   @override
-  String? get currentID => 'current-feelings-list-id';
-
-  // TO DO: Anonymise with a generated UUID
-  // static const String currentSystemID = 'current-member-id';
+  String? get currentID => '7e0358c9-4b11-402c-916f-59a48185126c';
 
   @override
   @HiveField(0)

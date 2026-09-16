@@ -12,9 +12,8 @@ class StandardFrontArchive extends BaseModel {
   ModelType<StandardFrontArchive> get modelType =>
       ModelType.standardFrontArchive;
 
-  // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-front-archive-id';
+  String get currentID => 'a8d73df7-f545-4b8e-843e-44a83c117318';
 
   @override
   @HiveField(0)

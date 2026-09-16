@@ -29,11 +29,15 @@ class Feeling extends BaseModel {
   @HiveField(3)
   String? feelingParentName;
 
+  @HiveField(4)
+  String? emojiCode;
+
   Feeling({
     this.id,
     this.feelingName,
     this.feelingDescription,
     this.feelingParentName,
+    this.emojiCode,
   });
 
   @override

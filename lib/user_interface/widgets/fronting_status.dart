@@ -15,13 +15,25 @@ class FrontingStatus extends StatefulWidget {
 class _FrontingStatusState extends State<FrontingStatus> {
   @override
   Widget build(BuildContext context) {
-    switch (SystemFrontType.parse(Current.system?.frontType.toString() ?? '')) {
-      case SystemFrontType.onlyTrackFront:
-        return StandardFrontStatus(isBlank: widget.isBlank);
-      case SystemFrontType.trackSingleFront:
-        return SingleFrontStatus(isBlank: widget.isBlank);
-      default:
-        return StandardFrontStatus(isBlank: widget.isBlank);
-    }
+    return ValueListenableBuilder(
+      valueListenable: Current.standardFrontListenable,
+      builder: (context, value, child) {
+        return ValueListenableBuilder(
+          valueListenable: Current.singleFrontListenable,
+          builder: (context, value, child) {
+            switch (SystemFrontType.parse(
+              Current.system?.frontType.toString() ?? '',
+            )) {
+              case SystemFrontType.onlyTrackFront:
+                return StandardFrontStatus(isBlank: widget.isBlank);
+              case SystemFrontType.trackSingleFront:
+                return SingleFrontStatus(isBlank: widget.isBlank);
+              default:
+                return StandardFrontStatus(isBlank: widget.isBlank);
+            }
+          },
+        );
+      },
+    );
   }
 }

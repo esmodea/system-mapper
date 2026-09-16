@@ -19,9 +19,8 @@ class System extends BaseModel {
   @override
   ModelType<System> get modelType => ModelType.system;
 
-  // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-system-id';
+  String get currentID => '54c427e7-90cc-44fb-b955-58f123b32d2b';
 
   @override
   @HiveField(0)

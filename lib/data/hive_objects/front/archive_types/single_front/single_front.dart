@@ -12,9 +12,8 @@ class SingleFront extends BaseModel {
   @override
   ModelType<SingleFront> get modelType => ModelType.singleFront;
 
-  // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-single-front-id';
+  String get currentID => 'a8008594-7185-4ea0-a577-f179e0ee6d86';
 
   @override
   @HiveField(0)

@@ -12,9 +12,8 @@ class Settings extends BaseModel {
   @override
   ModelType<Settings> get modelType => ModelType.settings;
 
-  // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-settings-id';
+  String get currentID => '37974923-f540-4211-9fec-1ed26e459863';
 
   @override
   @HiveField(0)

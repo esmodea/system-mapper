@@ -18,17 +18,20 @@ class _FeelingsDebugListState extends State<FeelingsDebugList> {
           child: Column(
             children: [
               Text('Feelings:'),
-              ...Current.feelings!.firstOrderFeelings!.map((feeling) {
-                return Text(feeling.feelingName ?? '');
-              }),
+              ...Current.feelings?.firstOrderFeelings!.map((feeling) {
+                    return Text(feeling.feelingName ?? '');
+                  }) ??
+                  [],
               Text('Second Order Feelings:'),
-              ...Current.feelings!.secondOrderFeelings!.map((feeling) {
-                return Text(feeling.feelingName ?? '');
-              }),
+              ...Current.feelings?.secondOrderFeelings!.map((feeling) {
+                    return Text(feeling.feelingName ?? '');
+                  }) ??
+                  [],
               Text('Third Order Feelings:'),
-              ...Current.feelings!.thirdOrderFeelings!.map((feeling) {
-                return Text(feeling.feelingName ?? '');
-              }),
+              ...Current.feelings?.thirdOrderFeelings!.map((feeling) {
+                    return Text(feeling.feelingName ?? '');
+                  }) ??
+                  [],
             ],
           ),
         );

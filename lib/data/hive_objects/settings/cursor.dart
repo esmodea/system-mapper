@@ -11,9 +11,8 @@ class Cursor extends BaseModel {
   @override
   ModelType<Cursor> get modelType => ModelType.cursor;
 
-  // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-cursor-id';
+  String get currentID => '79b5071e-9a08-4058-a8d9-cbd086670f60';
 
   @override
   @HiveField(0)

@@ -32,16 +32,14 @@ class InformationView extends StatelessWidget {
                       maxWidth: (constraints.maxWidth / 10) * 6,
                       maxHeight: (constraints.maxHeight),
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: SingleChildScrollView(
-                        controller: ScrollController(),
+                    child: SingleChildScrollView(
+                      controller: ScrollController(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(24.0),
                         child: Column(
                           children: [
                             SystemMembers(),
-                            FeelingsSelector(
-                              child: Icon(Icons.emoji_emotions_sharp),
-                            ),
+                            FeelingsSelector(),
                             // Placeholder(),
                             // Placeholder(),
                             // Placeholder(),

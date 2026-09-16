@@ -11,9 +11,8 @@ class SingleFrontArchive extends BaseModel {
   @override
   ModelType<SingleFrontArchive> get modelType => ModelType.singleFrontArchive;
 
-  // TODO: Anonymise with a generated UUID
   @override
-  String get currentID => 'current-single-front-archive-id';
+  String get currentID => '1e56ade0-f5b4-4a51-9add-9f3866b2fd8d';
 
   @override
   @HiveField(0)
