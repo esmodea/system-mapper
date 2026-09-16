@@ -4,6 +4,7 @@ import 'package:system_mapper/user_interface/widgets/debug/feelings_debug_list.d
 import 'package:system_mapper/user_interface/widgets/debug/single_fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/debug/standard_fronting_status_debug.dart';
 import 'package:system_mapper/user_interface/widgets/fronting_status.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/feelings_wheel.dart';
 import 'package:system_mapper/user_interface/widgets/system_info.dart';
 import 'package:system_mapper/user_interface/widgets/system_members.dart';
 import 'package:system_mapper/utils/current.dart';
@@ -29,13 +30,18 @@ class InformationView extends StatelessWidget {
                   ConstrainedBox(
                     constraints: BoxConstraints(
                       maxWidth: (constraints.maxWidth / 10) * 6,
+                      maxHeight: (constraints.maxHeight),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(24.0),
                       child: SingleChildScrollView(
+                        controller: ScrollController(),
                         child: Column(
                           children: [
                             SystemMembers(),
+                            FeelingsSelector(
+                              child: Icon(Icons.emoji_emotions_sharp),
+                            ),
                             // Placeholder(),
                             // Placeholder(),
                             // Placeholder(),

@@ -30,13 +30,10 @@ class _StandardSystemMembersState extends State<StandardSystemMembers> {
                         borderRadius: BorderRadius.all(Radius.circular(20)),
                         color: ColorScheme.of(context).primary,
                       ),
-                      constraints: BoxConstraints(maxHeight: 600),
                       child: Center(
-                        child: Column(
-                          children: [Expanded(child: Stack(children: [
+                        child: Column(children: [Stack(children: [
                                 ],
-                              ))],
-                        ),
+                              )]),
                       ),
                     ),
                     IgnorePointer(
@@ -59,20 +56,10 @@ class _StandardSystemMembersState extends State<StandardSystemMembers> {
                             ],
                           ),
                         ),
-                        constraints: BoxConstraints(maxHeight: 600),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: SizedBox.expand(
-                                child: Row(
-                                  children: [
-                                    Expanded(child: SizedBox.expand()),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: Column(children: [Row(children: [
+                                
+                              ],
+                            )]),
                       ),
                     ),
                   ],
@@ -86,42 +73,38 @@ class _StandardSystemMembersState extends State<StandardSystemMembers> {
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     color: ColorScheme.of(context).primary,
                   ),
-                  constraints: BoxConstraints(maxHeight: 600),
                   child: Center(
                     child: Column(
                       children: [
-                        Expanded(
-                          child: Stack(
-                            children: [
-                              SingleChildScrollView(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10),
-                                  child: Column(
-                                    spacing: 10,
-                                    children: [
-                                      ...Current.system?.membersList
-                                              ?.map(
-                                                (member) => MemberCard(
-                                                  member: member,
-                                                  showFrontTime: true,
-                                                ),
-                                              )
-                                              .toList() ??
-                                          [],
-                                      Opacity(opacity: 0, child: MemberCard()),
-                                      SizedBox(height: 10),
-                                    ],
-                                  ),
+                        Stack(
+                          children: [
+                            SingleChildScrollView(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Column(
+                                  spacing: 10,
+                                  children: [
+                                    ...Current.system?.membersList
+                                            ?.map(
+                                              (member) => MemberCard(
+                                                member: member,
+                                                showFrontTime: true,
+                                              ),
+                                            )
+                                            .toList() ??
+                                        [],
+                                    Opacity(opacity: 0, child: MemberCard()),
+                                  ],
                                 ),
                               ),
-                              Positioned(
-                                left: 10,
-                                right: 10,
-                                bottom: 10,
-                                child: MemberCard(),
-                              ),
-                            ],
-                          ),
+                            ),
+                            Positioned(
+                              left: 10,
+                              right: 10,
+                              bottom: 10,
+                              child: MemberCard(),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -147,18 +130,7 @@ class _StandardSystemMembersState extends State<StandardSystemMembers> {
                         ],
                       ),
                     ),
-                    constraints: BoxConstraints(maxHeight: 600),
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SizedBox.expand(
-                            child: Row(
-                              children: [Expanded(child: SizedBox.expand())],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                    child: Column(children: [Row(children: [])]),
                   ),
                 ),
                 Positioned(
