@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
-import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,18 +12,6 @@ class SelectReplacementFronter extends StatelessWidget {
     return Center(
       child: Container(
         alignment: Alignment.bottomCenter,
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: ColorScheme.of(context).shadow,
-              spreadRadius: 0,
-              blurRadius: 10,
-              offset: Offset(15, 15),
-            ),
-          ],
-          borderRadius: BorderRadius.all(Radius.circular(38)),
-          color: ColorScheme.of(context).primaryContainer,
-        ),
         width: 600,
         height: 400,
         padding: EdgeInsets.all(24),
@@ -37,7 +24,8 @@ class SelectReplacementFronter extends StatelessWidget {
                       children: [
                         Text(member.memberName ?? ''),
                         FloatingActionButton(
-                          heroTag: '${'${member.memberName}${Uuid().v6().toString()}'}heroTag',
+                          heroTag:
+                              '${'${member.memberName}${Uuid().v6().toString()}'}heroTag',
                           onPressed: () async {
                             await member.removeFromSingleFront();
                             await member.addToSingleFront();
@@ -55,14 +43,6 @@ class SelectReplacementFronter extends StatelessWidget {
                   }
                 }) ??
                 [],
-            SystemTextButton(
-              text: 'No way!',
-              onPressed: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              },
-            ),
           ],
         ),
       ),

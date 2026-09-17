@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pie_menu/pie_menu.dart';
+import 'package:system_mapper/user_interface/widgets/cards/selected_feeling_card.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
@@ -18,10 +19,12 @@ class FeelingsInfo {
 }
 
 class FeelingsSelector extends StatefulWidget {
+  final String feelingString;
   final Widget child;
   final void Function(FeelingsInfo info) callback;
   const FeelingsSelector({
     super.key,
+    this.feelingString = 'How do you feel?',
     this.child = const Icon(Icons.emoji_emotions_sharp),
     this.callback = defaultCallback,
   });
@@ -66,15 +69,15 @@ class _FeelingsSelectorState extends SafeState<FeelingsSelector> {
             height: 75,
             alignment: Alignment.center,
             child: Text(
-              'How do you feel?',
-              style: TextTheme.of(context).displayMedium,
+              widget.feelingString,
+              style: TextTheme.of(context).displaySmall,
             ),
           ),
           Container(
             width: 600,
             height: 325,
             decoration: BoxDecoration(
-              color: ColorScheme.of(context).secondaryContainer,
+              color: ColorScheme.of(context).primary,
               borderRadius: BorderRadius.all(Radius.circular(200)),
             ),
             child: Stack(
@@ -83,89 +86,16 @@ class _FeelingsSelectorState extends SafeState<FeelingsSelector> {
                   top: 0,
                   right: 50,
                   bottom: 0,
-                  child: Container(
-                    alignment: Alignment.center,
-                    // transform: Matrix4.translationValues(textOffset / 2, 0, 0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: ColorScheme.of(context).primary,
-                        borderRadius: BorderRadius.all(Radius.circular(48)),
-                      ),
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('Selected emotion'),
-                          Container(
-                            height: 2,
-                            width: 100,
-                            color: ColorScheme.of(context).onPrimary,
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              if (shouldShowFirst &&
-                                  !shouldShowSecond &&
-                                  !shouldShowThird)
-                                RichText(
-                                  text: TextSpan(text: firstOrderEmoji),
-                                  overflow: TextOverflow.ellipsis,
-                                  textScaler: TextScaler.linear(1),
-                                ),
-                              if (shouldShowFirst &&
-                                  !shouldShowSecond &&
-                                  !shouldShowThird)
-                                RichText(
-                                  text: TextSpan(
-                                    text: firstOrderSelection,
-                                    style: TextTheme.of(context).displayMedium
-                                        ?.copyWith(
-                                          fontSize: TextTheme.of(
-                                            context,
-                                          ).headlineSmall?.fontSize,
-                                        ),
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              if (shouldShowSecond && !shouldShowThird)
-                                RichText(
-                                  text: TextSpan(text: secondOrderEmoji),
-                                  overflow: TextOverflow.ellipsis,
-                                  textScaler: TextScaler.linear(2),
-                                ),
-                              if (shouldShowSecond && !shouldShowThird)
-                                RichText(
-                                  text: TextSpan(
-                                    text: secondOrderSelection,
-                                    style: TextTheme.of(context).displayMedium
-                                        ?.copyWith(
-                                          fontSize: TextTheme.of(
-                                            context,
-                                          ).headlineLarge?.fontSize,
-                                        ),
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              if (shouldShowThird)
-                                RichText(
-                                  text: TextSpan(text: thirdOrderEmoji),
-                                  overflow: TextOverflow.ellipsis,
-                                  textScaler: TextScaler.linear(3),
-                                ),
-                              if (shouldShowThird)
-                                RichText(
-                                  text: TextSpan(
-                                    text: thirdOrderSelection,
-                                    style: TextTheme.of(context).displayMedium,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: SelectedFeelingCard(
+                    shouldShowFirst: shouldShowFirst,
+                    shouldShowSecond: shouldShowSecond,
+                    shouldShowThird: shouldShowThird,
+                    firstOrderEmoji: firstOrderEmoji,
+                    firstOrderSelection: firstOrderSelection,
+                    secondOrderEmoji: secondOrderEmoji,
+                    secondOrderSelection: secondOrderSelection,
+                    thirdOrderEmoji: thirdOrderEmoji,
+                    thirdOrderSelection: thirdOrderSelection,
                   ),
                 ),
                 ClipRRect(

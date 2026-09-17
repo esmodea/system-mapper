@@ -29,13 +29,6 @@ Future<void> main() async {
     Cursor(cursorX: 0, cursorY: 0).updateCurrent();
   }
 
-  // Initialize feeling propagator
-  await FeelingsList().updateCurrent();
-  final bool hasPropagated =
-      Current.feelings?.propagator?.hasPropagated ?? false;
-  Current.feelings?.updateCurrent();
-  debugPrint('Feelings have propagated: $hasPropagated');
-
   runApp(const MyApp());
 }
 
@@ -74,6 +67,10 @@ class MyApp extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: Current.settingsListenable,
         builder: (context, value, child) {
+          // Initialize feeling propagator
+          FeelingsList().updateCurrent();
+          Current.feelings?.propagator?.hasPropagated ?? false;
+          Current.feelings?.updateCurrent();
           return MaterialApp(
             title: 'System Mapper',
             routes: AppRoutes.routes(context),

@@ -234,21 +234,21 @@ class Member extends BaseModel {
 
   bool inFrontCheck() {
     if (Current.system?.frontType == SystemFrontType.onlyTrackFront) {
-      return (Current.standardFront?.membersInFront?.indexWhere(
-            (member) => member.memberName == memberName,
+      return (Current.standardFront?.activeFrontEntries?.indexWhere(
+            (entry) => entry.member?.memberName == memberName,
           ) !=
           -1);
     } else {
-      return (Current.singleFront?.membersInFront?.indexWhere(
-            (member) => member.memberName == memberName,
+      return (Current.singleFront?.activeFrontEntries?.indexWhere(
+            (entry) => entry.member?.memberName == memberName,
           ) !=
           -1);
     }
   }
 
   bool consciousCheck() {
-    return (Current.singleFront?.membersConscious?.indexWhere(
-          (member) => member.memberName == memberName,
+    return (Current.singleFront?.activeConsciousnessEntries?.indexWhere(
+          (entry) => entry.member?.memberName == memberName,
         ) !=
         -1);
   }

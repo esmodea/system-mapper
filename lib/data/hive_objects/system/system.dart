@@ -104,7 +104,11 @@ class System extends BaseModel {
       systemUUID: systemUUID ?? modelType.getCurrent()?.systemUUID,
       frontTypeString:
           frontTypeString ?? modelType.getCurrent()?.frontTypeString,
-    ).save();
+      standardFront: Current.standardFront,
+      trackSingleFront: Current.singleFront,
+      standardFrontArchive: Current.standardFrontArchive,
+      trackSingleFrontArchive: Current.singleFrontArchive,
+    ).saveSafely();
   }
 
   Future<void> saveSafely() async {

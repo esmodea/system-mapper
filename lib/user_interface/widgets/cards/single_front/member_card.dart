@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/user_interface/widgets/forms/member_form.dart';
-import 'package:system_mapper/user_interface/widgets/select_replacement_fronter.dart';
-import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
+import 'package:system_mapper/user_interface/widgets/modals/default_modal.dart';
+// import 'package:system_mapper/user_interface/widgets/select_replacement_fronter.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 import 'package:uuid/uuid.dart';
@@ -242,72 +242,16 @@ class _MemberCardState extends SafeState<MemberCard> {
                                     onPressed: () {
                                       if (timeFronting.inMicroseconds > 0 &&
                                           !hideFrontTimes) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return Center(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                decoration: BoxDecoration(
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: ColorScheme.of(
-                                                        context,
-                                                      ).shadow,
-                                                      spreadRadius: 0,
-                                                      blurRadius: 10,
-                                                      offset: Offset(15, 15),
-                                                    ),
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                        Radius.circular(38),
-                                                      ),
-                                                  color: ColorScheme.of(
-                                                    context,
-                                                  ).primaryContainer,
-                                                ),
-                                                width: 600,
-                                                height: 400,
-                                                padding: EdgeInsets.all(24),
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceAround,
-                                                  children: [
-                                                    Text(
-                                                      'You can\'t edit a member that\'s currently in the front!',
-                                                      style: TextTheme.of(
-                                                        context,
-                                                      ).displayLarge,
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                    SizedBox(
-                                                      width: 300,
-                                                      child: SystemTextButton(
-                                                        text: 'Okay...',
-                                                        onPressed: () {
-                                                          if (Navigator.canPop(
-                                                            context,
-                                                          )) {
-                                                            Navigator.pop(
-                                                              context,
-                                                            );
-                                                          }
-                                                        },
-                                                        fontSize: ButtonFontSize
-                                                            .large,
-                                                        isExpanded: true,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        );
+                                        DefaultModal(
+                                          buttonText: 'Okay...',
+                                          child: Text(
+                                            'You can\'t edit a member that\'s currently in the front!',
+                                            style: TextTheme.of(
+                                              context,
+                                            ).displayLarge,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ).build(context);
                                       } else {
                                         showModalBottomSheet(
                                           context: context,
@@ -327,56 +271,55 @@ class _MemberCardState extends SafeState<MemberCard> {
                                     child: Icon(Icons.edit),
                                   ),
                                 ),
-                              ValueListenableBuilder(
-                                valueListenable: Current.systemListenable,
-                                builder: (context, value, child) {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: FloatingActionButton(
-                                      heroTag:
-                                          '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard2',
-                                      onPressed: () {
-                                        if (inFront || isConscious) {
-                                          widget.member
-                                              ?.removeFromSingleFront();
-                                          if (!isConscious) {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) {
-                                                return SelectReplacementFronter(
-                                                  filterMember:
-                                                      widget.member ?? Member(),
-                                                );
-                                              },
-                                            );
-                                          }
-                                        } else {
-                                          widget.member?.addToSingleFront();
-                                        }
-                                        safeSetState(() {
-                                          inFront =
-                                              widget.member?.inFrontCheck() ??
-                                              false;
-                                          isConscious =
-                                              widget.member?.consciousCheck() ??
-                                              false;
-                                        });
-                                      },
-                                      child: ValueListenableBuilder(
-                                        valueListenable:
-                                            Current.systemListenable,
-                                        builder: (context, value, child) {
-                                          return Icon(
-                                            (inFront || isConscious)
-                                                ? Icons.remove
-                                                : Icons.add,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                              // ValueListenableBuilder(
+                              //   valueListenable: Current.systemListenable,
+                              //   builder: (context, value, child) {
+                              //     return Padding(
+                              //       padding: const EdgeInsets.all(8.0),
+                              //       child: FloatingActionButton(
+                              //         heroTag:
+                              //             '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard2',
+                              //         onPressed: () {
+                              //           if (inFront || isConscious) {
+                              //             widget.member
+                              //                 ?.removeFromSingleFront();
+                              //             if (!isConscious) {
+                              //               DefaultModal(
+                              //                 buttonText: 'No way!',
+                              //                 preferredSize: Size(648, 508),
+                              //                 child: SelectReplacementFronter(
+                              //                   filterMember:
+                              //                       widget.member ?? Member(),
+                              //                 ),
+                              //               ).build(context);
+                              //             }
+                              //           } else {
+                              //             widget.member?.addToSingleFront();
+                              //           }
+                              //           safeSetState(() {
+                              //             inFront =
+                              //                 widget.member?.inFrontCheck() ??
+                              //                 false;
+                              //             isConscious =
+                              //                 widget.member?.consciousCheck() ??
+                              //                 false;
+                              //           });
+                              //         },
+                              //         child: ValueListenableBuilder(
+                              //           valueListenable:
+                              //               Current.systemListenable,
+                              //           builder: (context, value, child) {
+                              //             return Icon(
+                              //               (inFront || isConscious)
+                              //                   ? Icons.remove
+                              //                   : Icons.add,
+                              //             );
+                              //           },
+                              //         ),
+                              //       ),
+                              //     );
+                              //   },
+                              // ),
                             ],
                           ),
                       ],

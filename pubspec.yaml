@@ -47,6 +47,7 @@ dependencies:
   shimmer_animation: ^2.2.2+1
   pie_menu: ^3.8.3
   flutter_emoji: ^2.5.1
+  omni_datetime_picker: ^2.3.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

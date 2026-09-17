@@ -60,7 +60,7 @@ class AppBox<T> {
     return box.clear();
   }
 
-  ValueListenable valueListenableForId(dynamic id) =>
+  ValueListenable<Box<T>> valueListenableForId(dynamic id) =>
       valueListenable(keys: [storageKeyForId(id)]);
 
   static Future<void> clearAllBoxes() async {

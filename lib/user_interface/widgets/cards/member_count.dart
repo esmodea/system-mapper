@@ -61,30 +61,25 @@ class _MemberCountState extends State<MemberCount> {
     return ValueListenableBuilder(
       valueListenable: Current.systemListenable,
       builder: (context, value, child) {
-        return ValueListenableBuilder(
-          valueListenable: Current.standardFrontListenable,
-          builder: (context, value, child) {
-            controller.addValue(widget.type.count() - controller.value);
-            return Container(
-              decoration: BoxDecoration(
-                color: _backgroundColor.withAlpha(80),
-                borderRadius: BorderRadius.all(Radius.circular(24)),
+        controller.addValue(widget.type.count() - controller.value);
+        return Container(
+          decoration: BoxDecoration(
+            color: _backgroundColor.withAlpha(80),
+            borderRadius: BorderRadius.all(Radius.circular(24)),
+          ),
+          width: 80,
+          height: 80,
+          alignment: Alignment.center,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(
+                Icons.person_outline,
+                size: TextTheme.of(context).displaySmall?.fontSize,
               ),
-              width: 80,
-              height: 80,
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.person_outline,
-                    size: TextTheme.of(context).displaySmall?.fontSize,
-                  ),
-                  AnimatedDigitWidget(controller: controller, loop: false),
-                ],
-              ),
-            );
-          },
+              AnimatedDigitWidget(controller: controller, loop: false),
+            ],
+          ),
         );
       },
     );
@@ -103,9 +98,9 @@ enum MemberCountType {
       case (totalCount):
         return Current.system?.membersList?.length ?? 0;
       case (frontCount):
-        return Current.standardFront?.membersInFront?.length ?? 0;
+        return Current.standardFront?.activeFrontEntries?.length ?? 0;
       case (consciousSingleFrontCount):
-        return Current.singleFront?.membersConscious?.length ?? 0;
+        return Current.singleFront?.activeConsciousnessEntries?.length ?? 0;
     }
   }
 }

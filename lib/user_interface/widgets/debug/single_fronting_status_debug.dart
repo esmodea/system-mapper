@@ -18,9 +18,9 @@ class _FrontingStatusDebugState extends State<SingleFrontingStatusDebug> {
         return ValueListenableBuilder(
           valueListenable: Current.singleFrontListenable,
           builder: (context, value, child) {
-            debugPrint(
-              'archivedConsciousnessEntries: ${Current.singleFrontArchive?.archivedConsciousnessEntries}',
-            );
+            // debugPrint(
+            //   'archivedConsciousnessEntries: ${Current.singleFrontArchive?.archivedConsciousnessEntries}',
+            // );
             return SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
