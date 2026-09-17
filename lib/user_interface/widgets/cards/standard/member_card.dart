@@ -193,8 +193,9 @@ class _MemberCardState extends SafeState<MemberCard> {
                                     ),
                                   ],
                                 ),
-                              if (widget.showEditButton)
-                                Padding(
+                              Opacity(
+                                opacity: widget.showEditButton ? 100 : 0,
+                                child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: FloatingActionButton(
                                     heroTag:
@@ -231,55 +232,7 @@ class _MemberCardState extends SafeState<MemberCard> {
                                     child: Icon(Icons.edit),
                                   ),
                                 ),
-                              // ValueListenableBuilder(
-                              //   valueListenable: Current.systemListenable,
-                              //   builder: (context, value, child) {
-                              //     return Padding(
-                              //       padding: const EdgeInsets.all(8.0),
-                              //       child: FloatingActionButton(
-                              //         heroTag:
-                              //             '${'${widget.member?.memberName}${Uuid().v6().toString()}'}heroTagMemberCard2',
-                              //         onPressed: () {
-                              //           if (inFront || isConscious) {
-                              //             widget.member
-                              //                 ?.removeFromSingleFront();
-                              //             if (!isConscious) {
-                              //               DefaultModal(
-                              //                 buttonText: 'No way!',
-                              //                 preferredSize: Size(648, 508),
-                              //                 child: SelectReplacementFronter(
-                              //                   filterMember:
-                              //                       widget.member ?? Member(),
-                              //                 ),
-                              //               ).build(context);
-                              //             }
-                              //           } else {
-                              //             widget.member?.addToSingleFront();
-                              //           }
-                              //           safeSetState(() {
-                              //             inFront =
-                              //                 widget.member?.inFrontCheck() ??
-                              //                 false;
-                              //             isConscious =
-                              //                 widget.member?.consciousCheck() ??
-                              //                 false;
-                              //           });
-                              //         },
-                              //         child: ValueListenableBuilder(
-                              //           valueListenable:
-                              //               Current.systemListenable,
-                              //           builder: (context, value, child) {
-                              //             return Icon(
-                              //               (inFront || isConscious)
-                              //                   ? Icons.remove
-                              //                   : Icons.add,
-                              //             );
-                              //           },
-                              //         ),
-                              //       ),
-                              //     );
-                              //   },
-                              // ),
+                              ),
                             ],
                           ),
                       ],

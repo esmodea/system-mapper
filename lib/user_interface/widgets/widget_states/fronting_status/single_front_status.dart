@@ -103,7 +103,9 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                                               type: FrontingFormType.addToFront,
                                               initialFormData: FrontingFormData(
                                                 startTime: DateTime.now(),
-                                                member: Member(memberBio: 'Select a member before continuing...'),
+                                                member: Member(
+                                                  memberName: 'None',
+                                                ),
                                                 isOnlyConscious:
                                                     Current
                                                         .singleFront

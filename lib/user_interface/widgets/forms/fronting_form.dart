@@ -91,7 +91,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
 
   bool validateForm() {
     bool formIsValid = false;
-    if (frontEntry.member?.memberName != null) {
+    if (frontEntry.member?.memberBio != null) {
       formIsValid = true;
     }
     return formIsValid;
@@ -359,6 +359,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                       ),
                     MemberCard(
                       member: frontEntry.member,
+                      hideBio: true,
                       showEditButton: false,
                     ),
                     SizedBox(height: 40),
@@ -446,8 +447,9 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                             frontEntry.endFeeling?.feeling?.feelingName ?? '',
                       ),
                     SizedBox(height: 40),
-                    if (validateForm())
-                      switch (widget.type) {
+                    Opacity(
+                      opacity: validateForm() ? 1 : 0.4,
+                      child: switch (widget.type) {
                         FrontingFormType.addToFront => Row(
                           mainAxisAlignment: timeRowAxisAlignment,
                           children: [
@@ -455,6 +457,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                               SystemFrontType.trackSingleFront =>
                                 SystemTextButton(
                                   text: 'Add to front',
+                                  disabled: !validateForm(),
                                   onPressed: () {
                                     debugPrint(
                                       'isOnlyConscious: ${widget.initialFormData.isOnlyConscious}',
@@ -473,6 +476,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                                 ),
                               _ => SystemTextButton(
                                 text: 'Add to front',
+                                disabled: !validateForm(),
                                 onPressed: () {
                                   if (widget
                                           .system
@@ -516,6 +520,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                               SystemFrontType.trackSingleFront =>
                                 SystemTextButton(
                                   text: 'Remove from front',
+                                  disabled: !validateForm(),
                                   onPressed: () {
                                     debugPrint(
                                       (!widget.initialFormData.isOnlyConscious)
@@ -538,6 +543,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                                 ),
                               _ => SystemTextButton(
                                 text: 'Remove from front',
+                                disabled: !validateForm(),
                                 onPressed: () {
                                   frontEntry.removeFromStandardFront();
                                   // if (Navigator.canPop(context)) {
@@ -553,6 +559,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                           children: [
                             SystemTextButton(
                               text: 'Select front times',
+                              disabled: !validateForm(),
                               onPressed: pickDateTime,
                             ),
                           ],
@@ -562,11 +569,13 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                           children: [
                             SystemTextButton(
                               text: 'Select front times',
+                              disabled: !validateForm(),
                               onPressed: pickDateTime,
                             ),
                           ],
                         ),
                       },
+                    ),
                   ],
                 ),
               ),
