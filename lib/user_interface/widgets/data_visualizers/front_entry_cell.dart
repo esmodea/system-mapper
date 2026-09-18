@@ -36,6 +36,13 @@ class FrontEntryCell extends StatelessWidget {
               topLeft: Radius.circular(8),
               bottomLeft: Radius.circular(8),
             ),
+            border: Border.symmetric(
+              vertical: BorderSide(
+                color: color,
+                width: 3,
+                strokeAlign: BorderSide.strokeAlignCenter,
+              ),
+            ),
           ),
           width: size.width,
           height: size.height,
@@ -63,6 +70,24 @@ class FrontEntryCell extends StatelessWidget {
           decoration: BoxDecoration(color: color),
           width: size.width,
           height: size.height,
+          transform: Matrix4(
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+          ).scaledByDouble(1.1, 1, 1, 1),
         );
       case (EntryCellType.rightEnd):
         return Container(
