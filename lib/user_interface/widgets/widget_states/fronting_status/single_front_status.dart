@@ -11,7 +11,7 @@ import 'package:system_mapper/user_interface/widgets/forms/fronting_form.dart';
 import 'package:system_mapper/user_interface/widgets/text_with_blank.dart';
 import 'package:system_mapper/utils/current.dart';
 
-class SingleFrontStatus extends StatefulWidget {
+class SingleFrontStatus extends StatelessWidget {
   final bool isBlank;
   final Box<System> systemBox;
   const SingleFrontStatus({
@@ -20,11 +20,6 @@ class SingleFrontStatus extends StatefulWidget {
     required this.systemBox,
   });
 
-  @override
-  State<SingleFrontStatus> createState() => _SingleFrontStatusState();
-}
-
-class _SingleFrontStatusState extends State<SingleFrontStatus> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -42,20 +37,19 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                       TextWithBlank(
                         text: 'Front type',
                         style: TextTheme.of(context).headlineLarge,
-                        isBlank: widget.isBlank,
+                        isBlank: isBlank,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (!widget.isBlank)
-                            Icon(Current.system?.frontType.icon),
+                          if (!isBlank) Icon(Current.system?.frontType.icon),
                           SizedBox(width: 8),
                           TextWithBlank(
                             text:
                                 Current.system?.frontType.label.toString() ??
                                 '',
                             style: TextTheme.of(context).bodyMedium,
-                            isBlank: widget.isBlank,
+                            isBlank: isBlank,
                           ),
                         ],
                       ),
@@ -68,7 +62,7 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                       TextWithBlank(
                         text: 'Current Fronter',
                         style: TextTheme.of(context).headlineLarge,
-                        isBlank: widget.isBlank,
+                        isBlank: isBlank,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -91,15 +85,7 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                                           children: [
                                             FrontingForm(
                                               system:
-                                                  widget
-                                                      .systemBox
-                                                      .values
-                                                      .isNotEmpty
-                                                  ? widget
-                                                        .systemBox
-                                                        .values
-                                                        .first
-                                                  : Current.system ?? System(),
+                                                  Current.system ?? System(),
                                               type: FrontingFormType.addToFront,
                                               initialFormData: FrontingFormData(
                                                 startTime: DateTime.now(),
@@ -127,9 +113,14 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                     ],
                   ),
                   SizedBox(height: 20),
-                  if (!widget.isBlank)
+                  if (!isBlank)
                     ...Current.singleFront?.activeFrontEntries
-                            ?.map((entry) => FrontingCard(entry: entry))
+                            ?.map(
+                              (entry) => FrontingCard(
+                                entry: entry,
+                                system: Current.system ?? System(),
+                              ),
+                            )
                             .toList() ??
                         [],
                   Row(
@@ -138,20 +129,25 @@ class _SingleFrontStatusState extends State<SingleFrontStatus> {
                       TextWithBlank(
                         text: 'Currently Conscious',
                         style: TextTheme.of(context).headlineLarge,
-                        isBlank: widget.isBlank,
+                        isBlank: isBlank,
                       ),
                       MemberCount(
                         type: MemberCountType.consciousSingleFrontCount,
                         backgroundColor: ColorScheme.of(
                           context,
                         ).primaryContainer,
-                        isBlank: widget.isBlank,
+                        isBlank: isBlank,
                       ),
                     ],
                   ),
-                  if (!widget.isBlank)
+                  if (!isBlank)
                     ...Current.singleFront?.activeConsciousnessEntries
-                            ?.map((entry) => FrontingCard(entry: entry))
+                            ?.map(
+                              (entry) => FrontingCard(
+                                entry: entry,
+                                system: Current.system ?? System(),
+                              ),
+                            )
                             .toList() ??
                         [],
                 ],

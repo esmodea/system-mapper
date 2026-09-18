@@ -80,6 +80,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
     endTime: widget.type == FrontingFormType.finalizeFront
         ? DateTime.now()
         : null,
+    startFeeling: widget.initialFormData.startFeeling,
     member: widget.initialFormData.member,
   );
 
@@ -93,6 +94,10 @@ class _FrontingFormState extends SafeState<FrontingForm> {
     bool formIsValid = false;
     if (frontEntry.member?.memberBio != null) {
       formIsValid = true;
+    }
+
+    if (frontEntry.startTime == frontEntry.endTime) {
+      formIsValid = false;
     }
     return formIsValid;
   }
@@ -299,7 +304,8 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    if (widget.system.membersList?.isNotEmpty ?? false)
+                    if ((Current.system?.membersList?.isNotEmpty ?? false) &&
+                        widget.type != FrontingFormType.finalizeFront)
                       SystemTextButton(
                         text: 'Select a member',
                         onPressed: () {
@@ -309,7 +315,7 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                                   buttonText: 'Cancel',
                                   child: Column(
                                     children: [
-                                      ...widget.system.membersList?.map((
+                                      ...Current.system?.membersList?.map((
                                             member,
                                           ) {
                                             return Row(
@@ -418,7 +424,8 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                         ),
                       ],
                     },
-                    if (frontEntry.startFeeling != null)
+                    if (frontEntry.startFeeling != null &&
+                        widget.type != FrontingFormType.finalizeFront)
                       SelectedFeelingCard(
                         shouldShowFirst: false,
                         shouldShowSecond: false,
@@ -526,16 +533,13 @@ class _FrontingFormState extends SafeState<FrontingForm> {
                                       (!widget.initialFormData.isOnlyConscious)
                                           .toString(),
                                     );
-                                    if (!(frontEntry.isOnlyConscious ??
+                                    if (frontEntry.isOnlyConscious ??
                                         widget
                                             .initialFormData
-                                            .isOnlyConscious)) {
-                                      debugPrint('test1');
-                                      frontEntry.removeFromSingleFront();
-                                    } else {
-                                      debugPrint('test2');
+                                            .isOnlyConscious) {
                                       frontEntry.removeFromConsciousness();
                                     }
+                                    frontEntry.removeFromSingleFront();
                                     if (Navigator.canPop(context)) {
                                       Navigator.pop(context);
                                     }

@@ -93,12 +93,14 @@ class FrontEntry extends BaseModel {
       await StandardFront(activeFrontEntries: newFrontList).updateCurrent();
       await StandardFrontArchive(
         archivedFrontEntries: [
-          ...Current.singleFrontArchive?.archivedFrontEntries ?? [],
+          if (Current.standardFrontArchive != null)
+            ...Current.standardFrontArchive?.archivedFrontEntries ?? [],
           this,
         ],
       ).updateCurrent();
     } else {
       debugPrint(startTime.toString());
+      debugPrint(endTime.toString());
       debugPrint(frontEntryUUID.toString());
       debugPrint(member.toString());
       throw ArgumentError.notNull();
@@ -121,7 +123,8 @@ class FrontEntry extends BaseModel {
       await SingleFront(activeFrontEntries: []).updateCurrent();
       await SingleFrontArchive(
         archivedFrontEntries: [
-          ...Current.singleFrontArchive?.archivedFrontEntries ?? [],
+          if (Current.singleFrontArchive != null)
+            ...Current.singleFrontArchive?.archivedFrontEntries ?? [],
           this,
         ],
       ).updateCurrent();
@@ -158,9 +161,11 @@ class FrontEntry extends BaseModel {
         (entry) => entry.frontEntryUUID == frontEntryUUID,
       );
       debugPrint(newConsciousnessList.toString());
+      isOnlyConscious = true;
       await SingleFrontArchive(
         archivedConsciousnessEntries: [
-          ...Current.singleFrontArchive?.archivedConsciousnessEntries ?? [],
+          if (Current.singleFrontArchive != null)
+            ...Current.singleFrontArchive?.archivedConsciousnessEntries ?? [],
           this,
         ],
       ).updateCurrent();

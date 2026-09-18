@@ -48,6 +48,7 @@ dependencies:
   pie_menu: ^3.8.3
   flutter_emoji: ^2.5.1
   omni_datetime_picker: ^2.3.2
+  linked_scroll_controller: ^0.2.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

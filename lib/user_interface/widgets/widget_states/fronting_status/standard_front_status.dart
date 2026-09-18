@@ -6,11 +6,12 @@ import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/user_interface/widgets/cards/fronting_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/member_count.dart';
 import 'package:system_mapper/user_interface/widgets/debug/standard_fronting_status_debug.dart';
+import 'package:system_mapper/user_interface/widgets/forms/begin_front_form.dart';
 import 'package:system_mapper/user_interface/widgets/forms/fronting_form.dart';
 import 'package:system_mapper/user_interface/widgets/text_with_blank.dart';
 import 'package:system_mapper/utils/current.dart';
 
-class StandardFrontStatus extends StatefulWidget {
+class StandardFrontStatus extends StatelessWidget {
   final bool isBlank;
   final Box<System> systemBox;
   const StandardFrontStatus({
@@ -18,12 +19,6 @@ class StandardFrontStatus extends StatefulWidget {
     this.isBlank = false,
     required this.systemBox,
   });
-
-  @override
-  State<StandardFrontStatus> createState() => _StandardFrontStatusState();
-}
-
-class _StandardFrontStatusState extends State<StandardFrontStatus> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -41,20 +36,19 @@ class _StandardFrontStatusState extends State<StandardFrontStatus> {
                       TextWithBlank(
                         text: 'Front type',
                         style: TextTheme.of(context).headlineLarge,
-                        isBlank: widget.isBlank,
+                        isBlank: isBlank,
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          if (!widget.isBlank)
-                            Icon(Current.system?.frontType.icon),
+                          if (!isBlank) Icon(Current.system?.frontType.icon),
                           SizedBox(width: 8),
                           TextWithBlank(
                             text:
                                 Current.system?.frontType.label.toString() ??
                                 '',
                             style: TextTheme.of(context).bodyMedium,
-                            isBlank: widget.isBlank,
+                            isBlank: isBlank,
                           ),
                         ],
                       ),
@@ -66,7 +60,7 @@ class _StandardFrontStatusState extends State<StandardFrontStatus> {
                       TextWithBlank(
                         text: 'Current Fronters',
                         style: TextTheme.of(context).headlineLarge,
-                        isBlank: widget.isBlank,
+                        isBlank: isBlank,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -76,7 +70,7 @@ class _StandardFrontStatusState extends State<StandardFrontStatus> {
                             backgroundColor: ColorScheme.of(
                               context,
                             ).primaryContainer,
-                            isBlank: widget.isBlank,
+                            isBlank: isBlank,
                           ),
                           SizedBox(width: 10),
                           FloatingActionButton(
@@ -84,39 +78,10 @@ class _StandardFrontStatusState extends State<StandardFrontStatus> {
                             onPressed: () {
                               WidgetsFlutterBinding.ensureInitialized()
                                   .addPostFrameCallback((_) {
-                                    showModalBottomSheet(
+                                    showDialog(
                                       context: context,
-                                      isScrollControlled: true,
-                                      constraints: BoxConstraints(
-                                        maxHeight:
-                                            (MediaQuery.heightOf(context) / 6) *
-                                            5,
-                                      ),
                                       builder: (context) {
-                                        return Column(
-                                          children: [
-                                            FrontingForm(
-                                              system:
-                                                  widget
-                                                      .systemBox
-                                                      .values
-                                                      .isNotEmpty
-                                                  ? widget
-                                                        .systemBox
-                                                        .values
-                                                        .first
-                                                  : Current.system ?? System(),
-                                              type: FrontingFormType.addToFront,
-                                              initialFormData: FrontingFormData(
-                                                startTime: DateTime.now(),
-                                                member: Member(
-                                                  memberName: 'None',
-                                                ),
-                                                isOnlyConscious: false,
-                                              ),
-                                            ),
-                                          ],
-                                        );
+                                        return Dialog(child: BeginFrontForm());
                                       },
                                     );
                                   });
@@ -127,9 +92,14 @@ class _StandardFrontStatusState extends State<StandardFrontStatus> {
                       ),
                     ],
                   ),
-                  if (!widget.isBlank)
+                  if (!isBlank)
                     ...Current.standardFront?.activeFrontEntries
-                            ?.map((entry) => FrontingCard(entry: entry))
+                            ?.map(
+                              (entry) => FrontingCard(
+                                entry: entry,
+                                system: Current.system ?? System(),
+                              ),
+                            )
                             .toList() ??
                         [],
                 ],

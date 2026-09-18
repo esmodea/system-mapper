@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
-import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
-import 'package:system_mapper/user_interface/widgets/forms/fronting_form.dart';
+import 'package:system_mapper/user_interface/widgets/forms/end_front_form.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 import 'package:uuid/uuid.dart';
 
 class FrontingCard extends StatefulWidget {
   final FrontEntry? entry;
-  const FrontingCard({super.key, this.entry});
+  final System system;
+  const FrontingCard({super.key, this.entry, required this.system});
 
   @override
   State<FrontingCard> createState() => _FrontingCardState();
@@ -144,37 +144,20 @@ class _FrontingCardState extends SafeState<FrontingCard> {
                                 heroTag:
                                     '${'${widget.entry?.member?.memberName}${Uuid().v6().toString()}'}heroTagFrontingCard',
                                 onPressed: () {
-                                  showModalBottomSheet(
+                                  showDialog(
                                     context: context,
-                                    isScrollControlled: true,
-                                    constraints: BoxConstraints(
-                                      maxHeight:
-                                          (MediaQuery.heightOf(context) / 6) *
-                                          5,
-                                    ),
+                                    barrierDismissible: true,
+                                    // isScrollControlled: true,
+                                    // constraints: BoxConstraints(
+                                    //   maxHeight:
+                                    //       (MediaQuery.heightOf(context) / 6) *
+                                    //       5,
+                                    // ),
                                     builder: (context) {
-                                      return Column(
-                                        children: [
-                                          FrontingForm(
-                                            system: System(),
-                                            type:
-                                                FrontingFormType.finalizeFront,
-                                            initialFormData: FrontingFormData(
-                                              startTime:
-                                                  widget.entry?.startTime ??
-                                                  DateTime.now(),
-                                              member:
-                                                  widget.entry?.member ??
-                                                  Member(),
-                                              frontEntryUUID:
-                                                  widget
-                                                      .entry
-                                                      ?.frontEntryUUID ??
-                                                  '',
-                                              isOnlyConscious: isConscious,
-                                            ),
-                                          ),
-                                        ],
+                                      return Dialog(
+                                        child: EndFrontForm(
+                                          initialEntry: widget.entry,
+                                        ),
                                       );
                                     },
                                   );

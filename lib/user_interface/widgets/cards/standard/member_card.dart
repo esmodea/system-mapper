@@ -40,7 +40,8 @@ class _MemberCardState extends SafeState<MemberCard> {
 
   @override
   void initState() {
-    if (inFront) {
+    if (inFront &&
+        (Current.standardFront?.activeFrontEntries?.isNotEmpty ?? false)) {
       timeFronting = DateTime.now().difference(
         Current
                 .standardFront
@@ -194,7 +195,7 @@ class _MemberCardState extends SafeState<MemberCard> {
                                   ],
                                 ),
                               Opacity(
-                                opacity: widget.showEditButton ? 100 : 0,
+                                opacity: widget.showEditButton ? 1 : 0,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: FloatingActionButton(
