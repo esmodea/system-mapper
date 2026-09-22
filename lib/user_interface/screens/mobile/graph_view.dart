@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
-import 'package:system_mapper/user_interface/widgets/calendar_view.dart';
 import 'package:system_mapper/user_interface/widgets/cards/front_history_card.dart';
-import 'package:system_mapper/user_interface/widgets/data_visualizers/front_entry_cell.dart';
+// import 'package:system_mapper/user_interface/widgets/data_visualizers/front_entry_cell.dart';
 import 'package:system_mapper/utils/current.dart';
-import 'package:uuid/uuid.dart';
 
 class GraphView extends StatefulWidget {
   const GraphView({super.key});
@@ -74,9 +72,9 @@ class _GraphViewState extends State<GraphView> {
             }
             frontHistoryWidgets.removeAt(0);
 
-            List<List<EntryCellInfo?>> entryPlacementMatrix = EntryCalculator(
-              entries: frontHistoryEntries,
-            ).getBinaryMatrix(MatrixCalculationType.hours);
+            // List<List<EntryCellInfo?>> entryPlacementMatrix = EntryCalculator(
+            //   entries: frontHistoryEntries,
+            // ).getBinaryMatrix(MatrixCalculationType.hours);
 
             return FutureBuilder(
               future: Future.delayed(Duration(seconds: 1)),

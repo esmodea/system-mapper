@@ -6,7 +6,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/user_interface/widgets/cards/front_history_card.dart';
-import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
 import 'package:system_mapper/utils/current.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
@@ -329,9 +328,9 @@ class EntryCalculator {
   final List<FrontEntry> entries;
   EntryCalculator({required this.entries});
 
-  List<List<Widget>> _widgetsMatrix = [];
+  // final List<List<Widget>> _widgetsMatrix = [];
 
-  List<List<Widget>> get widgetsMatrix => _widgetsMatrix;
+  // List<List<Widget>> get widgetsMatrix => _widgetsMatrix;
 
   List<List<EntryCellInfo?>> getBinaryMatrix(MatrixCalculationType matrixType) {
     List<List<EntryCellInfo?>> returnList = [];
@@ -599,11 +598,11 @@ class EntryCalculator {
       (entryOne, entryTwo) =>
           entryOne.startTime!.compareTo(entryTwo.startTime!),
     );
-    for (FrontEntry entry in frontEntries) {
-      // debugPrint(
-      //   'each front entry start date: ${entry.startTime?.toIso8601String()}',
-      // );
-    }
+    // for (FrontEntry entry in frontEntries) {
+    //   debugPrint(
+    //     'each front entry start date: ${entry.startTime?.toIso8601String()}',
+    //   );
+    // }
     return [...frontEntries];
   }
 
@@ -612,11 +611,11 @@ class EntryCalculator {
     frontEntries.sort(
       (entryOne, entryTwo) => entryTwo.endTime!.compareTo(entryOne.endTime!),
     );
-    for (FrontEntry entry in frontEntries) {
-      // debugPrint(
-      //   'each front entry end date: ${entry.endTime?.toIso8601String()}',
-      // );
-    }
+    // for (FrontEntry entry in frontEntries) {
+    //   debugPrint(
+    //     'each front entry end date: ${entry.endTime?.toIso8601String()}',
+    //   );
+    // }
     return [...frontEntries];
   }
 }

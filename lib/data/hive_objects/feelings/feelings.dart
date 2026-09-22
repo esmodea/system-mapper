@@ -3,7 +3,6 @@ import 'package:system_mapper/data/hive_objects/feelings/feeling.dart';
 import 'package:system_mapper/data/model_classes/base_model.dart';
 import 'package:system_mapper/data/model_classes/model_type.dart';
 import 'package:system_mapper/data/model_classes/type_ids.dart';
-import 'package:system_mapper/data/propagators/feeling_propagator.dart';
 import 'package:system_mapper/utils/current.dart';
 
 part 'feelings.g.dart';

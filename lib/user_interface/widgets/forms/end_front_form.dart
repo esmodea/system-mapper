@@ -4,12 +4,9 @@ import 'package:system_mapper/data/hive_objects/feelings/feeling.dart';
 import 'package:system_mapper/data/hive_objects/feelings/feeling_entry.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
-import 'package:system_mapper/user_interface/widgets/cards/selected_feeling_card.dart';
-import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
 import 'package:system_mapper/user_interface/widgets/inputs/date_time_input.dart';
 import 'package:system_mapper/user_interface/widgets/inputs/feeling_input.dart';
 import 'package:system_mapper/user_interface/widgets/inputs/member_input.dart';
-import 'package:system_mapper/user_interface/widgets/inputs/sub_inputs/feelings_selector.dart';
 import 'package:system_mapper/user_interface/widgets/modals/default_modal.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';
@@ -171,6 +168,10 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
                     label: 'End date & time',
                     displayTime: entry.endTime,
                   ),
+                  // TODO: Add start energy input
+                  // TODO: Add end energy input
+                  // TODO: Add start thought input
+                  // TODO: Add end thought input
                   SizedBox(height: 40),
                   FeelingInput(
                     label: 'Start feeling',

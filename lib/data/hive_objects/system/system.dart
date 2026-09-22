@@ -41,7 +41,8 @@ class System extends BaseModel {
   @HiveField(5)
   Color? systemColor;
 
-  //TODO: Avatar property
+  //TODO: Create avatar property
+
   // @HiveField(6)
   // Uint8List? avatarImage;
 

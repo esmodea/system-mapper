@@ -5,7 +5,6 @@ import 'package:system_mapper/data/hive_objects/feelings/feeling_entry.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
-import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
 import 'package:system_mapper/user_interface/widgets/inputs/date_time_input.dart';
 import 'package:system_mapper/user_interface/widgets/inputs/feeling_input.dart';
 import 'package:system_mapper/user_interface/widgets/inputs/member_input.dart';
@@ -140,6 +139,7 @@ class _BeginFrontFormState extends SafeState<BeginFrontForm> {
                     displayTime: entry.startTime,
                   ),
                   SizedBox(height: 40),
+                  // TODO: Add start thought input
                   FeelingInput(
                     label: 'Start feeling',
                     selector: pickStartFeelingSelector,
