@@ -9,6 +9,7 @@ import 'package:system_mapper/data/hive_objects/settings/cursor.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/data/model_classes/model_type.dart';
+import 'package:system_mapper/data/propagators/feeling_propagator.dart';
 
 class Current {
   // System
@@ -63,4 +64,7 @@ class Current {
 
   static ValueListenable<Box<Cursor>> get cursorListenable =>
       ModelType.cursor.appBox.valueListenableForId(Cursor().currentID);
+
+  // Propagators
+  static FeelingPropagator get feelingsPropagator => FeelingPropagator();
 }

@@ -1,12 +1,138 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
+import 'package:system_mapper/user_interface/widgets/cards/front_history_card.dart';
+import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
+import 'package:system_mapper/utils/current.dart';
+import 'package:system_mapper/utils/safe_set_state.dart';
+
+const List<double> idMatrix = [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
 
 enum EntryCellType { emptyCell, leftEnd, middle, rightEnd, alone }
 
-class FrontEntryCell extends StatelessWidget {
+class FrontHistoryOverlayWrapper extends StatefulWidget {
+  final OverlayPortalController controller;
+  final FrontEntry entry;
+  final Widget child;
+  const FrontHistoryOverlayWrapper({
+    super.key,
+    required this.controller,
+    required this.entry,
+    required this.child,
+  });
+
+  @override
+  State<FrontHistoryOverlayWrapper> createState() =>
+      _FrontHistoryOverlayWrapperState();
+}
+
+class _FrontHistoryOverlayWrapperState
+    extends SafeState<FrontHistoryOverlayWrapper> {
+  bool isInBox = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return OverlayPortal(
+      controller: widget.controller,
+      overlayChildBuilder: (context) {
+        return GestureDetector(
+          onTap: () {
+            Current.settings?.turnOffTooltip(widget.controller);
+            if (isInBox) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return Dialog(
+                    child: FrontHistoryCard(entry: widget.entry, maxWidth: 400),
+                  );
+                },
+              );
+            }
+          },
+          child: Container(
+            transform: Matrix4.translationValues(
+              Current.cursor?.cursorX ?? 0,
+              Current.cursor?.cursorY ?? 0,
+              0,
+            ),
+            child: FrontHistoryOverlay(entry: widget.entry),
+          ),
+        );
+      },
+      overlayLocation: OverlayChildLocation.nearestOverlay,
+      child: GestureDetector(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog(
+                child: FrontHistoryCard(entry: widget.entry, maxWidth: 400),
+              );
+            },
+          );
+        },
+        child: MouseRegion(
+          onHover: (event) {
+            safeSetState(() {
+              isInBox = true;
+            });
+            Current.settings?.turnOnTooltip(widget.controller);
+          },
+          onExit: (event) {
+            safeSetState(() {
+              isInBox = false;
+            });
+            Current.settings?.turnOffTooltip(widget.controller);
+          },
+          child: widget.child,
+        ),
+      ),
+    );
+  }
+}
+
+class FrontHistoryOverlay extends StatefulWidget {
+  final FrontEntry entry;
+  const FrontHistoryOverlay({super.key, required this.entry});
+
+  @override
+  State<FrontHistoryOverlay> createState() => _FrontHistoryOverlayState();
+}
+
+class _FrontHistoryOverlayState extends SafeState<FrontHistoryOverlay> {
+  double opacity = 0;
+
+  @override
+  void initState() {
+    Future.delayed(Duration(seconds: 1), () {
+      safeSetState(() {
+        opacity = 1;
+      });
+    });
+    Timer.periodic(Duration(milliseconds: 100), (_) {
+      SchedulerBinding.instance.scheduleForcedFrame();
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 1),
+      opacity: opacity,
+      child: Container(
+        constraints: BoxConstraints(maxWidth: 400),
+        child: Text(widget.entry.member?.memberName ?? ''),
+      ),
+    );
+  }
+}
+
+class FrontEntryCell extends StatefulWidget {
   final EntryCellType type;
   final Size size;
   final FrontEntry entry;
@@ -24,91 +150,111 @@ class FrontEntryCell extends StatelessWidget {
   });
 
   @override
+  State<FrontEntryCell> createState() => _FrontEntryCellState();
+}
+
+class _FrontEntryCellState extends SafeState<FrontEntryCell> {
+  OverlayPortalController controller = OverlayPortalController();
+
+  @override
   Widget build(BuildContext context) {
-    switch (type) {
+    switch (widget.type) {
       case (EntryCellType.emptyCell):
-        return SizedBox(width: size.width, height: size.height);
+        return SizedBox(width: widget.size.width, height: widget.size.height);
       case (EntryCellType.leftEnd):
-        return Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(8),
-              bottomLeft: Radius.circular(8),
-            ),
-            border: Border.symmetric(
-              vertical: BorderSide(
-                color: color,
-                width: 3,
-                strokeAlign: BorderSide.strokeAlignCenter,
+        return FrontHistoryOverlayWrapper(
+          controller: controller,
+          entry: widget.entry,
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.color,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8),
+                bottomLeft: Radius.circular(8),
+              ),
+              border: Border.symmetric(
+                vertical: BorderSide(
+                  color: widget.color,
+                  width: 3,
+                  strokeAlign: BorderSide.strokeAlignCenter,
+                ),
               ),
             ),
-          ),
-          width: size.width,
-          height: size.height,
-          child: OverflowBox(
-            alignment: Alignment.topLeft,
-            maxHeight: size.height,
-            maxWidth: size.width * cellCount,
-            fit: OverflowBoxFit.deferToChild,
-            child: cellCount > 5
-                ? SizedBox(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        entry.member?.memberName ?? '',
-                        overflow: TextOverflow.visible,
-                        maxLines: 1,
+            width: widget.size.width,
+            height: widget.size.height,
+            child: OverflowBox(
+              alignment: Alignment.topLeft,
+              maxHeight: widget.size.height,
+              maxWidth: widget.size.width * widget.cellCount,
+              fit: OverflowBoxFit.deferToChild,
+              child: widget.cellCount > 5
+                  ? SizedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          widget.entry.member?.memberName ?? '',
+                          overflow: TextOverflow.visible,
+                          maxLines: 1,
+                        ),
                       ),
-                    ),
-                  )
-                : SizedBox.shrink(),
+                    )
+                  : SizedBox.shrink(),
+            ),
           ),
         );
       case (EntryCellType.middle):
-        return Container(
-          decoration: BoxDecoration(color: color),
-          width: size.width,
-          height: size.height,
-          transform: Matrix4(
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-            0,
-            0,
-            0,
-            0,
-            1,
-          ).scaledByDouble(1.1, 1, 1, 1),
+        return FrontHistoryOverlayWrapper(
+          controller: controller,
+          entry: widget.entry,
+          child: Container(
+            decoration: BoxDecoration(color: widget.color),
+            width: widget.size.width,
+            height: widget.size.height,
+            transform: Matrix4.fromList(idMatrix).scaledByDouble(1.1, 1, 1, 1),
+          ),
         );
       case (EntryCellType.rightEnd):
-        return Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(8),
-              bottomRight: Radius.circular(8),
+        return FrontHistoryOverlayWrapper(
+          controller: controller,
+          entry: widget.entry,
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.color,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(8),
+                bottomRight: Radius.circular(8),
+              ),
+              border: Border.symmetric(
+                vertical: BorderSide(
+                  color: widget.color,
+                  width: 3,
+                  strokeAlign: BorderSide.strokeAlignCenter,
+                ),
+              ),
             ),
+            width: widget.size.width,
+            height: widget.size.height,
           ),
-          width: size.width,
-          height: size.height,
         );
       case (EntryCellType.alone):
-        return Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.all(Radius.circular(8)),
+        return FrontHistoryOverlayWrapper(
+          controller: controller,
+          entry: widget.entry,
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.color,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              border: Border.symmetric(
+                vertical: BorderSide(
+                  color: widget.color,
+                  width: 3,
+                  strokeAlign: BorderSide.strokeAlignCenter,
+                ),
+              ),
+            ),
+            width: widget.size.width,
+            height: widget.size.height,
           ),
-          width: size.width,
-          height: size.height,
         );
     }
   }

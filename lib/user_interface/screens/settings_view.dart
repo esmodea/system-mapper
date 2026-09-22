@@ -98,11 +98,11 @@ class _SettingsViewState extends State<SettingsView> {
                                                     await member
                                                         .removeFromStandardFront();
                                                   });
-                                                  if (context.mounted) {
-                                                    Navigator.popAndPushNamed(
-                                                      context,
-                                                      AppRoutes.home,
-                                                    );
+                                                  if (context.mounted &&
+                                                      Navigator.canPop(
+                                                        context,
+                                                      )) {
+                                                    Navigator.pop(context);
                                                   }
                                                 },
                                                 fontSize: ButtonFontSize.large,

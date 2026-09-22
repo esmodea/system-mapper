@@ -34,6 +34,10 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
         await showOmniDateTimePicker(
           context: context,
           constraints: BoxConstraints(maxWidth: 600),
+          selectableDayPredicate: (date) {
+            return date.isBefore(DateTime.now()) ||
+                date.isAtSameMomentAs(DateTime.now());
+          },
         ) ??
         entry.startTime ??
         DateTime.now();
@@ -48,6 +52,10 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
         await showOmniDateTimePicker(
           context: context,
           constraints: BoxConstraints(maxWidth: 600),
+          selectableDayPredicate: (date) {
+            return date.isBefore(DateTime.now()) ||
+                date.isAtSameMomentAs(DateTime.now());
+          },
         ) ??
         entry.endTime ??
         DateTime.now();

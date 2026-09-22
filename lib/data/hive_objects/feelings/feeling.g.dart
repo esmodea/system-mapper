@@ -20,19 +20,25 @@ class FeelingAdapter extends TypeAdapter<Feeling> {
       id: fields[0] as String?,
       feelingName: fields[1] as String?,
       feelingDescription: fields[2] as String?,
+      feelingParentName: fields[3] as String?,
+      emojiCode: fields[4] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, Feeling obj) {
     writer
-      ..writeByte(3)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
       ..write(obj.feelingName)
       ..writeByte(2)
-      ..write(obj.feelingDescription);
+      ..write(obj.feelingDescription)
+      ..writeByte(3)
+      ..write(obj.feelingParentName)
+      ..writeByte(4)
+      ..write(obj.emojiCode);
   }
 
   @override

@@ -17,16 +17,16 @@ class FrontEntryAdapter extends TypeAdapter<FrontEntry> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return FrontEntry(
-        id: fields[0] as String?,
-        startTime: fields[1] as DateTime?,
-        endTime: fields[2] as DateTime?,
-        member: fields[3] as Member?,
-        frontEntryUUID: fields[4] as String?,
-        memberUUID: fields[5] as String?,
-        isOnlyConscious: fields[6] as bool?,
-      )
-      ..startFeeling = fields[7] as FeelingEntry?
-      ..endFeeling = fields[8] as FeelingEntry?;
+      id: fields[0] as String?,
+      startTime: fields[1] as DateTime?,
+      endTime: fields[2] as DateTime?,
+      member: fields[3] as Member?,
+      frontEntryUUID: fields[4] as String?,
+      memberUUID: fields[5] as String?,
+      isOnlyConscious: fields[6] as bool?,
+      startFeeling: fields[7] as FeelingEntry?,
+      endFeeling: fields[8] as FeelingEntry?,
+    );
   }
 
   @override

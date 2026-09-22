@@ -16,17 +16,23 @@ class SettingsAdapter extends TypeAdapter<Settings> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Settings(id: fields[0] as String?, themeMode: fields[1] as String?);
+    return Settings(
+      id: fields[0] as String?,
+      themeMode: fields[1] as String?,
+      tooltipShowing: fields[2] as bool?,
+    );
   }
 
   @override
   void write(BinaryWriter writer, Settings obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.themeMode);
+      ..write(obj.themeMode)
+      ..writeByte(2)
+      ..write(obj.tooltipShowing);
   }
 
   @override

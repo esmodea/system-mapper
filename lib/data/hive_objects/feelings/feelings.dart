@@ -29,15 +29,15 @@ class FeelingsList extends BaseModel {
   @HiveField(3)
   List<Feeling>? thirdOrderFeelings;
 
-  @HiveField(4)
-  FeelingPropagator? propagator;
+  // @HiveField(4)
+  // FeelingPropagator? propagator;
 
   FeelingsList({
     this.id,
     this.firstOrderFeelings,
     this.secondOrderFeelings,
     this.thirdOrderFeelings,
-    this.propagator,
+    // this.propagator,
   });
 
   @override
@@ -55,8 +55,8 @@ class FeelingsList extends BaseModel {
           secondOrderFeelings ?? Current.feelings?.secondOrderFeelings ?? [],
       thirdOrderFeelings:
           thirdOrderFeelings ?? Current.feelings?.thirdOrderFeelings ?? [],
-      propagator:
-          propagator ?? Current.feelings?.propagator ?? FeelingPropagator(),
+      // propagator:
+      //     propagator ?? Current.feelings?.propagator ?? FeelingPropagator(),
     ).save();
   }
 }

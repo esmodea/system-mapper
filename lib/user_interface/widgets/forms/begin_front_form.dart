@@ -35,6 +35,10 @@ class _BeginFrontFormState extends SafeState<BeginFrontForm> {
         await showOmniDateTimePicker(
           context: context,
           constraints: BoxConstraints(maxWidth: 600),
+          selectableDayPredicate: (date) {
+            return date.isBefore(DateTime.now()) ||
+                date.isAtSameMomentAs(DateTime.now());
+          },
         ) ??
         entry.startTime ??
         DateTime.now();

@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget {
         builder: (context, value, child) {
           // Initialize feeling propagator
           FeelingsList().updateCurrent();
-          Current.feelings?.propagator?.hasPropagated ?? false;
+          Current.feelingsPropagator.hasPropagated;
           Current.feelings?.updateCurrent();
           return MaterialApp(
             title: 'System Mapper',

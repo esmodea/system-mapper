@@ -68,6 +68,12 @@ class _GraphViewState extends State<GraphView> {
               ];
             }
 
+            for (int i = 0; i < frontHistoryWidgets.length; i++) {
+              frontHistoryWidgets.insert(i, SizedBox(height: 10));
+              i++;
+            }
+            frontHistoryWidgets.removeAt(0);
+
             List<List<EntryCellInfo?>> entryPlacementMatrix = EntryCalculator(
               entries: frontHistoryEntries,
             ).getBinaryMatrix(MatrixCalculationType.hours);
@@ -104,37 +110,53 @@ class _GraphViewState extends State<GraphView> {
                             child: SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Column(
-                                      children: [
-                                        ...entryPlacementMatrix.map((row) {
-                                          return Row(
-                                            textDirection: TextDirection.rtl,
-                                            children: [
-                                              ...row
-                                                  .map((entry) {
-                                                    return entry?.widget(
-                                                          Size(10, 50),
-                                                        ) ??
-                                                        EntryCellInfo(
-                                                          shouldDisplay: false,
-                                                          isStart: false,
-                                                          isEnd: false,
-                                                          isStandAlone: false,
-                                                          cellCount: 0,
-                                                          relevantEntry:
-                                                              FrontEntry(),
-                                                        ).widget(Size(10, 50));
-                                                  })
-                                                  .toList()
-                                                  .reversed,
-                                            ],
-                                          );
-                                        }),
-                                      ],
-                                    ),
-                                  ),
+                                  // SingleChildScrollView(
+                                  //   scrollDirection: Axis.horizontal,
+                                  //   child: Column(
+                                  //     children: [
+                                  //       ...entryPlacementMatrix.map((row) {
+                                  //         return Row(
+                                  //           textDirection: TextDirection.rtl,
+                                  //           children: [
+                                  //             EntryCellInfo(
+                                  //               shouldDisplay: false,
+                                  //               isStart: false,
+                                  //               isEnd: false,
+                                  //               isStandAlone: false,
+                                  //               cellCount: 0,
+                                  //               relevantEntry: FrontEntry(),
+                                  //             ).widget(Size(10, 50)),
+                                  //             ...row
+                                  //                 .map((entry) {
+                                  //                   return entry?.widget(
+                                  //                         Size(10, 50),
+                                  //                       ) ??
+                                  //                       EntryCellInfo(
+                                  //                         shouldDisplay: false,
+                                  //                         isStart: false,
+                                  //                         isEnd: false,
+                                  //                         isStandAlone: false,
+                                  //                         cellCount: 0,
+                                  //                         relevantEntry:
+                                  //                             FrontEntry(),
+                                  //                       ).widget(Size(10, 50));
+                                  //                 })
+                                  //                 .toList()
+                                  //                 .reversed,
+                                  //             EntryCellInfo(
+                                  //               shouldDisplay: false,
+                                  //               isStart: false,
+                                  //               isEnd: false,
+                                  //               isStandAlone: false,
+                                  //               cellCount: 0,
+                                  //               relevantEntry: FrontEntry(),
+                                  //             ).widget(Size(10, 50)),
+                                  //           ],
+                                  //         );
+                                  //       }),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

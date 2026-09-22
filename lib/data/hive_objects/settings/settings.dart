@@ -22,7 +22,10 @@ class Settings extends BaseModel {
   @HiveField(1)
   String? themeMode;
 
-  Settings({this.id, this.themeMode});
+  @HiveField(2)
+  bool? tooltipShowing;
+
+  Settings({this.id, this.themeMode, this.tooltipShowing});
 
   @override
   void assignAttributes(Map<String, dynamic> map) {}
@@ -32,6 +35,8 @@ class Settings extends BaseModel {
     await Settings(
       id: currentID,
       themeMode: themeMode ?? Current.settings?.themeMode,
+      tooltipShowing:
+          tooltipShowing ?? modelType.appBox.getById(id)?.tooltipShowing,
     ).saveSafely();
   }
 
@@ -39,6 +44,8 @@ class Settings extends BaseModel {
     await Settings(
       id: id,
       themeMode: themeMode ?? modelType.appBox.getById(id)?.themeMode,
+      tooltipShowing:
+          tooltipShowing ?? modelType.appBox.getById(id)?.tooltipShowing,
     ).save();
   }
 
@@ -62,6 +69,48 @@ class Settings extends BaseModel {
       debugPrint('ThemeMode not set...');
       themeMode = ThemeMode.light.name;
       updateCurrent();
+    }
+  }
+
+  void toggleTooltip(OverlayPortalController controller) async {
+    if (tooltipShowing ?? false) {
+      controller.hide();
+      tooltipShowing = false;
+      await saveSafely();
+    } else if (!(tooltipShowing ?? true)) {
+      controller.show();
+      tooltipShowing = true;
+      await saveSafely();
+    } else if (tooltipShowing == null) {
+      controller.show();
+      tooltipShowing = true;
+      await saveSafely();
+    }
+  }
+
+  void turnOnTooltip(OverlayPortalController controller) async {
+    if (tooltipShowing ?? false) {
+    } else if (!(tooltipShowing ?? true)) {
+      controller.show();
+      tooltipShowing = true;
+      await saveSafely();
+    } else if (tooltipShowing == null) {
+      controller.show();
+      tooltipShowing = true;
+      await saveSafely();
+    }
+  }
+
+  void turnOffTooltip(OverlayPortalController controller) async {
+    if (tooltipShowing ?? false) {
+      controller.hide();
+      tooltipShowing = false;
+      await saveSafely();
+    } else if (!(tooltipShowing ?? true)) {
+    } else if (tooltipShowing == null) {
+      controller.hide();
+      tooltipShowing = false;
+      await saveSafely();
     }
   }
 }

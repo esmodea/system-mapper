@@ -1,12 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/user_interface/widgets/cards/fronting_card.dart';
 // import 'package:system_mapper/user_interface/widgets/cards/member_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/member_count.dart';
 import 'package:system_mapper/user_interface/widgets/debug/single_fronting_status_debug.dart';
+import 'package:system_mapper/user_interface/widgets/forms/begin_front_form.dart';
 import 'package:system_mapper/user_interface/widgets/forms/fronting_form.dart';
 import 'package:system_mapper/user_interface/widgets/text_with_blank.dart';
 import 'package:system_mapper/utils/current.dart';
@@ -72,35 +74,20 @@ class SingleFrontStatus extends StatelessWidget {
                             onPressed: () {
                               WidgetsFlutterBinding.ensureInitialized()
                                   .addPostFrameCallback((_) {
-                                    showModalBottomSheet(
+                                    showDialog(
                                       context: context,
-                                      isScrollControlled: true,
-                                      constraints: BoxConstraints(
-                                        maxHeight:
-                                            (MediaQuery.heightOf(context) / 6) *
-                                            5,
-                                      ),
                                       builder: (context) {
-                                        return Column(
-                                          children: [
-                                            FrontingForm(
-                                              system:
-                                                  Current.system ?? System(),
-                                              type: FrontingFormType.addToFront,
-                                              initialFormData: FrontingFormData(
-                                                startTime: DateTime.now(),
-                                                member: Member(
-                                                  memberName: 'None',
-                                                ),
-                                                isOnlyConscious:
-                                                    Current
-                                                        .singleFront
-                                                        ?.activeFrontEntries
-                                                        ?.isNotEmpty ??
-                                                    false,
-                                              ),
+                                        return Dialog(
+                                          child: BeginFrontForm(
+                                            initialEntry: FrontEntry(
+                                              isOnlyConscious:
+                                                  Current
+                                                      .singleFront
+                                                      ?.activeFrontEntries
+                                                      ?.isNotEmpty ??
+                                                  false,
                                             ),
-                                          ],
+                                          ),
                                         );
                                       },
                                     );
