@@ -81,7 +81,6 @@ class _FrontingCardState extends SafeState<FrontingCard> {
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            SizedBox(width: 10),
                             CircleAvatar(
                               radius: 24,
                               child: Container(
@@ -95,9 +94,9 @@ class _FrontingCardState extends SafeState<FrontingCard> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: 5),
                             SizedBox(
-                              width: constraints.maxWidth / 3,
+                              width: (constraints.maxWidth / 3) - 5,
                               child: Text(
                                 widget.entry?.member?.memberName ?? '',
                                 style: TextTheme.of(context).headlineMedium,
@@ -187,7 +186,7 @@ class _FrontingCardState extends SafeState<FrontingCard> {
           borderRadius: BorderRadius.all(Radius.circular(20)),
           // color: ColorScheme.of(context).surface,
         ),
-        padding: EdgeInsets.only(left: 10, right: 5, top: 5, bottom: 5),
+        padding: EdgeInsets.only(left: 5, right: 5, top: 5, bottom: 5),
         constraints: BoxConstraints(maxHeight: 200),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
