@@ -149,9 +149,13 @@ class _MemberCardState extends SafeState<MemberCard> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10),
+                            SizedBox(width: 8),
                             SizedBox(
-                              width: constraints.maxWidth / 3,
+                              width: widget.member!.memberName == 'Choose'
+                                  ? null
+                                  : widget.showFrontTime
+                                  ? constraints.maxWidth / 3
+                                  : constraints.maxWidth / 2,
                               child: Text(
                                 widget.member!.memberName ?? '',
                                 style: TextTheme.of(context).headlineMedium,

@@ -6,7 +6,10 @@ import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
 import 'package:system_mapper/user_interface/widgets/cards/selected_feeling_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
-import 'package:system_mapper/user_interface/widgets/inputs/feelings_wheel.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/date_time_input.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/feeling_input.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/member_input.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/sub_inputs/feelings_selector.dart';
 import 'package:system_mapper/user_interface/widgets/modals/default_modal.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';
@@ -29,7 +32,7 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
     super.initState();
   }
 
-  void pickStartDateTime() async {
+  void pickStartDateTimeSelector() async {
     DateTime startTime =
         await showOmniDateTimePicker(
           context: context,
@@ -47,7 +50,7 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
     });
   }
 
-  void pickEndDateTime() async {
+  void pickEndDateTimeSelector() async {
     DateTime endTime =
         await showOmniDateTimePicker(
           context: context,
@@ -65,50 +68,59 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
     });
   }
 
-  void pickStartFeeling() {
-    DefaultModal(
-      buttonText: 'Cancel',
-      preferredSize: Size(648, 552),
-      child: FeelingsSelector(
-        callback: (info) {
-          Feeling? feeling =
-              Feeling.getFeeling(info.thirdOrderSelection) ??
-              Feeling.getFeeling(info.secondOrderSelection) ??
-              Feeling.getFeeling(info.firstOrderSelection);
-
-          debugPrint(feeling?.toString());
-
-          FeelingEntry newFeelingEntry = FeelingEntry(feeling: feeling);
-          entry.startFeeling = newFeelingEntry;
-          safeSetState(() {
-            entry;
-          });
-        },
-      ),
-    ).build(context);
+  void pickStartFeelingSelector(Feeling? feeling) {
+    FeelingEntry newFeelingEntry = FeelingEntry(feeling: feeling);
+    entry.startFeeling = newFeelingEntry;
+    safeSetState(() {
+      entry;
+    });
   }
 
-  void pickEndFeeling() {
-    DefaultModal(
-      buttonText: 'Cancel',
-      preferredSize: Size(648, 552),
-      child: FeelingsSelector(
-        callback: (info) {
-          Feeling? feeling =
-              Feeling.getFeeling(info.thirdOrderSelection) ??
-              Feeling.getFeeling(info.secondOrderSelection) ??
-              Feeling.getFeeling(info.firstOrderSelection);
+  void pickEndFeelingSelector(Feeling? feeling) {
+    FeelingEntry newFeelingEntry = FeelingEntry(feeling: feeling);
+    entry.endFeeling = newFeelingEntry;
+    safeSetState(() {
+      entry;
+    });
+  }
 
-          debugPrint(feeling?.toString());
-
-          FeelingEntry newFeelingEntry = FeelingEntry(feeling: feeling);
-          entry.endFeeling = newFeelingEntry;
-          safeSetState(() {
-            entry;
-          });
-        },
-      ),
-    ).build(context);
+  void pickMemberSelector() {
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
+      DefaultModal(
+        buttonText: 'Cancel',
+        child: Column(
+          children: [
+            ...Current.system?.membersList?.map((member) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(member.memberName ?? ''),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: FloatingActionButton(
+                          onPressed: () {
+                            entry.member = member;
+                            safeSetState(() {
+                              entry = entry;
+                            });
+                            if (Navigator.canPop(context)) {
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Icon(Icons.add),
+                        ),
+                      ),
+                    ],
+                  );
+                }) ??
+                [],
+          ],
+        ),
+      ).build(context);
+    });
   }
 
   bool validateForm() {
@@ -127,7 +139,7 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorScheme.of(context).primaryContainer,
+        color: ColorScheme.of(context).primary,
         borderRadius: BorderRadius.all(Radius.circular(24)),
       ),
       constraints: BoxConstraints(
@@ -142,105 +154,34 @@ class _EndFrontFormState extends SafeState<EndFrontForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SystemTextButton(
-                    text: 'Select a member',
-                    onPressed: () {
-                      WidgetsFlutterBinding.ensureInitialized()
-                          .addPostFrameCallback((_) {
-                            DefaultModal(
-                              buttonText: 'Cancel',
-                              child: Column(
-                                children: [
-                                  ...Current.system?.membersList?.map((member) {
-                                        return Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                left: 8.0,
-                                              ),
-                                              child: Text(
-                                                member.memberName ?? '',
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                right: 8.0,
-                                              ),
-                                              child: FloatingActionButton(
-                                                onPressed: () {
-                                                  entry.member = member;
-                                                  safeSetState(() {
-                                                    entry = entry;
-                                                  });
-                                                  if (Navigator.canPop(
-                                                    context,
-                                                  )) {
-                                                    Navigator.pop(context);
-                                                  }
-                                                },
-                                                child: Icon(Icons.add),
-                                              ),
-                                            ),
-                                          ],
-                                        );
-                                      }) ??
-                                      [],
-                                ],
-                              ),
-                            ).build(context);
-                          });
-                    },
-                  ),
-                  MemberCard(
-                    member: entry.member,
-                    hideBio: true,
-                    showEditButton: false,
+                  MemberInput(
+                    selector: pickMemberSelector,
+                    label: 'Select a member',
+                    displayMember: entry.member,
                   ),
                   SizedBox(height: 40),
-                  SystemTextButton(
-                    text: 'Change front start time',
-                    onPressed: pickStartDateTime,
+                  DateTimeInput(
+                    selector: pickStartDateTimeSelector,
+                    label: 'Start date & time',
+                    displayTime: entry.startTime,
                   ),
                   SizedBox(height: 40),
-                  SystemTextButton(
-                    text: 'Change front end time',
-                    onPressed: pickEndDateTime,
+                  DateTimeInput(
+                    selector: pickEndDateTimeSelector,
+                    label: 'End date & time',
+                    displayTime: entry.endTime,
                   ),
                   SizedBox(height: 40),
-                  SystemTextButton(
-                    text: 'Edit your starting feeling',
-                    onPressed: pickStartFeeling,
+                  FeelingInput(
+                    label: 'Start feeling',
+                    selector: pickStartFeelingSelector,
+                    displayFeeling: entry.startFeeling?.feeling,
                   ),
-                  SelectedFeelingCard(
-                    shouldShowFirst: false,
-                    shouldShowSecond: false,
-                    shouldShowThird: entry.startFeeling != null,
-                    firstOrderEmoji: '',
-                    firstOrderSelection: '',
-                    secondOrderEmoji: '',
-                    secondOrderSelection: '',
-                    thirdOrderEmoji:
-                        entry.startFeeling?.feeling?.emojiCode ?? '',
-                    thirdOrderSelection:
-                        entry.startFeeling?.feeling?.feelingName ?? '',
-                  ),
-                  SystemTextButton(
-                    text: 'Choose how you\'re feeling now',
-                    onPressed: pickEndFeeling,
-                  ),
-                  SelectedFeelingCard(
-                    shouldShowFirst: false,
-                    shouldShowSecond: false,
-                    shouldShowThird: entry.endFeeling != null,
-                    firstOrderEmoji: '',
-                    firstOrderSelection: '',
-                    secondOrderEmoji: '',
-                    secondOrderSelection: '',
-                    thirdOrderEmoji: entry.endFeeling?.feeling?.emojiCode ?? '',
-                    thirdOrderSelection:
-                        entry.endFeeling?.feeling?.feelingName ?? '',
+                  SizedBox(height: 40),
+                  FeelingInput(
+                    label: 'End feeling',
+                    selector: pickEndFeelingSelector,
+                    displayFeeling: entry.endFeeling?.feeling,
                   ),
                   SizedBox(height: 40),
                   Opacity(

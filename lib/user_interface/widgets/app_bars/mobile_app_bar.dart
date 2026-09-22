@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
-import 'package:system_mapper/user_interface/desktop_app.dart';
+import 'package:system_mapper/user_interface/mobile_app.dart';
 import 'package:system_mapper/utils/current.dart';
 
-class DesktopAppBar extends StatefulWidget implements PreferredSizeWidget {
+class MobileAppBar extends StatefulWidget implements PreferredSizeWidget {
   final HomeTab tab;
   final double contextWidth;
-  const DesktopAppBar({
+  const MobileAppBar({
     super.key,
     required this.tab,
     required this.contextWidth,
@@ -16,10 +16,10 @@ class DesktopAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size(contextWidth, 60);
 
   @override
-  State<DesktopAppBar> createState() => _DesktopAppBarState();
+  State<MobileAppBar> createState() => _MobileAppBarState();
 }
 
-class _DesktopAppBarState extends State<DesktopAppBar> {
+class _MobileAppBarState extends State<MobileAppBar> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
@@ -29,6 +29,7 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
         if (Current.settings is Settings) {
           if (Current.settings!.themeMode == null) {
             return AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               title: Padding(
                 padding: const EdgeInsets.only(left: 4.0),
@@ -41,6 +42,7 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
             );
           } else {
             return AppBar(
+              automaticallyImplyLeading: false,
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               title: Padding(
                 padding: const EdgeInsets.only(left: 4.0),
@@ -66,7 +68,7 @@ class _DesktopAppBarState extends State<DesktopAppBar> {
             backgroundColor: Theme.of(context).colorScheme.inversePrimary,
             title: Padding(
               padding: const EdgeInsets.only(left: 4.0),
-              child: Text('System Mapper > ${widget.tab.displayName}'),
+              child: Text(widget.tab.displayName),
             ),
             actions: [
               // IconButton(onPressed: () {}, icon: Icon(value.themeMode!.isDark ? Icons.light_mode : Icons.dark_mode)),

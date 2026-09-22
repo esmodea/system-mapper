@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:system_mapper/user_interface/widgets/debug/feelings_debug_list.dart';
 import 'package:system_mapper/user_interface/widgets/fronting_status.dart';
-import 'package:system_mapper/user_interface/widgets/inputs/feelings_wheel.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/sub_inputs/feelings_selector.dart';
 import 'package:system_mapper/user_interface/widgets/system_info.dart';
 import 'package:system_mapper/user_interface/widgets/system_members.dart';
 import 'package:system_mapper/utils/current.dart';

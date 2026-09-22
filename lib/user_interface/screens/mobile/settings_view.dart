@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
 import 'package:system_mapper/data/model_classes/app_box.dart';
+import 'package:system_mapper/main.dart';
 import 'package:system_mapper/user_interface/widgets/system_front_selector.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
-import 'package:system_mapper/utils/app_routes.dart';
+import 'package:system_mapper/utils/app_routes.dart' as desktop;
+import 'package:system_mapper/utils/mobile_app_routes.dart' as mobile;
 import 'package:system_mapper/utils/current.dart';
 
 class SettingsView extends StatefulWidget {
@@ -18,7 +20,7 @@ class _SettingsViewState extends State<SettingsView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SizedBox(
-        width: MediaQuery.sizeOf(context).width - 60,
+        width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height - 50,
         child: LayoutBuilder(
           builder: (context, constraints) {
@@ -29,8 +31,7 @@ class _SettingsViewState extends State<SettingsView> {
                     color: ColorScheme.of(context).inversePrimary,
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        Wrap(
                           children: [
                             Text(
                               'Change front type',
@@ -147,7 +148,9 @@ class _SettingsViewState extends State<SettingsView> {
           onPressed: () {
             AppBox.clearAllBoxes();
             WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
-              Navigator.of(context).pushReplacementNamed(AppRoutes.home);
+              Navigator.of(context).pushReplacementNamed(
+                kIsMobile ? mobile.Routes.home : desktop.Routes.home,
+              );
             });
           },
         ),

@@ -8,7 +8,7 @@ import 'package:system_mapper/data/hive_objects/system/system.dart';
 import 'package:system_mapper/data/hive_objects/system/system_front_type.dart';
 import 'package:system_mapper/user_interface/widgets/cards/selected_feeling_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
-import 'package:system_mapper/user_interface/widgets/inputs/feelings_wheel.dart';
+import 'package:system_mapper/user_interface/widgets/inputs/sub_inputs/feelings_selector.dart';
 import 'package:system_mapper/user_interface/widgets/modals/default_modal.dart';
 import 'package:system_mapper/user_interface/widgets/system_text_button.dart';
 import 'package:system_mapper/utils/current.dart';

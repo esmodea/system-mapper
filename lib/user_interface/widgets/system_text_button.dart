@@ -55,8 +55,8 @@ class SystemTextButtonState extends State<SystemTextButton> {
     // A switch case which uses the [SystemTextButton.color] to allow the button to change visually with state.
     switch (widget.color) {
       case ButtonColor.primary:
-        backgroundColor = colorScheme.primary;
-        foregroundColor = colorScheme.onPrimary;
+        backgroundColor = colorScheme.primaryContainer;
+        foregroundColor = colorScheme.onPrimaryContainer;
         borderColor = colorScheme.onSecondary;
         break;
       case ButtonColor.secondary:
@@ -105,7 +105,7 @@ class SystemTextButtonState extends State<SystemTextButton> {
     ButtonStyle style = buttonStyle.copyWith(
       backgroundColor: WidgetStateProperty.all(backgroundColor),
       foregroundColor: WidgetStateProperty.all(foregroundColor),
-      side: WidgetStateProperty.all(BorderSide(color: borderColor, width: 2)),
+      side: WidgetStateProperty.all(BorderSide(color: borderColor, width: 0)),
       textStyle: WidgetStateProperty.resolveWith<TextStyle>((
         Set<WidgetState> states,
       ) {
@@ -119,7 +119,7 @@ class SystemTextButtonState extends State<SystemTextButton> {
       }),
       shape: WidgetStatePropertyAll(
         RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.all(Radius.circular(12)),
+          borderRadius: BorderRadiusGeometry.all(Radius.circular(24)),
         ),
       ),
       padding: WidgetStatePropertyAll(EdgeInsets.all(16)),

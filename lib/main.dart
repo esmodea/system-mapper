@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
@@ -6,7 +9,8 @@ import 'package:system_mapper/data/hive_objects/settings/cursor.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/data/model_classes/app_box.dart';
 import 'package:system_mapper/hive_registrar.g.dart';
-import 'package:system_mapper/utils/app_routes.dart';
+import 'package:system_mapper/utils/app_routes.dart' as desktop;
+import 'package:system_mapper/utils/mobile_app_routes.dart' as mobile;
 import 'package:system_mapper/utils/current.dart';
 
 Future<void> main() async {
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    debugPrint(Platform.operatingSystem);
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((_) {
       if (Current.cursor?.refreshRate == null) {
         Cursor(
@@ -73,7 +78,9 @@ class MyApp extends StatelessWidget {
           Current.feelings?.updateCurrent();
           return MaterialApp(
             title: 'System Mapper',
-            routes: AppRoutes.routes(context),
+            routes: kIsMobile
+                ? mobile.Routes.routes(context)
+                : desktop.Routes.routes(context),
             theme: ThemeData(
               brightness: Brightness.light,
               colorScheme: .fromSeed(seedColor: Colors.deepPurple),
@@ -90,10 +97,82 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
             ),
             themeMode: ThemeMode.system.tryParse(Current.settings?.themeMode),
-            initialRoute: AppRoutes.home,
+            initialRoute: kIsMobile ? mobile.Routes.home : desktop.Routes.home,
           );
         },
       ),
     );
+  }
+}
+
+final bool kIsMobile = switch (OS.tryParse(Platform.operatingSystem)) {
+  OS.android => true,
+  OS.ios => true,
+  _ => false,
+};
+
+enum OS {
+  android,
+  ios,
+  macos,
+  linux,
+  windows,
+  fuchsia;
+
+  const OS();
+
+  String getInitialRoute() {
+    switch (this) {
+      case (android):
+        return mobile.Routes.home;
+      case (ios):
+        return mobile.Routes.home;
+      case (macos):
+        return desktop.Routes.home;
+      case (linux):
+        return desktop.Routes.home;
+      case (windows):
+        return desktop.Routes.home;
+      case (fuchsia):
+        return desktop.Routes.home;
+    }
+  }
+
+  static OS parse(String string) {
+    switch (string) {
+      case ('android'):
+        return android;
+      case ('ios'):
+        return ios;
+      case ('macos'):
+        return macos;
+      case ('linux'):
+        return linux;
+      case ('windows'):
+        return windows;
+      case ('fuchsia'):
+        return fuchsia;
+      default:
+        throw ArgumentError.value(string);
+    }
+  }
+
+  static OS? tryParse(String string) {
+    switch (string) {
+      case ('android'):
+        return android;
+      case ('ios'):
+        return ios;
+      case ('macos'):
+        return macos;
+      case ('linux'):
+        return linux;
+      case ('windows'):
+        return windows;
+      case ('fuchsia'):
+        return fuchsia;
+      default:
+        return null;
+    }
   }
 }

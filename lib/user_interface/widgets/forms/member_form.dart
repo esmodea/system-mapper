@@ -57,8 +57,7 @@ class _MemberFormState extends SafeState<MemberForm> {
 
   // Color values
   late Color selectedColor =
-      widget.editMember?.avatarColor ??
-      ColorScheme.of(context).primaryContainer;
+      widget.editMember?.avatarColor ?? ColorScheme.of(context).primary;
 
   void updateColor(Color color) {
     safeSetState(() {

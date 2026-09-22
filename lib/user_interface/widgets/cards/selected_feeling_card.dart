@@ -10,6 +10,7 @@ class SelectedFeelingCard extends StatelessWidget {
   final String secondOrderSelection;
   final String thirdOrderEmoji;
   final String thirdOrderSelection;
+  final Color? color;
   const SelectedFeelingCard({
     super.key,
     required this.shouldShowFirst,
@@ -21,6 +22,7 @@ class SelectedFeelingCard extends StatelessWidget {
     required this.secondOrderSelection,
     required this.thirdOrderEmoji,
     required this.thirdOrderSelection,
+    this.color,
   });
 
   @override
@@ -30,28 +32,39 @@ class SelectedFeelingCard extends StatelessWidget {
       // transform: Matrix4.translationValues(textOffset / 2, 0, 0),
       child: Container(
         decoration: BoxDecoration(
-          color: ColorScheme.of(context).primary,
+          color: color ?? ColorScheme.of(context).primary,
           borderRadius: BorderRadius.all(Radius.circular(48)),
         ),
-        padding: EdgeInsets.all(20),
+        // padding: EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Selected emotion'),
-            Container(
-              height: 2,
-              width: 100,
-              color: ColorScheme.of(context).onPrimary,
+            Text(
+              'Selected emotion',
+              style: TextTheme.of(
+                context,
+              ).bodyLarge?.copyWith(color: ColorScheme.of(context).onPrimary),
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                if (!shouldShowFirst && !shouldShowSecond && !shouldShowThird)
+                  RichText(
+                    text: TextSpan(
+                      text: 'None',
+                      style: TextTheme.of(context).displayMedium?.copyWith(
+                        fontSize: TextTheme.of(context).headlineSmall?.fontSize,
+                      ),
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    textScaler: TextScaler.linear(1),
+                  ),
                 if (shouldShowFirst && !shouldShowSecond && !shouldShowThird)
                   RichText(
                     text: TextSpan(text: firstOrderEmoji),
                     overflow: TextOverflow.ellipsis,
-                    textScaler: TextScaler.linear(1),
+                    textScaler: TextScaler.linear(1.5),
                   ),
                 if (shouldShowFirst && !shouldShowSecond && !shouldShowThird)
                   RichText(
@@ -89,7 +102,7 @@ class SelectedFeelingCard extends StatelessWidget {
                   RichText(
                     text: TextSpan(
                       text: thirdOrderSelection,
-                      style: TextTheme.of(context).displayMedium,
+                      style: TextTheme.of(context).displaySmall,
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),

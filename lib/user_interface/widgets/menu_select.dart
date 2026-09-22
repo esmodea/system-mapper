@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:system_mapper/user_interface/app.dart';
+import 'package:system_mapper/user_interface/desktop_app.dart';
 
 class MenuSelect extends StatefulWidget {
   final void Function(HomeTab tab) callback;

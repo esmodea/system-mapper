@@ -22,7 +22,7 @@ class DefaultModal extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) {
-        return Center(
+        return Dialog(
           child: Container(
             alignment: Alignment.bottomCenter,
             decoration: BoxDecoration(
@@ -34,12 +34,12 @@ class DefaultModal extends StatelessWidget {
                   offset: Offset(15, 15),
                 ),
               ],
-              borderRadius: BorderRadius.all(Radius.circular(38)),
-              color: ColorScheme.of(context).primaryContainer,
+              borderRadius: BorderRadius.all(Radius.circular(24)),
+              color: ColorScheme.of(context).primary,
             ),
             width: preferredSize.width,
             height: preferredSize.height,
-            padding: EdgeInsets.all(24),
+            padding: EdgeInsets.all(12),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
+import 'package:system_mapper/user_interface/widgets/cards/date_time_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/selected_feeling_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/standard/member_card.dart';
 
@@ -24,7 +25,7 @@ class FrontHistoryCard extends StatelessWidget {
           },
           child: Container(
             constraints: BoxConstraints(
-              maxHeight: 600,
+              maxHeight: 700,
               maxWidth: maxWidth ?? constraints.maxWidth,
             ),
             decoration: BoxDecoration(
@@ -47,10 +48,10 @@ class FrontHistoryCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('startDate: ${entry?.startTime}'),
-                        Text(
-                          'endDate: ${entry?.startTime == entry?.endTime ? null : entry?.endTime}',
-                        ),
+                        Text('startDate:'),
+                        DateTimeCard(dateTime: entry?.startTime),
+                        Text('endDate:'),
+                        DateTimeCard(dateTime: entry?.endTime),
                         Text(
                           'Duration: ${'${(duration.inDays / 7) >= 1 ? '${(duration.inDays / 7).roundToDouble().toInt()}w ' : ''}${duration.inDays > 0 ? '${duration.inDays % 7}d ' : ''}${duration.inHours > 0 ? '${duration.inHours % 24}h ' : ''}${duration.inMinutes > 0 && !(duration.inDays > 0) ? '${duration.inMinutes % 60}m ' : ''}${duration.inSeconds > 0 && !(duration.inHours > 0) ? '${duration.inSeconds % 60}s ' : ''}'}',
                         ),
@@ -73,6 +74,7 @@ class FrontHistoryCard extends StatelessWidget {
                               thirdOrderSelection:
                                   entry?.startFeeling?.feeling?.feelingName ??
                                   'No Emotion',
+                              color: ColorScheme.of(context).tertiary,
                             ),
                           ],
                         ),
@@ -94,6 +96,7 @@ class FrontHistoryCard extends StatelessWidget {
                               thirdOrderSelection:
                                   entry?.endFeeling?.feeling?.feelingName ??
                                   'No Emotion',
+                              color: ColorScheme.of(context).tertiary,
                             ),
                           ],
                         ),

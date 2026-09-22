@@ -39,7 +39,7 @@ class CancellableModal extends StatelessWidget {
                   ),
                 ],
                 borderRadius: BorderRadius.all(Radius.circular(38)),
-                color: ColorScheme.of(context).primaryContainer,
+                color: ColorScheme.of(context).primary,
               ),
               width: preferredSize.width,
               height: preferredSize.height,

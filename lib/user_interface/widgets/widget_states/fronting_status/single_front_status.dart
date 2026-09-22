@@ -4,6 +4,7 @@ import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
+import 'package:system_mapper/main.dart';
 import 'package:system_mapper/user_interface/widgets/cards/fronting_card.dart';
 // import 'package:system_mapper/user_interface/widgets/cards/member_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/member_count.dart';
@@ -30,14 +31,19 @@ class SingleFrontStatus extends StatelessWidget {
         return Column(
           children: [
             Container(
-              padding: EdgeInsets.all(48),
+              padding: EdgeInsets.only(
+                left: 24,
+                right: 24,
+                bottom: 24,
+                top: kIsMobile ? 24 : 48,
+              ),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextWithBlank(
-                        text: 'Front type',
+                        text: 'Type',
                         style: TextTheme.of(context).headlineLarge,
                         isBlank: isBlank,
                       ),
@@ -62,7 +68,7 @@ class SingleFrontStatus extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextWithBlank(
-                        text: 'Current Fronter',
+                        text: 'Fronter',
                         style: TextTheme.of(context).headlineLarge,
                         isBlank: isBlank,
                       ),
@@ -114,7 +120,7 @@ class SingleFrontStatus extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextWithBlank(
-                        text: 'Currently Conscious',
+                        text: 'Conscious',
                         style: TextTheme.of(context).headlineLarge,
                         isBlank: isBlank,
                       ),

@@ -66,7 +66,7 @@ class _FrontingStatusDebugState extends State<SingleFrontingStatusDebug> {
                       [],
 
                   Text(
-                    'Current Conscious Entries:',
+                    'Conscious Entries:',
                     style: TextTheme.of(context).headlineLarge,
                   ),
                   ...Current.singleFront?.activeConsciousnessEntries
@@ -85,7 +85,7 @@ class _FrontingStatusDebugState extends State<SingleFrontingStatusDebug> {
                           .toList() ??
                       [],
                   Text(
-                    'Current ${ModelType.standardFrontArchive.pluralTitle}:',
+                    '${ModelType.standardFrontArchive.pluralTitle}:',
                     style: TextTheme.of(context).headlineLarge,
                   ),
                   ...Current.singleFrontArchive?.archivedFrontEntries
@@ -105,7 +105,7 @@ class _FrontingStatusDebugState extends State<SingleFrontingStatusDebug> {
                           .reversed ??
                       [],
                   Text(
-                    'Current Conscious Archives:',
+                    'Conscious Archives:',
                     style: TextTheme.of(context).headlineLarge,
                   ),
                   ...Current.singleFrontArchive?.archivedConsciousnessEntries

@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
 import 'package:system_mapper/data/hive_objects/system/system.dart';
+import 'package:system_mapper/main.dart';
 import 'package:system_mapper/user_interface/widgets/cards/fronting_card.dart';
 import 'package:system_mapper/user_interface/widgets/cards/member_count.dart';
 import 'package:system_mapper/user_interface/widgets/debug/standard_fronting_status_debug.dart';
@@ -27,14 +30,19 @@ class StandardFrontStatus extends StatelessWidget {
         return Column(
           children: [
             Container(
-              padding: EdgeInsets.all(48),
+              padding: EdgeInsets.only(
+                left: 24,
+                right: 24,
+                bottom: 24,
+                top: kIsMobile ? 24 : 48,
+              ),
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextWithBlank(
-                        text: 'Front type',
+                        text: 'Type',
                         style: TextTheme.of(context).headlineLarge,
                         isBlank: isBlank,
                       ),
@@ -58,7 +66,7 @@ class StandardFrontStatus extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TextWithBlank(
-                        text: 'Current Fronters',
+                        text: 'Fronters',
                         style: TextTheme.of(context).headlineLarge,
                         isBlank: isBlank,
                       ),

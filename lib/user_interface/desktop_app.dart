@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:lazy_load_indexed_stack/lazy_load_indexed_stack.dart';
-import 'package:system_mapper/user_interface/screens/graph_view.dart';
-import 'package:system_mapper/user_interface/screens/information_view.dart';
-import 'package:system_mapper/user_interface/screens/settings_view.dart';
+import 'package:system_mapper/user_interface/screens/desktop/graph_view.dart';
+import 'package:system_mapper/user_interface/screens/desktop/information_view.dart';
+import 'package:system_mapper/user_interface/screens/desktop/settings_view.dart';
 import 'package:system_mapper/user_interface/widgets/app_bars/desktop_app_bar.dart';
 import 'package:system_mapper/user_interface/widgets/menu_select.dart';
 import 'package:system_mapper/utils/safe_set_state.dart';
 
-class AppHome extends StatefulWidget {
-  const AppHome({super.key});
+class DesktopAppHome extends StatefulWidget {
+  const DesktopAppHome({super.key});
 
   @override
-  State<AppHome> createState() => _AppHomeState();
+  State<DesktopAppHome> createState() => _DesktopAppHomeState();
 }
 
-class _AppHomeState extends SafeState<AppHome> {
+class _DesktopAppHomeState extends SafeState<DesktopAppHome> {
   HomeTab _tab = HomeTab.systemInfo;
 
   void setHomeTab(HomeTab tab) {
