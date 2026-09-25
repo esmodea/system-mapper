@@ -6,6 +6,10 @@ import 'package:system_mapper/data/hive_objects/front/archive_types/single_front
 import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front.dart';
 import 'package:system_mapper/data/hive_objects/front/archive_types/standard/front_archive.dart';
 import 'package:system_mapper/data/hive_objects/front/front_entry.dart';
+import 'package:system_mapper/data/hive_objects/regiments/medication.dart';
+import 'package:system_mapper/data/hive_objects/regiments/regiment.dart';
+import 'package:system_mapper/data/hive_objects/regiments/regiment_archives.dart';
+import 'package:system_mapper/data/hive_objects/regiments/taken_entry.dart';
 import 'package:system_mapper/data/hive_objects/settings/cursor.dart';
 import 'package:system_mapper/data/hive_objects/settings/settings.dart';
 import 'package:system_mapper/data/hive_objects/system/member.dart';
@@ -83,6 +87,16 @@ enum ModelType<T extends BaseModel> {
       typeId: TypeIds.singleFrontArchive,
     ),
   ),
+  medicationRegimentArchive(
+    name: 'medicationRegimentArchive',
+    pluralName: 'medicationRegimentArchives',
+    title: 'Medication Regiment Archive',
+    pluralTitle: 'Medication Regiment Archives',
+    appBox: AppBox<RegimentArchive>(
+      key: 'medicationRegimentArchive',
+      typeId: TypeIds.regimentArchive,
+    ),
+  ),
   settings(
     name: 'settings',
     pluralName: 'settings',
@@ -120,6 +134,27 @@ enum ModelType<T extends BaseModel> {
       key: 'feelingEntry',
       typeId: TypeIds.feelingEntry,
     ),
+  ),
+  takenEntry(
+    name: 'takenEntry',
+    pluralName: 'takenEntries',
+    title: 'Taken Entry',
+    pluralTitle: 'Taken Entries',
+    appBox: AppBox<TakenEntry>(key: 'takenEntry', typeId: TypeIds.takenEntry),
+  ),
+  medication(
+    name: 'medication',
+    pluralName: 'medications',
+    title: 'Medication',
+    pluralTitle: 'Medications',
+    appBox: AppBox<Medication>(key: 'medication', typeId: TypeIds.medication),
+  ),
+  regiment(
+    name: 'regiment',
+    pluralName: 'regiments',
+    title: 'Regiment',
+    pluralTitle: 'Regiments',
+    appBox: AppBox<Regiment>(key: 'regiment', typeId: TypeIds.regiment),
   );
 
   final String name;
@@ -199,6 +234,14 @@ enum ModelType<T extends BaseModel> {
         return FeelingsList();
       case ModelType.feelingEntry:
         return FeelingEntry();
+      case ModelType.medication:
+        return Medication();
+      case ModelType.regiment:
+        return Regiment();
+      case ModelType.medicationRegimentArchive:
+        return RegimentArchive();
+      case ModelType.takenEntry:
+        return TakenEntry();
     }
   }
 }

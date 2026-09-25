@@ -15,4 +15,10 @@ abstract class TypeIds {
   // General Settings (use range 1000 - 1999)
   static const int settings = 1000;
   static const int cursor = 1001;
+
+  // Medication (use range 2000 - 2999)
+  static const int medication = 2000;
+  static const int regiment = 2001;
+  static const int regimentArchive = 2002;
+  static const int takenEntry = 2003;
 }

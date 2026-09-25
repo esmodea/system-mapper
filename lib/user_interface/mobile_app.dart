@@ -34,19 +34,27 @@ class _MobileAppHomeState extends SafeState<MobileAppHome> {
           LazyLoadIndexedStack(
             preloadIndexes: [],
             index: HomeTab.values.indexOf(_tab),
-            children: HomeTab.values.map((tab) => tab.getScreen()).toList(),
+            children: HomeTab.values.map((tab) => tab.screen).toList(),
           ),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        // unselectedLabelStyle: TextTheme.of(
+        //   context,
+        // ).bodyMedium?.copyWith(color: ColorScheme.of(context).onSurface),
+        // selectedLabelStyle: TextTheme.of(
+        //   context,
+        // ).bodyMedium?.copyWith(color: ColorScheme.of(context).onSurface),
         onTap: (value) {
           setHomeTab(HomeTab.values[value]);
         },
+        currentIndex: _tab.index,
         items: [
           ...HomeTab.values.map((tab) {
             return BottomNavigationBarItem(
-              icon: tab.icon,
+              icon: Icon(tab.icon),
               label: tab.displayName,
+              backgroundColor: ColorScheme.of(context).onSurface,
             );
           }),
         ],
@@ -63,36 +71,34 @@ class _MobileAppHomeState extends SafeState<MobileAppHome> {
 enum HomeTab {
   map(
     screen: GraphView(),
-    displayName: 'Info View',
-    icon: Icon(Icons.auto_graph_rounded),
+    displayName: 'History',
+    icon: Icons.auto_graph_rounded,
   ),
-  systemInfo(
-    screen: InformationView(),
-    displayName: 'Home',
-    icon: Icon(Icons.home),
+  medicine(
+    screen: GraphView(),
+    displayName: 'Medicine',
+    icon: Icons.medication,
+  ),
+  systemInfo(screen: InformationView(), displayName: 'Home', icon: Icons.home),
+  timeline(
+    screen: GraphView(),
+    displayName: 'Timeline',
+    icon: Icons.timeline_rounded,
   ),
   settings(
     screen: SettingsView(),
     displayName: 'Settings',
-    icon: Icon(Icons.settings),
+    icon: Icons.settings,
   );
 
   final Widget screen;
   final String displayName;
-  final Icon icon;
+  final IconData icon;
   const HomeTab({
     required this.screen,
     required this.displayName,
     required this.icon,
   });
-
-  Widget getScreen() {
-    return screen;
-  }
-
-  Icon iconFromHomeTab() {
-    return icon;
-  }
 
   static HomeTab homeTabFromIndex(int index) {
     return HomeTab.values[index];
